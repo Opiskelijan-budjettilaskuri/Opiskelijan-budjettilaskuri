@@ -1,6 +1,8 @@
 # Opiskelijan-budjettilaskuri
 
-viikko 1:
+Tiimi: Pekka Levo, Erkka Pärssinen, Henna Salmi, Robbie Winter
+
+Viikko 1:
 Tehkää alustava MVP-suunnitelma projektista:
 
     Projektin tarkoitus tiivistettynä muutamaan virkkeeseen.
