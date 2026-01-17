@@ -2,26 +2,35 @@
 
 Tiimi: Pekka Levo, Erkka Pärssinen, Henna Salmi, Robbie Winter
 
-Viikko 1:
+## Viikko 1:
 Tehkää alustava MVP-suunnitelma projektista:
 
-    Projektin tarkoitus tiivistettynä muutamaan virkkeeseen.
-    - Luodaan opiskeljan budjettilaskuri, jolla voi laskea opiskelijan budjetin helposti,
-    kätevästi ja nopeasti. Helpottaa rahan käyttöä opiskeljan arjessa.
+### Projektin tarkoitus tiivistettynä muutamaan virkkeeseen.
+- Projektin tavoitteena on toteuttaa opiskelijalle suunnattu budjettilaskuri, jonka avulla käyttäjä voi seurata tulojaan ja menojaan helposti ja nopeasti.
+  Sovellus tukee opiskelijan arjen taloudenhallintaa tarjoamalla selkeän näkymän budjetin tilanteeseen eri aikaväleillä sekä auttamalla hahmottamaan, mihin raha kuluu.
     
-    Joitain oleellisimpia toiminallisuuksia listattuna ja mahdollisesti priorisoituna,
-    esimerkiksi “Käyttäjänä haluan pystyä lisäämään arvostelun kurssista”.
-    - Käyttäjänä haluasiin:
-      - pystyä lisäämään menot ja tulot
-      - kategorioida kulut
-      - esim kuukauden välein automaattisesti menoja/tuloja
-      - kirjautuminen
-      - rekisteröityminen
-      - pystyä näkemään budjettimuutokset tiettyinä aikaväleinä
-      (muokataan user story/ case-fromaattiin ja laitetaan tärkeysjärjestykseen myöhemmin)
+### Joitain oleellisimpia toiminallisuuksia listattuna ja mahdollisesti priorisoituna, esimerkiksi “Käyttäjänä haluan pystyä lisäämään arvostelun kurssista”.
+
+Toiminnallisuudet on kuvattu user story -muodossa ja jaettu kolmeen prioriteettiluokkaan.
+Ensimmäinen luokka muodostaa sovelluksen Minimum Viable Productin (MVP).
+
+#### Korkea prioriteetti:
+- Käyttäjänä haluan pystyä lisäämään tuloja, jotta voin seurata käytettävissä olevaa rahamäärääni.
+- Käyttäjänä haluan pystyä lisäämään menoja, jotta näen mihin rahani kuluvat.
+- Käyttäjänä haluan kategorisoida menoni, jotta voin hahmottaa kulurakenteeni paremmin.
+- Käyttäjänä haluan nähdä yhteenvedon budjetistani valitulla aikavälillä (esim. kuukausi), jotta ymmärrän taloudellisen tilanteeni.
+
+#### Keskitasoinen prioriteetti;
+- Käyttäjänä haluan nähdä budjettini muutokset eri aikaväleillä, jotta voin vertailla menoja ja tuloja ajallisesti.
+- Käyttäjänä haluan kirjautua sisään sovellukseen, jotta omat tietoni säilyvät erillään muista käyttäjistä.
+ - Käyttäjänä haluan rekisteröityä sovellukseen, jotta voin käyttää sitä useamman kerran ja säilyttää tietoni.
+
+#### Matala prioriteetti (jatkokehitys):
+- Käyttäjänä haluan pystyä lisäämään toistuvia tuloja ja menoja (esim. kuukausittain), jotta minun ei tarvitse syöttää samoja tietoja uudelleen.
+- Käyttäjänä haluan nähdä visuaalisen esityksen (esim. kaavioita) budjetistani, jotta taloustietojen tulkinta on helpompaa.
     
-    Suunnitelma ei ole “sitova”, se voi muuttua projektin edetessä.
+### Suunnitelma ei ole “sitova”, se voi muuttua projektin edetessä.
     
-    Suunnitelmaa ei tarvitse palauttaa, mutta sitä käydään opettajan kanssa läpi ensi viikolla.
+### Suunnitelmaa ei tarvitse palauttaa, mutta sitä käydään opettajan kanssa läpi ensi viikolla.
 
 
