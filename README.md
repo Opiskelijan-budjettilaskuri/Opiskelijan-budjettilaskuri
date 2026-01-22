@@ -2,7 +2,7 @@
 
 Tiimi: Pekka Levo, Erkka Pärssinen, Henna Salmi, Robbie Winter
 
-## Viikko 1:
+## Viikko 1
 Tehkää alustava MVP-suunnitelma projektista:
 
 ### Projektin tarkoitus tiivistettynä muutamaan virkkeeseen.
@@ -32,3 +32,11 @@ Ensimmäinen luokka muodostaa sovelluksen Minimum Viable Productin (MVP).
 ### Suunnitelma ei ole “sitova”, se voi muuttua projektin edetessä.
     
 ### Suunnitelmaa ei tarvitse palauttaa, mutta sitä käydään opettajan kanssa läpi ensi viikolla.
+## Viikko 2
+### Toteutusteknologiat, joita aiomme käyttää
+Aiomme käyttää toteutusteknologiana Spring Boot -sovellusta
+### Tiimin jäsenten linkit GitHub-profiileihin
+- Pekka Levo: https://github.com/PekkaLevo
+- Erkka Pärssinen: https://github.com/bhj665
+- Henna Salmi: github.com/hennasalmi02
+- Robbie Winter: https://github.com/robbiewinter
