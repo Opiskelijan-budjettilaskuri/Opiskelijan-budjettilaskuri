@@ -32,5 +32,3 @@ Ensimmäinen luokka muodostaa sovelluksen Minimum Viable Productin (MVP).
 ### Suunnitelma ei ole “sitova”, se voi muuttua projektin edetessä.
     
 ### Suunnitelmaa ei tarvitse palauttaa, mutta sitä käydään opettajan kanssa läpi ensi viikolla.
-
-
