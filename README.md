@@ -2,6 +2,8 @@
 
 Tiimi: Pekka Levo, Erkka Pärssinen, Henna Salmi, Robbie Winter
 
+#### Projektin backlog: https://github.com/orgs/Opiskelijan-budjettilaskuri/projects/1
+
 ## Viikko 1
 Tehkää alustava MVP-suunnitelma projektista:
 
