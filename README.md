@@ -38,5 +38,5 @@ Aiomme käyttää toteutusteknologiana Spring Boot -sovellusta
 ### Tiimin jäsenten linkit GitHub-profiileihin
 - Pekka Levo: https://github.com/PekkaLevo
 - Erkka Pärssinen: https://github.com/bhj665
-- Henna Salmi: github.com/hennasalmi02
+- Henna Salmi: https://github.com/hennasalmi02
 - Robbie Winter: https://github.com/robbiewinter
