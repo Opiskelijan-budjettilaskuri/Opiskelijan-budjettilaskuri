@@ -33,8 +33,60 @@ Ensimmäinen luokka muodostaa sovelluksen Minimum Viable Productin (MVP).
     
 ### Suunnitelmaa ei tarvitse palauttaa, mutta sitä käydään opettajan kanssa läpi ensi viikolla.
 ## Viikko 2
-### Toteutusteknologiat, joita aiomme käyttää
-Aiomme käyttää toteutusteknologiana Spring Boot -sovellusta
+
+### Projektin nimi
+
+Opiskelijan budjettilaskuri
+
+### Sovelluksen tarkoitus
+
+
+Projektin tavoitteena on toteuttaa opiskelijalle suunnattu budjettilaskuri, jonka avulla käyttäjä voi seurata tulojaan ja menojaan helposti ja nopeasti.  
+Sovellus tukee opiskelijan arjen taloudenhallintaa tarjoamalla selkeän näkymän budjetin tilanteeseen eri aikaväleillä sekä auttamalla hahmottamaan, mihin raha kuluu.
+
+Projektissa keskitytään aluksi sovelluksen ydintoiminnallisuuksiin (MVP), joita voidaan laajentaa myöhemmissä vaiheissa tarpeen ja aikataulun mukaan.
+
+### Tärkeimmät ominaisuudet
+
+- Lisätä tuloja, jotta käytettävissä oleva rahamäärä on nähtävissä.
+
+- Lisätä menoja, jotta rahankäyttöä voidaan seurata.
+
+- Kategorisoida menot (esim. ruoka, vuokra, vapaa-aika), jotta kulurakenne on helpompi hahmottaa.
+
+- Tarkastella budjetin tilannetta valitulla aikavälillä (esim. kuukausi), jotta näkee tulojen ja menojen yhteenvedon.
+
+- Vertailla budjetin muutoksia eri aikaväleillä, jotta rahankäytön kehitystä voi seurata.
+
+- Rekisteröityä ja kirjautua sovellukseen, jotta omat tiedot säilyvät erillään muista käyttäjistä.
+
+### Toteutusteknologiat
+
+Projektin toteutuksessa on tarkoitus käyttää seuraavia teknologioita.
+Teknologiat eivät ole lopullisesti lukittuja, ja niitä voidaan tarvittaessa muuttaa projektin edetessä.
+
+#### Backend
+
+- Java + Spring Boot -> Sovelluksen palvelinpuolen toteutukseen ja REST-rajapinnan rakentamiseen.
+
+- Maven -> Projektin riippuvuuksien hallintaan ja build-prosessiin.
+
+- H2-tietokanta -> Kevyt, muistissa toimiva tietokanta kehitysvaiheeseen ja testaamiseen.
+
+#### Frontend
+
+- JavaScript
+
+- React -> Käyttöliittymän toteutukseen.
+
+- HTML -> Käyttöliittymän rakenteen määrittelyyn.
+
+#### Teknologiavalintojen perustelut
+
+Spring Boot ja React tarjoavat modernin ja hyvin tuetun ympäristön web-sovellusten kehittämiseen.
+H2-tietokanta mahdollistaa nopean kehityksen ilman erillistä tietokantapalvelinta.
+Maven helpottaa riippuvuuksien hallintaa ja projektin toistettavaa rakentamista.
+
 ### Tiimin jäsenten linkit GitHub-profiileihin
 - Pekka Levo: https://github.com/PekkaLevo
 - Erkka Pärssinen: https://github.com/bhj665
