@@ -4,86 +4,80 @@ Tiimi: Pekka Levo, Erkka Pärssinen, Henna Salmi, Robbie Winter
 
 #### Projektin backlog: https://github.com/orgs/Opiskelijan-budjettilaskuri/projects/1
 
-## Viikko 1
-Tehkää alustava MVP-suunnitelma projektista:
+### Projektin tarkoitus
 
-### Projektin tarkoitus tiivistettynä muutamaan virkkeeseen.
-- Projektin tavoitteena on toteuttaa opiskelijalle suunnattu budjettilaskuri, jonka avulla käyttäjä voi seurata tulojaan ja menojaan helposti ja nopeasti.
-  Sovellus tukee opiskelijan arjen taloudenhallintaa tarjoamalla selkeän näkymän budjetin tilanteeseen eri aikaväleillä sekä auttamalla hahmottamaan, mihin raha kuluu.
-    
-### Joitain oleellisimpia toiminallisuuksia listattuna ja mahdollisesti priorisoituna, esimerkiksi “Käyttäjänä haluan pystyä lisäämään arvostelun kurssista”.
-
-Toiminnallisuudet on kuvattu user story -muodossa ja jaettu kolmeen prioriteettiluokkaan.
-Ensimmäinen luokka muodostaa sovelluksen Minimum Viable Productin (MVP).
-
-#### Korkea prioriteetti:
-- Käyttäjänä haluan pystyä lisäämään tuloja, jotta voin seurata käytettävissä olevaa rahamäärääni.
-- Käyttäjänä haluan pystyä lisäämään menoja, jotta näen mihin rahani kuluvat.
-- Käyttäjänä haluan kategorisoida menoni, jotta voin hahmottaa kulurakenteeni paremmin.
-- Käyttäjänä haluan nähdä yhteenvedon budjetistani valitulla aikavälillä (esim. kuukausi), jotta ymmärrän taloudellisen tilanteeni.
-
-#### Keskitasoinen prioriteetti;
-- Käyttäjänä haluan nähdä budjettini muutokset eri aikaväleillä, jotta voin vertailla menoja ja tuloja ajallisesti.
-- Käyttäjänä haluan kirjautua sisään sovellukseen, jotta omat tietoni säilyvät erillään muista käyttäjistä.
- - Käyttäjänä haluan rekisteröityä sovellukseen, jotta voin käyttää sitä useamman kerran ja säilyttää tietoni.
-
-#### Matala prioriteetti (jatkokehitys):
-- Käyttäjänä haluan pystyä lisäämään toistuvia tuloja ja menoja (esim. kuukausittain), jotta minun ei tarvitse syöttää samoja tietoja uudelleen.
-- Käyttäjänä haluan nähdä visuaalisen esityksen (esim. kaavioita) budjetistani, jotta taloustietojen tulkinta on helpompaa.
-    
-### Suunnitelma ei ole “sitova”, se voi muuttua projektin edetessä.
-    
-### Suunnitelmaa ei tarvitse palauttaa, mutta sitä käydään opettajan kanssa läpi ensi viikolla.
-## Viikko 2
-
-### Projektin nimi
-
-Opiskelijan budjettilaskuri
-
-### Sovelluksen tarkoitus
-
-
-Projektin tavoitteena on toteuttaa opiskelijalle suunnattu budjettilaskuri, jonka avulla käyttäjä voi seurata tulojaan ja menojaan helposti ja nopeasti.  
+Projektin tavoitteena on toteuttaa opiskelijalle suunnattu budjettilaskuri, jonka avulla käyttäjä voi seurata tulojaan ja menojaan helposti ja nopeasti.
 Sovellus tukee opiskelijan arjen taloudenhallintaa tarjoamalla selkeän näkymän budjetin tilanteeseen eri aikaväleillä sekä auttamalla hahmottamaan, mihin raha kuluu.
 
-Projektissa keskitytään aluksi sovelluksen ydintoiminnallisuuksiin (MVP), joita voidaan laajentaa myöhemmissä vaiheissa tarpeen ja aikataulun mukaan.
+Projektissa keskitytään aluksi sovelluksen ydintoiminnallisuuksiin (Minimum Viable Product, MVP), joita voidaan laajentaa myöhemmissä vaiheissa tarpeen ja aikataulun mukaan.
 
-### Tärkeimmät ominaisuudet
+### Sovelluksen tärkeimmät ominaisuudet
 
-- Lisätä tuloja, jotta käytettävissä oleva rahamäärä on nähtävissä.
+- Sovellus mahdollistaa seuraavat toiminnot käyttäjälle:
 
-- Lisätä menoja, jotta rahankäyttöä voidaan seurata.
+- Tulojen lisääminen, jotta käytettävissä oleva rahamäärä on nähtävissä
 
-- Kategorisoida menot (esim. ruoka, vuokra, vapaa-aika), jotta kulurakenne on helpompi hahmottaa.
+- Menojen lisääminen, jotta rahankäyttöä voidaan seurata
 
-- Tarkastella budjetin tilannetta valitulla aikavälillä (esim. kuukausi), jotta näkee tulojen ja menojen yhteenvedon.
+- Menojen kategorisointi (esim. ruoka, vuokra, vapaa-aika)
 
-- Vertailla budjetin muutoksia eri aikaväleillä, jotta rahankäytön kehitystä voi seurata.
+- Budjetin tarkastelu valitulla aikavälillä (esim. kuukausi)
 
-- Rekisteröityä ja kirjautua sovellukseen, jotta omat tiedot säilyvät erillään muista käyttäjistä.
+- Budjetin muutosten vertailu eri aikaväleillä
+
+- Rekisteröityminen ja kirjautuminen käyttäjäkohtaisen datan säilyttämiseksi
+
+### Toiminnallisuudet ja prioriteetit
+
+Toiminnallisuudet on kuvattu user story -muodossa ja jaettu kolmeen prioriteettiluokkaan.
+Korkean prioriteetin toiminnot muodostavat sovelluksen Minimum Viable Productin (MVP).
+
+#### Korkea prioriteetti (MVP)
+
+- Käyttäjänä haluan pystyä lisäämään tuloja, jotta voin seurata käytettävissä olevaa rahamäärääni.
+
+- Käyttäjänä haluan pystyä lisäämään menoja, jotta näen mihin rahani kuluvat.
+
+- Käyttäjänä haluan kategorisoida menoni, jotta voin hahmottaa kulurakenteeni paremmin.
+
+- Käyttäjänä haluan nähdä yhteenvedon budjetistani valitulla aikavälillä (esim. kuukausi), jotta ymmärrän taloudellisen tilanteeni.
+
+#### Keskitasoinen prioriteetti
+
+- Käyttäjänä haluan nähdä budjettini muutokset eri aikaväleillä, jotta voin vertailla menoja ja tuloja ajallisesti.
+
+- Käyttäjänä haluan kirjautua sovellukseen, jotta omat tietoni säilyvät erillään muista käyttäjistä.
+
+- Käyttäjänä haluan rekisteröityä sovellukseen, jotta voin käyttää sitä useamman kerran ja säilyttää tietoni.
+
+#### Matala prioriteetti (jatkokehitys)
+
+- Käyttäjänä haluan pystyä lisäämään toistuvia tuloja ja menoja (esim. kuukausittain), jotta minun ei tarvitse syöttää samoja tietoja uudelleen.
+
+- Käyttäjänä haluan nähdä visuaalisen esityksen (esim. kaavioita) budjetistani, jotta taloustietojen tulkinta on helpompaa.
 
 ### Toteutusteknologiat
 
 Projektin toteutuksessa on tarkoitus käyttää seuraavia teknologioita.
-Teknologiat eivät ole lopullisesti lukittuja, ja niitä voidaan tarvittaessa muuttaa projektin edetessä.
+Teknologiat eivät ole lopullisesti lukittuja ja niitä voidaan tarvittaessa muuttaa projektin edetessä.
 
 #### Backend
 
-- Java + Spring Boot -> Sovelluksen palvelinpuolen toteutukseen ja REST-rajapinnan rakentamiseen.
+- Java + Spring Boot – palvelinpuolen toteutus ja REST-rajapinta
 
-- Maven -> Projektin riippuvuuksien hallintaan ja build-prosessiin.
+- Maven – riippuvuuksien hallinta ja build-prosessi
 
-- H2-tietokanta -> Kevyt, muistissa toimiva tietokanta kehitysvaiheeseen ja testaamiseen.
+- H2-tietokanta – kevyt tietokanta kehitysvaiheeseen ja testaamiseen
 
 #### Frontend
 
 - JavaScript
 
-- React -> Käyttöliittymän toteutukseen.
+- React – käyttöliittymän toteutus
 
-- HTML -> Käyttöliittymän rakenteen määrittelyyn.
+- HTML – käyttöliittymän rakenteen määrittely
 
-#### Teknologiavalintojen perustelut
+### Teknologiavalintojen perustelut
 
 Spring Boot ja React tarjoavat modernin ja hyvin tuetun ympäristön web-sovellusten kehittämiseen.
 H2-tietokanta mahdollistaa nopean kehityksen ilman erillistä tietokantapalvelinta.
