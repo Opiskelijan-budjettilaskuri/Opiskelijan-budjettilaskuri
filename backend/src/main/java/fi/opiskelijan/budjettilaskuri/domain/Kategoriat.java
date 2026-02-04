@@ -1,0 +1,1 @@
+package fi.opiskelijan.budjettilaskuri.domain;

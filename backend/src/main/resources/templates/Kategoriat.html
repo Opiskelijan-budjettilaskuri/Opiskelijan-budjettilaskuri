@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+<head>
+<title>Kategoriat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Kategoriat</h1>
+<table>
+<tr>
+<th>Kuukausi</th>
+<th>Ruoka</th>
+<th>Vuokra</th>
+<th>Vapaa-aika</th>
+<th>Vaatteet</th>
+</tr>
+<tr th:each="kategoria : ${kategoriat}">
+<td th:text="${kategoria.kuukausi}"></td>
+<td th.text="${kategoria.ruoka}"></td>
+<td th.text="${kategoria.vuokra}"></td>
+<td th:text="${kategoria.vapaaaika}"></td>
+<td th:text="${kategoria.vaatteet}"></td>
+</tr>
+</table>
+</body>
+</html>
