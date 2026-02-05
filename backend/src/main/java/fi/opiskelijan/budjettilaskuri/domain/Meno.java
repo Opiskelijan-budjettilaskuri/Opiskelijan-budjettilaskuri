@@ -6,21 +6,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Expense {
+public class Meno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String description;
-    private Double amount;
+    private String kuvaus;
+    private Double summa;
 
-    public Expense() {}
+    public Meno() {}
 
     public Long getId() { return id; }
-    public String getDescription() { return description; }
-    public Double getAmount() { return amount; }
+    public String getDescription() { return kuvaus; }
+    public Double getAmount() { return summa; }
 
     public void setId(Long id) { this.id = id; }
-    public void setDescription(String description) { this.description = description; }
-    public void setAmount(Double amount) { this.amount = amount; }
+    public void setDescription(String kuvaus) { this.kuvaus = kuvaus; }
+    public void setAmount(Double summa) { this.summa = summa; }
 }

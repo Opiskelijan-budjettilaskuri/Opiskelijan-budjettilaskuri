@@ -2,7 +2,7 @@ package fi.opiskelijan.budjettilaskuri.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import fi.opiskelijan.budjettilaskuri.domain.Expense;
+import fi.opiskelijan.budjettilaskuri.domain.Meno;
 
-public interface ExpenseRepository extends JpaRepository<Expense, Long> {
+public interface ExpenseRepository extends JpaRepository<Meno, Long> {
 }
