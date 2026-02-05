@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/expenses")
+@RequestMapping("/api/menot")
 public class Controller {
 
     private final ExpenseRepository repositorio;
@@ -17,12 +17,12 @@ public class Controller {
     }
 
     @GetMapping
-    public List<Meno> getAllExpenses() {
+    public List<Meno> getMenot() {
         return repositorio.findAll();
     }
 
     @PostMapping
-    public Meno addExpense(@RequestBody Meno meno) {
+    public Meno lisaaMeno(@RequestBody Meno meno) {
         return repositorio.save(meno);
     }
 }
