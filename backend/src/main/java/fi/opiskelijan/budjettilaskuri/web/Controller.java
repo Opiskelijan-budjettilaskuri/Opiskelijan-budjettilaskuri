@@ -1,6 +1,6 @@
 package fi.opiskelijan.budjettilaskuri.web;
 
-import fi.opiskelijan.budjettilaskuri.domain.Expense;
+import fi.opiskelijan.budjettilaskuri.domain.Meno;
 import fi.opiskelijan.budjettilaskuri.repository.ExpenseRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,19 +10,19 @@ import java.util.List;
 @RequestMapping("/api/expenses")
 public class Controller {
 
-    private final ExpenseRepository repository;
+    private final ExpenseRepository repositorio;
 
-    public Controller(ExpenseRepository repository) {
-        this.repository = repository;
+    public Controller(ExpenseRepository repositorio) {
+        this.repositorio = repositorio;
     }
 
     @GetMapping
-    public List<Expense> getAllExpenses() {
-        return repository.findAll();
+    public List<Meno> getAllExpenses() {
+        return repositorio.findAll();
     }
 
     @PostMapping
-    public Expense addExpense(@RequestBody Expense expense) {
-        return repository.save(expense);
+    public Meno addExpense(@RequestBody Meno meno) {
+        return repositorio.save(meno);
     }
 }
