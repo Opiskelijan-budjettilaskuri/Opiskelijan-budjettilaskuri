@@ -1,4 +1,4 @@
-package fi.opiskelijan.budjettilaskuri.controller;
+package fi.opiskelijan.budjettilaskuri.web;
 
 import fi.opiskelijan.budjettilaskuri.domain.Expense;
 import fi.opiskelijan.budjettilaskuri.repository.ExpenseRepository;
