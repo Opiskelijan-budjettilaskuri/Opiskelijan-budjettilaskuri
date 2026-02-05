@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import fi.opiskelijan.budjettilaskuri.domain.Expense;
+import fi.opiskelijan.budjettilaskuri.domain.Meno;
 import fi.opiskelijan.budjettilaskuri.repository.ExpenseRepository;
 
 @SpringBootApplication
@@ -18,7 +18,7 @@ public class BudjettilaskuriApplication {
 	@Bean
 	CommandLineRunner initDatabase(ExpenseRepository repository) {
 		return args -> {
-			Expense e1 = new Expense();
+			Meno e1 = new Meno();
 			e1.setDescription("Netflix");
 			e1.setAmount(9.95);
 			repository.save(e1);
