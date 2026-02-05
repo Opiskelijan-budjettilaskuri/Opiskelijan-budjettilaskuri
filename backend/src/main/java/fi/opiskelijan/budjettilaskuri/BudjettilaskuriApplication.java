@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import fi.opiskelijan.budjettilaskuri.model.Expense;
+import fi.opiskelijan.budjettilaskuri.domain.Expense;
 import fi.opiskelijan.budjettilaskuri.repository.ExpenseRepository;
 
 @SpringBootApplication

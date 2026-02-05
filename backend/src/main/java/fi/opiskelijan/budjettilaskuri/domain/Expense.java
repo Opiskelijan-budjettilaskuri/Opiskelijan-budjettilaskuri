@@ -1,4 +1,4 @@
-package fi.opiskelijan.budjettilaskuri.model;
+package fi.opiskelijan.budjettilaskuri.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

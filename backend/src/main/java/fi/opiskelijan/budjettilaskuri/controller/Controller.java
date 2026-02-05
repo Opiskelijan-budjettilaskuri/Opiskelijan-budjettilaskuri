@@ -1,6 +1,6 @@
 package fi.opiskelijan.budjettilaskuri.controller;
 
-import fi.opiskelijan.budjettilaskuri.model.Expense;
+import fi.opiskelijan.budjettilaskuri.domain.Expense;
 import fi.opiskelijan.budjettilaskuri.repository.ExpenseRepository;
 import org.springframework.web.bind.annotation.*;
 
