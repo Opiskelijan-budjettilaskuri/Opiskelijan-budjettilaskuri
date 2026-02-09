@@ -1,17 +1,16 @@
 package fi.opiskelijan.budjettilaskuri.web;
-import org.springframework.stereotype.Controller;
+
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-@Controller
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
 public class KategoriaController {
-@GetMapping
-public String () {
 
-return "Lisäämenoja";
-}
-@PostMapping
-public String () {
-
-return "Kategoriat";
-}
+    // GET /api/kategoriat
+    @GetMapping("/api/kategoriat")
+    public List<String> haeKategoriat() {
+        return List.of("Ruoka", "Vuokra", "Vapaa-aika", "Vaatteet");
+    }
 }
