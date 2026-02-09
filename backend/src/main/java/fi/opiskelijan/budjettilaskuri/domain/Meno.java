@@ -1,5 +1,7 @@
 package fi.opiskelijan.budjettilaskuri.domain;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,13 +16,17 @@ public class Meno {
     private String kuvaus;
     private Double summa;
 
+    private LocalDate pvm;
+
     public Meno() {}
 
     public Long getId() { return id; }
-    public String getDescription() { return kuvaus; }
-    public Double getAmount() { return summa; }
+    public String getKuvaus() { return kuvaus; }
+    public Double getSumma() { return summa; }
+    public LocalDate getPvm() { return pvm; }
 
     public void setId(Long id) { this.id = id; }
-    public void setDescription(String kuvaus) { this.kuvaus = kuvaus; }
-    public void setAmount(Double summa) { this.summa = summa; }
+    public void setKuvaus(String kuvaus) { this.kuvaus = kuvaus; }
+    public void setSumma(Double summa) { this.summa = summa; }
+    public void setPvm(LocalDate pvm) {this.pvm = pvm;}
 }

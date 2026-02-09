@@ -1,5 +1,7 @@
 package fi.opiskelijan.budjettilaskuri.domain;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,11 +15,13 @@ public class Tulo {
 
     private String kuvaus;
     private Double maara;
+    private LocalDate pvm;
 
     public Tulo() {}
     public Long getId() { return id; }
     public String getKuvaus() { return kuvaus; }
     public Double getMaara() { return maara; }
+    public LocalDate getPvm() {return pvm;}
 
     public void setId(Long id) {
         this.id = id; 
@@ -27,5 +31,9 @@ public class Tulo {
     }
     public void setMaara(Double maara) { 
         this.maara = maara; 
+    }
+
+    public void setPvm(LocalDate pvm) {
+        this.pvm = pvm;
     }
 }
