@@ -18,37 +18,37 @@ import fi.opiskelijan.budjettilaskuri.repository.TuloRepository;
 @RequestMapping("/api/tulot")
 public class TuloController {
     
-    private final TuloRepository repository;
+    private final TuloRepository tuloRepository;
 
-    public TuloController(TuloRepository repository) {
-        this.repository = repository;
+    public TuloController(TuloRepository tuloRepository) {
+        this.tuloRepository = tuloRepository;
     }
 
     @GetMapping
     public List<Tulo> getAllTulot() {
-        return repository.findAll();
+        return tuloRepository.findAll();
     }
 
     @GetMapping("/{id}")
     public Tulo getTuloById(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow();
+        return tuloRepository.findById(id).orElseThrow();
     }
 
     @PostMapping
     public Tulo addTulo(@RequestBody Tulo tulo) {
-        return repository.save(tulo);
+        return tuloRepository.save(tulo);
     }
 
     @PutMapping("/{id}")
     public Tulo editTulo(@PathVariable Long id,
                             @RequestBody Tulo tulo) {
         tulo.setId(id);
-        return repository.save(tulo);
+        return tuloRepository.save(tulo);
     }
 
     @DeleteMapping("/{id}")
     public void deleteTulo(@PathVariable Long id) {
-        repository.deleteById(id);
+        tuloRepository.deleteById(id);
     }
 
     
