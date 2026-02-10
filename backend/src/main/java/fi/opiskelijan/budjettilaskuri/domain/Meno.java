@@ -6,8 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "menot")
 public class Meno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +19,6 @@ public class Meno {
 
     private String kuvaus;
     private Double summa;
-
     private LocalDate pvm;
 
     public Meno() {}

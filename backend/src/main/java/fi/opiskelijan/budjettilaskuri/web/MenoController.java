@@ -1,33 +1,38 @@
 package fi.opiskelijan.budjettilaskuri.web;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import fi.opiskelijan.budjettilaskuri.domain.Meno;
 import fi.opiskelijan.budjettilaskuri.repository.MenoRepository;
 
-@RestController
-@RequestMapping("/api/menot")
+@Controller
 public class MenoController {
 
-    private final MenoRepository menoRepository;
+    @Autowired
+    private MenoRepository menoRepository;
 
-    public MenoController(MenoRepository menoRepository) {
-        this.menoRepository = menoRepository;
+    @GetMapping("/menot")
+    public String listaMenot(Model model) {
+        model.addAttribute("menot", menoRepository.findAll());
+        model.addAttribute("uusiMeno", new Meno());
+        return "lisaa-meno";
     }
 
-    @GetMapping
-    public List<Meno> getMenot() {
-        return menoRepository.findAll();
+    @PostMapping("/api/menot")
+    public String lisaaMeno(@ModelAttribute Meno meno) {
+        menoRepository.save(meno);
+        return "redirect:/menot";
     }
 
-    @PostMapping
-    public Meno lisaaMeno(@RequestBody Meno meno) {
-        return menoRepository.save(meno);
+    @PostMapping("/{id}/poista")
+    public String poistaMeno(@PathVariable Long id) {
+        menoRepository.deleteById(id);
+        return "redirect:/menot";
     }
 }

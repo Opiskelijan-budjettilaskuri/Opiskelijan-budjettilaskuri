@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Budjettilaskuri</title>
+</head>
+<body>
+    <h1>Budjettilaskuri</h1>
+    <form th:action="@{/api/menot}" method="post" th:object="${uusiMeno}">
+        <h2>Lisää meno</h2>
+        <input type="text" th:field="*{kuvaus}" placeholder="kuvaus" />
+        <input type="number" th:field="*{summa}" placeholder="Summa" step="0.01" required />
+        <input type="date" th:field="*{pvm}" required />   
+        <button type="submit">Tallenna</button>
+    </form>
+    
+    <h2>Menot</h2>
+    <div th:if="${menot.size() > 0}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Kuvaus</th>
+                    <th>Summa</th>
+                    <th>Päivä</th>
+                    <th>Toiminto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="meno : ${menot}">
+
+                    <td th:text="${meno.kuvaus}"></td>
+                    <td th:text="${meno.summa}"></td>
+                    <td th:text="${meno.pvm}"></td>
+                    <td>
+                        <form th:action="@{/{id}/poista(id=${meno.id})}" method="post" style="display:inline;">
+                            <button type="submit">Poista</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p th:if="${menot.size() == 0}">Ei menoja lisättynä.</p>
+</body>
+</html>
