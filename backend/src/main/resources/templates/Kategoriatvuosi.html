@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+<head>
+<title>Menot vuosittain</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Menot vuosittain</h1>
+<table>
+<tr>
+<th>Vuosi</th>
+<th>Ruoka</th>
+<th>Vuokra</th>
+<th>Vapaa-aika</th>
+<th>Vaatteet</th>
+</tr>
+<tr th:each="kategoriavuosi : ${kategoriatvuosi}">
+<td th:text="${kategoriavuosi.vuosi}"></td>
+<td th:text="${kategoriavuosi.ruokavuosi}"></td>
+<td th:text="${kategoriavuosi.vuokravuosi}"></td>
+<td th:text="${kategoriavuosi.vapaaaikavuosi}"></td>
+<td th:text="${kategoriavuosi.vaatteetvuosi}"></td>
+<td th:text="${kategoriavuosi.kokonaismenotvuosi}"></td>
+</tr>
+</table>
+</body>
+</html>
