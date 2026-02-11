@@ -1,16 +1,28 @@
 package fi.opiskelijan.budjettilaskuri.web;
-
-import java.util.List;
-
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
+import org.springframework.web.bind.annotation.PostMapping;
+import java.ui.Model;
+@Controller
 public class KategoriaController {
-
-    // GET /api/kategoriat
-    @GetMapping("/api/kategoriat")
-    public List<String> haeKategoriat() {
-        return List.of("Ruoka", "Vuokra", "Vapaa-aika", "Vaatteet");
-    }
+@GetMapping
+public String kuukausittaistenmenojenSaanti(Model model) {
+Model.addAttribute("kategoriakuukausi", new Kategoriakuukausi());
+return "Lisääkuukausittaisiamenoja";
+}
+@PostMapping
+public String kuukausittaistenmenojenLähetys(@ModelAttribute Kategoriakuukausi kategoriakuukausi, Model model) {
+Model.addAttribute("kategoriakuukausi", kategoriakuukausi);
+return "Kategoriatkuukausi";
+}
+@GetMapping
+public String vuosittaistenmenojenSaanti(Model model) {
+Model.addAttribute("kategoriavuosi", new Kategoriavuosi());
+return "Lisäävuosittaisiamenoja";
+}
+@PostMapping
+public String vuosittaistenmenojenLähetys(@ModelAttribute Kategoriavuosi kategoriavuosi, Model model) {
+Model.addAttribute("kategoriavuosi", kategoriavuosi);
+return "Kategoriatvuosi";
+}
 }
