@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+<head>
+<title>Lisää vuosittaisia menoja</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Lisää vuosittaisia menoja</h1>
+<form method="post" action="#" th:action="@{/tallennavuosittaisetmenot}" th:object=${kategoriavuosi}>
+<p>Ruoka: <input type="text" th:field="${kategoriavuosi.ruokavuosi}"/></p>
+<p>Vuokra: <input type="text" th:field="${kategoriavuosi.vuokravuosi}"/></p>
+<p>Vapaa-aika: <input type="text" th:field="${kategoriavuosi.vapaaaikavuosi}"/></p>
+<p>Vaatteet: <input type="text" th:field="${kategoriavuosi.vaatteetvuosi}"/></p>
+<input type="submit" value="Lähetä" />
+</form>
+</body>
+</html>
