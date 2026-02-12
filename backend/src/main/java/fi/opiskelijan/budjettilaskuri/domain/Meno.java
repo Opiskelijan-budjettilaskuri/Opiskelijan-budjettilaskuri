@@ -6,8 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "menot")
 public class Meno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +19,16 @@ public class Meno {
 
     private String kuvaus;
     private Double summa;
-
     private LocalDate pvm;
 
+    @ManyToOne
+    @JoinColumn(name = "kategoria_id")
+    private Kategoria kategoria;
+
     public Meno() {}
+
+    public Kategoria getKategoria() { return kategoria; }
+    public void setKategoria(Kategoria kategoria) { this.kategoria = kategoria; }
 
     public Long getId() { return id; }
     public String getKuvaus() { return kuvaus; }
