@@ -21,7 +21,14 @@ public class Meno {
     private Double summa;
     private LocalDate pvm;
 
+    @ManyToOne
+    @JoinColumn(name = "kategoria_id")
+    private Kategoria kategoria;
+
     public Meno() {}
+
+    public Kategoria getKategoria() { return kategoria; }
+    public void setKategoria(Kategoria kategoria) { this.kategoria = kategoria; }
 
     public Long getId() { return id; }
     public String getKuvaus() { return kuvaus; }

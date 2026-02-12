@@ -7,10 +7,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import fi.opiskelijan.budjettilaskuri.domain.Kategoria;
 import fi.opiskelijan.budjettilaskuri.domain.Meno;
 import fi.opiskelijan.budjettilaskuri.domain.Tulo;
 import fi.opiskelijan.budjettilaskuri.repository.MenoRepository;
 import fi.opiskelijan.budjettilaskuri.repository.TuloRepository;
+import fi.opiskelijan.budjettilaskuri.repository.KategoriaRepository;
 
 @SpringBootApplication
 public class BudjettilaskuriApplication {
@@ -20,7 +22,7 @@ public class BudjettilaskuriApplication {
     }
 
     @Bean
-    CommandLineRunner initDatabase(MenoRepository menoRepo, TuloRepository tuloRepo) {
+    CommandLineRunner initDatabase(MenoRepository menoRepo, TuloRepository tuloRepo, KategoriaRepository kategoriaRepo) {
         return args -> {
             // Meno helmikuulle 2026
             Meno meno = new Meno();
@@ -35,6 +37,15 @@ public class BudjettilaskuriApplication {
             tulo.setMaara(350.0);
             tulo.setPvm(LocalDate.of(2026, 2, 1));
             tuloRepo.save(tulo);
+
+            // Kategorioita
+            Kategoria kategoria = new Kategoria();
+            kategoria.setNimi("Viihde");
+            kategoriaRepo.save(kategoria);
+
+            Kategoria kategoria2 = new Kategoria();
+            kategoria2.setNimi("Ruoka");
+            kategoriaRepo.save(kategoria2);
 
             System.out.println("Testidata lisätty tietokantaan!");
         };

@@ -11,6 +11,10 @@
         <input type="text" th:field="*{kuvaus}" placeholder="kuvaus" />
         <input type="number" th:field="*{summa}" placeholder="Summa" step="0.01" required />
         <input type="date" th:field="*{pvm}" required />   
+        <select th:field="*{kategoria}" placeholder="Valitse kategoria" required>
+            <option value="" disabled selected>Valitse kategoria</option>
+            <option th:each="kategoria : ${kategoriat}" th:value="${kategoria.id}" th:text="${kategoria.nimi}"></option>
+        </select>
         <button type="submit">Tallenna</button>
     </form>
     
@@ -22,6 +26,7 @@
                     <th>Kuvaus</th>
                     <th>Summa</th>
                     <th>Päivä</th>
+                    <th>Kategoria</th>
                     <th>Toiminto</th>
                 </tr>
             </thead>
@@ -31,6 +36,7 @@
                     <td th:text="${meno.kuvaus}"></td>
                     <td th:text="${meno.summa}"></td>
                     <td th:text="${meno.pvm}"></td>
+                    <td th:text="${meno.kategoria != null ? meno.kategoria.nimi : 'Ei kategoriaa'}"></td>
                     <td>
                         <form th:action="@{/{id}/poista(id=${meno.id})}" method="post" style="display:inline;">
                             <button type="submit">Poista</button>

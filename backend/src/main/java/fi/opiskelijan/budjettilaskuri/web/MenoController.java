@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 
 import fi.opiskelijan.budjettilaskuri.domain.Meno;
+import fi.opiskelijan.budjettilaskuri.repository.KategoriaRepository;
 import fi.opiskelijan.budjettilaskuri.repository.MenoRepository;
 
 @Controller
@@ -17,10 +18,14 @@ public class MenoController {
     @Autowired
     private MenoRepository menoRepository;
 
+    @Autowired
+    private KategoriaRepository kategoriaRepository;
+
     @GetMapping("/menot")
     public String listaMenot(Model model) {
         model.addAttribute("menot", menoRepository.findAll());
         model.addAttribute("uusiMeno", new Meno());
+        model.addAttribute("kategoriat", kategoriaRepository.findAll());
         return "lisaa-meno";
     }
 
