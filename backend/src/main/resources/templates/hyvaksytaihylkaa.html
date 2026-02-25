@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Hyväksy tai hylkää tiedot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="Toiminnot.js"></script>
+</head>
+<body>
+<h1>Hyväksy tai hylkää tiedot</h1>
+<p th:text="'Sähköposti: ' + ${kayttaja.sahkoposti}" id="sahkoposti"></p>
+<p th:text="'Käyttäjätunnus: ' + ${kayttaja.kayttajatunnus}" id="kayttajatunnus"></p>
+<p th:text="'Salasana: ' + ${kayttaja.salasana}" id="salasana"></p>
+<p th:text="'Puhelin: ' + ${kayttaja.puhelin}" id="puhelin"></p>
+<p th:text="'Osoite: ' + ${kayttaja.osoite}" id="osoite"></p>
+<p th:text="'Kortin numero: ' + ${kayttaja.kortinnumero}" id="kortinnumero"></p>
+<p th:text="'Turvakoodi: ' + ${kayttaja.turvakoodi}" id="turvakoodi"></p>
+<p th:text="'Voimassaoloaika: ' + ${kayttaja.voimassaoloaika}" id="voimassaoloaika"></p>
+<button onclick="hyvaksy">Hyväksy</button>
+<button onclick="hylkaa">Hylkää</button>
+<h3 id="hyvaksytaanko"></h3>
+<p th:field="${hyvaksytty.sahkoposti}" id="hyvaksySahkoposti"></p>
+<p th:field="${hyvaksytty.kayttajatunnus}" id="hyvaksyKayttajatunnus"></p>
+<p th:field="${hyvaksytty.salasana}" id="hyvaksySalasana"></p>
+<p th:field="${hyvaksytty.puhelin}" id="hyvaksyPuhelin"></p>
+<p th:field="${hyvaksytty.osoite}" id="hyvaksyOsoite"></p>
+<p th:field="${hyvaksytty.kortinnumero}" id="hyvaksyKortinnumero"></p>
+<p th:field="${hyvaksytty.turvakoodi}" id="hyvaksyTurvakoodi"></p>
+<p th:field="${hyvaksytty.voimassaoloaika}" id="hyvaksyVoimassaoloaika"></p>
+<h3 id="hylataanko"></h3>
+<p th:field="${hylatty.sahkoposti}" id="hylkaaSahkoposti"></p>
+<p th:field="${hylatty.kayttajatunnus}" id="hylkaaKayttajatunnus"></p>
+<p th:field="${hylatty.salasana}" id="hylkaaSalasana"></p>
+<p th:field="${hylatty.puhelin}" id="hylkaaPuhelin"></p>
+<p th:field="${hylatty.osoite}" id="hylkaaOsoite"></p>
+<p th:field="${hylatty.kortinnumero}" id="hylkaaKortinnumero"></p>
+<p th:field="${hylatty.turvakoodi}" id="hylkaaTurvakoodi"></p>
+<p th:field="${hylatty.voimassaoloaika}" id="hylkaaVoimassaoloaika"></p>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kirjaudu sisään</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="Tyylit.css" rel="stylesheet">
+</head>
+<body>
+<h1>Kirjaudu sisään</h1>
+<form>
+<p>Käyttäjätunnus: <input type="text" th:field="${kayttaja.kayttajatunnus}"/></p>
+<p>Salasana: <input type="text" th:field="${kayttaja.salasana}"></p>
+<p class="error">Syöttämäsi tiedot eivät ole oikeat</p>
+<input type="submit" value="Kirjaudu sisään"/>
+</form>
+</body>
+</html>
