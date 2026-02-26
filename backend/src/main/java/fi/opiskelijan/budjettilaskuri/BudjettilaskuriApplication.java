@@ -24,19 +24,6 @@ public class BudjettilaskuriApplication {
     @Bean
     CommandLineRunner initDatabase(MenoRepository menoRepo, TuloRepository tuloRepo, KategoriaRepository kategoriaRepo) {
         return args -> {
-            // Meno helmikuulle 2026
-            Meno meno = new Meno();
-            meno.setKuvaus("Netflix");
-            meno.setSumma(9.95);
-            meno.setPvm(LocalDate.of(2026, 2, 5));
-            menoRepo.save(meno);
-
-            // Tulo helmikuulle 2026
-            Tulo tulo = new Tulo();
-            tulo.setKuvaus("Opintotuki");
-            tulo.setMaara(350.0);
-            tulo.setPvm(LocalDate.of(2026, 2, 1));
-            tuloRepo.save(tulo);
 
             // Kategorioita
             Kategoria kategoria = new Kategoria();
@@ -46,6 +33,22 @@ public class BudjettilaskuriApplication {
             Kategoria kategoria2 = new Kategoria();
             kategoria2.setNimi("Ruoka");
             kategoriaRepo.save(kategoria2);
+
+            // Meno helmikuulle 2026
+            Meno meno = new Meno();
+            meno.setKuvaus("Netflix");
+            meno.setSumma(9.95);
+            meno.setPvm(LocalDate.of(2026, 2, 5));
+            meno.setKategoria(kategoria);
+            menoRepo.save(meno);
+
+            // Tulo helmikuulle 2026
+            Tulo tulo = new Tulo();
+            tulo.setKuvaus("Opintotuki");
+            tulo.setMaara(350.0);
+            tulo.setPvm(LocalDate.of(2026, 2, 1));
+            tuloRepo.save(tulo);
+
 
             System.out.println("Testidata lisätty tietokantaan!");
         };
