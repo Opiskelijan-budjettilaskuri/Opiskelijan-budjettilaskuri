@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,7 +21,15 @@ public class Tulo {
     private Double maara;
     private LocalDate pvm;
 
+    @ManyToOne
+    @JoinColumn(name = "kategoria_id")
+    private Kategoria kategoria;
+
     public Tulo() {}
+
+    public Kategoria getKategoria() { return kategoria; }
+    public void setKategoria(Kategoria kategoria) { this.kategoria = kategoria; }
+    
     public Long getId() { return id; }
     public String getKuvaus() { return kuvaus; }
     public Double getMaara() { return maara; }
