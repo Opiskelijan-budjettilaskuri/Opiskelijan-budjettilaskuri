@@ -4,9 +4,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import fi.opiskelijan.budjettilaskuri.domain.Kayttaja;
-import java.util.HashMap;
-import java.util.Map;
 @Controller
 public class KayttajaController {
 @GetMapping("/vastaanotatiedot")
@@ -47,7 +46,7 @@ return "kirjaudusisaan";
 @PostMapping("/tarkistakirjautumistiedot")
 public String setKirjautumistiedot(@ModelAttribute Kayttaja kirjautunut, Model model) {
 model.addAttribute("kirjautunut", kirjautunut);
-if (kayttajat.get(sahkoposti).equals(kayttajat.get(salasana))) {
+if (kirjautunut.getSahkoposti().equals(kirjautunut.getSalasana())) {
 return "kirjaudusisaanvirhe";
 } else {
 return "index";
