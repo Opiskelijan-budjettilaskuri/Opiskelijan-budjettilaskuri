@@ -1,6 +1,8 @@
 package fi.opiskelijan.budjettilaskuri.web.dto;
 
-//DTO:lla palautetaan yhteenveto frontendille
+import java.util.List;
+
+// palautetaan budjetin yhteenveto frontendille.
 public class YhteenvetoDto {
 
     private String aikavali;
@@ -8,7 +10,10 @@ public class YhteenvetoDto {
     private double menot;
     private double saldo;
 
-    // Luodaan uusi yhteenveto-olio, saldo saadaan konstruktorissa
+    // Menot ja Tulot kategorioittain
+    private List<KategoriaSummaDto> menotKategorioittain;
+    private List<KategoriaSummaDto> tulotKategorioittain;
+
     public YhteenvetoDto(String aikavali, double tulot, double menot) {
         this.aikavali = aikavali;
         this.tulot = tulot;
@@ -16,8 +21,30 @@ public class YhteenvetoDto {
         this.saldo = tulot - menot;
     }
 
-    public String getAikavali() { return aikavali;}
-    public double getTulot() {return tulot;}
-    public double getMenot() {return menot;}
-    public double getSaldo() {return saldo;}
-}
+    public YhteenvetoDto(String aikavali, double tulot, double menot, List<KategoriaSummaDto> menotKategorioittain) {
+        this.aikavali = aikavali;
+        this.tulot = tulot;
+        this.menot = menot;
+        this.saldo = tulot - menot;
+        this.menotKategorioittain = menotKategorioittain;
+    }
+
+    public YhteenvetoDto(String aikavali, double tulot, double menot,
+                         List<KategoriaSummaDto> menotKategorioittain,
+                         List<KategoriaSummaDto> tulotKategorioittain) {
+        this.aikavali = aikavali;
+        this.tulot = tulot;
+        this.menot = menot;
+        this.saldo = tulot - menot;
+        this.menotKategorioittain = menotKategorioittain;
+        this.tulotKategorioittain = tulotKategorioittain;
+    }
+
+    public String getAikavali() { return aikavali; }
+    public double getTulot() { return tulot; }
+    public double getMenot() { return menot; }
+    public double getSaldo() { return saldo; }
+
+    public List<KategoriaSummaDto> getMenotKategorioittain() { return menotKategorioittain; }
+    public List<KategoriaSummaDto> getTulotKategorioittain() { return tulotKategorioittain; }
+    }
