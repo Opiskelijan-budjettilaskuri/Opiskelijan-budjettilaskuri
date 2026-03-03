@@ -2,11 +2,11 @@ package fi.opiskelijan.budjettilaskuri.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.ui.Model;
 
 import fi.opiskelijan.budjettilaskuri.domain.Meno;
 import fi.opiskelijan.budjettilaskuri.repository.KategoriaRepository;
@@ -35,7 +35,7 @@ public class MenoController {
         return "redirect:/menot";
     }
 
-    @PostMapping("/{id}/poista")
+    @PostMapping("/menot/{id}/poista")
     public String poistaMeno(@PathVariable Long id) {
         menoRepository.deleteById(id);
         return "redirect:/menot";
