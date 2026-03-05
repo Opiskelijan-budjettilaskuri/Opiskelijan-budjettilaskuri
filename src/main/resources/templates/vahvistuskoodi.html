@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Syötä vahvistuskoodi</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Syötä vahvistuskoodi</h1>
+<p th:text="'Syötä tänne vahvistuskoodi, jonka lähetimme sähköpostiin ' + ${hyvaksytty.sahkoposti}"></p>
+<input type="text"/>
+<input type="submit" value="Lähetä"/>
+</body>
+</html>
