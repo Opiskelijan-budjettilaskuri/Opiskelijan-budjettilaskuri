@@ -6,86 +6,121 @@ Tiimi: Pekka Levo, Erkka Pärssinen, Henna Salmi, Robbie Winter
 
 #### Frontend URL: https://opiskelijan-budjettilaskuri.onrender.com
 
-### Projektin tarkoitus
+---
+
+## Projektin tarkoitus
 
 Projektin tavoitteena on toteuttaa opiskelijalle suunnattu budjettilaskuri, jonka avulla käyttäjä voi seurata tulojaan ja menojaan helposti ja nopeasti.
 Sovellus tukee opiskelijan arjen taloudenhallintaa tarjoamalla selkeän näkymän budjetin tilanteeseen eri aikaväleillä sekä auttamalla hahmottamaan, mihin raha kuluu.
 
-Projektissa keskitytään aluksi sovelluksen ydintoiminnallisuuksiin (Minimum Viable Product, MVP), joita voidaan laajentaa myöhemmissä vaiheissa tarpeen ja aikataulun mukaan.
+---
 
-### Sovelluksen tärkeimmät ominaisuudet
+## Tekninen käyttöohje
 
-- Sovellus mahdollistaa seuraavat toiminnot käyttäjälle:
+### Vaatimukset
 
-- Tulojen lisääminen, jotta käytettävissä oleva rahamäärä on nähtävissä
+- Java 17 tai uudempi
+- Maven
+- Node.js ja npm
 
-- Menojen lisääminen, jotta rahankäyttöä voidaan seurata
+### Backendin käynnistäminen
 
-- Menojen kategorisointi (esim. ruoka, vuokra, vapaa-aika)
+Kloonaa repositorio ja siirry projektin juurihakemistoon:
 
-- Budjetin tarkastelu valitulla aikavälillä (esim. kuukausi)
+```bash
+git clone https://github.com/Opiskelijan-budjettilaskuri/Opiskelijan-budjettilaskuri.git
+cd Opiskelijan-budjettilaskuri/budjettilaskuri
+```
 
-- Budjetin muutosten vertailu eri aikaväleillä
+Käynnistä Spring Boot -palvelin Maven Wrapperilla:
 
-- Rekisteröityminen ja kirjautuminen käyttäjäkohtaisen datan säilyttämiseksi
+```bash
+./mvnw spring-boot:run
+```
 
-### Toiminnallisuudet ja prioriteetit
+Tai Windowsilla:
 
-Toiminnallisuudet on kuvattu user story -muodossa ja jaettu kolmeen prioriteettiluokkaan.
-Korkean prioriteetin toiminnot muodostavat sovelluksen Minimum Viable Productin (MVP).
+```bash
+mvnw.cmd spring-boot:run
+```
 
-#### Korkea prioriteetti (MVP)
+Backend käynnistyy osoitteeseen `http://localhost:8080`.
+
+### Frontendin käynnistäminen
+
+Siirry frontend-hakemistoon ja asenna riippuvuudet:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend käynnistyy osoitteeseen `http://localhost:5173`.
+
+### Testien suorittaminen
+
+Backendin testit ajetaan projektin juurihakemistosta:
+
+```bash
+./mvnw test
+```
+
+Testiraportit löytyvät hakemistosta `target/surefire-reports/`.
+
+---
+
+## Teknologiat ja kirjastot
+
+### Backend
+
+| Teknologia | Versio | Käyttötarkoitus |
+|---|---|---|
+| Java | 17 | Ohjelmointikieli |
+| Spring Boot | 4.0.1 | Palvelinpuolen sovelluskehys |
+| Spring Data JPA | (Spring Boot) | Tietokantaoperaatiot |
+| Spring Web MVC | (Spring Boot) | REST API ja web-kerros |
+| Thymeleaf | (Spring Boot) | Palvelinpuolen HTML-sivupohjat |
+| H2 | (Spring Boot) | Kevyt muistitietokanta kehitykseen |
+| PostgreSQL | (runtime) | Tuotantotietokanta |
+| Maven | - | Riippuvuuksien hallinta ja build |
+
+### Frontend
+
+| Teknologia | Versio | Käyttötarkoitus |
+|---|---|---|
+| JavaScript (ES Modules) | - | Ohjelmointikieli |
+| React | 19.2 | Käyttöliittymäkirjasto |
+| React Router DOM | 7.13 | Sivuston reititys |
+| Vite | 7.2 | Kehityspalvelin ja bundlaus |
+| ESLint | 9.39 | Koodin laadunvalvonta |
+
+---
+
+## Sovelluksen ominaisuudet
+
+### Korkea prioriteetti (MVP)
 
 - Käyttäjänä haluan pystyä lisäämään tuloja, jotta voin seurata käytettävissä olevaa rahamäärääni.
-
 - Käyttäjänä haluan pystyä lisäämään menoja, jotta näen mihin rahani kuluvat.
-
 - Käyttäjänä haluan kategorisoida menoni, jotta voin hahmottaa kulurakenteeni paremmin.
-
 - Käyttäjänä haluan nähdä yhteenvedon budjetistani valitulla aikavälillä (esim. kuukausi), jotta ymmärrän taloudellisen tilanteeni.
 
-#### Keskitasoinen prioriteetti
+### Keskitasoinen prioriteetti
 
 - Käyttäjänä haluan nähdä budjettini muutokset eri aikaväleillä, jotta voin vertailla menoja ja tuloja ajallisesti.
-
 - Käyttäjänä haluan kirjautua sovellukseen, jotta omat tietoni säilyvät erillään muista käyttäjistä.
-
 - Käyttäjänä haluan rekisteröityä sovellukseen, jotta voin käyttää sitä useamman kerran ja säilyttää tietoni.
 
-#### Matala prioriteetti (jatkokehitys)
+### Matala prioriteetti (jatkokehitys)
 
 - Käyttäjänä haluan pystyä lisäämään toistuvia tuloja ja menoja (esim. kuukausittain), jotta minun ei tarvitse syöttää samoja tietoja uudelleen.
-
 - Käyttäjänä haluan nähdä visuaalisen esityksen (esim. kaavioita) budjetistani, jotta taloustietojen tulkinta on helpompaa.
 
-### Toteutusteknologiat
+---
 
-Projektin toteutuksessa on tarkoitus käyttää seuraavia teknologioita.
-Teknologiat eivät ole lopullisesti lukittuja ja niitä voidaan tarvittaessa muuttaa projektin edetessä.
+## Tiimin jäsenten linkit GitHub-profiileihin
 
-#### Backend
-
-- Java + Spring Boot – palvelinpuolen toteutus ja REST-rajapinta
-
-- Maven – riippuvuuksien hallinta ja build-prosessi
-
-- H2-tietokanta – kevyt tietokanta kehitysvaiheeseen ja testaamiseen
-
-#### Frontend
-
-- JavaScript
-
-- React – käyttöliittymän toteutus
-
-- HTML – käyttöliittymän rakenteen määrittely
-
-### Teknologiavalintojen perustelut
-
-Spring Boot ja React tarjoavat modernin ja hyvin tuetun ympäristön web-sovellusten kehittämiseen.
-H2-tietokanta mahdollistaa nopean kehityksen ilman erillistä tietokantapalvelinta.
-Maven helpottaa riippuvuuksien hallintaa ja projektin toistettavaa rakentamista.
-
-### Tiimin jäsenten linkit GitHub-profiileihin
 - Pekka Levo: https://github.com/PekkaLevo
 - Erkka Pärssinen: https://github.com/bhj665
 - Henna Salmi: https://github.com/hennasalmi02
