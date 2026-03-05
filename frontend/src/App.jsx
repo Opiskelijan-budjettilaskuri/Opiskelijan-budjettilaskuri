@@ -1,16 +1,17 @@
-import { BrowserRouter } from "react-router-dom"; //Reititys URL-osoitteella
+import { BrowserRouter } from "react-router-dom";
 import { Navigaatio } from "./komponentit/Navigaatio";
 import Reititys from "./reitit/Reititys";
+import "./App.css";
 
-// Juuri komponentti
 export default function App() {
   return (
     <BrowserRouter>
-      <Navigaatio/>
-      <main style={{ padding: 24 }}>
-        <h1>Budjettilaskuri</h1>
-        <Reititys/>
-      </main>
+      <div className="app">
+        <Navigaatio />
+        <main className="container">
+          <Reititys />
+        </main>
+      </div>
     </BrowserRouter>
   );
 }

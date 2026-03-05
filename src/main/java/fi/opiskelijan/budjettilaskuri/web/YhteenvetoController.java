@@ -5,6 +5,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import fi.opiskelijan.budjettilaskuri.repository.MenoRepository;
 import fi.opiskelijan.budjettilaskuri.repository.TuloRepository;
 import fi.opiskelijan.budjettilaskuri.web.dto.YhteenvetoDto;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/yhteenveto")
 public class YhteenvetoController {
