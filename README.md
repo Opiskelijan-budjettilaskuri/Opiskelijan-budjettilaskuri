@@ -4,6 +4,8 @@ Tiimi: Pekka Levo, Erkka Pärssinen, Henna Salmi, Robbie Winter
 
 #### Projektin backlog: https://github.com/orgs/Opiskelijan-budjettilaskuri/projects/1
 
+#### Frontend URL: https://opiskelijan-budjettilaskuri.onrender.com
+
 ### Projektin tarkoitus
 
 Projektin tavoitteena on toteuttaa opiskelijalle suunnattu budjettilaskuri, jonka avulla käyttäjä voi seurata tulojaan ja menojaan helposti ja nopeasti.
