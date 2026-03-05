@@ -55,20 +55,24 @@ export default function Yhteenveto() {
 
         <h2>{kkLabel}</h2>
 
-        <div className="kpi">
-          <div className="kpiBox">
-            <div className="kpiLabel">Tulot</div>
-            <div className="kpiValue">{data.tulot}</div>
+        {lataa && <p>Ladataan...</p>}
+        {virhe && <p style={{ color: "red" }}>{virhe}</p>}
+        {data && (
+          <div className="kpi">
+            <div className="kpiBox">
+              <div className="kpiLabel">Tulot</div>
+              <div className="kpiValue">{data.tulot}</div>
+            </div>
+            <div className="kpiBox">
+              <div className="kpiLabel">Menot</div>
+              <div className="kpiValue">{data.menot}</div>
+            </div>
+            <div className="kpiBox">
+              <div className="kpiLabel">Saldo</div>
+              <div className="kpiValue">{data.saldo}</div>
+            </div>
           </div>
-          <div className="kpiBox">
-            <div className="kpiLabel">Menot</div>
-            <div className="kpiValue">{data.menot}</div>
-          </div>
-          <div className="kpiBox">
-            <div className="kpiLabel">Saldo</div>
-            <div className="kpiValue">{data.saldo}</div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
