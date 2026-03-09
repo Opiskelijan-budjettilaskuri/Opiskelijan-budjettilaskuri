@@ -6,6 +6,8 @@ Tiimi: Pekka Levo, Erkka Pärssinen, Henna Salmi, Robbie Winter
 
 #### Frontend URL: https://opiskelijan-budjettilaskuri.onrender.com
 
+#### REST API -dokumentaatio (Swagger UI): http://localhost:8080/swagger-ui/index.html
+
 ---
 
 ## Projektin tarkoitus
