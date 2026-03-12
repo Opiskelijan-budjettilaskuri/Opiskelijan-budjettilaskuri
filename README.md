@@ -1,5 +1,7 @@
 # Opiskelijan-budjettilaskuri
 
+[![Java CI with Maven](https://github.com/Opiskelijan-budjettilaskuri/Opiskelijan-budjettilaskuri/actions/workflows/ci.yml/badge.svg)](https://github.com/Opiskelijan-budjettilaskuri/Opiskelijan-budjettilaskuri/actions/workflows/ci.yml)
+
 Tiimi: Pekka Levo, Erkka Pärssinen, Henna Salmi, Robbie Winter
 
 #### Projektin backlog: https://github.com/orgs/Opiskelijan-budjettilaskuri/projects/1
