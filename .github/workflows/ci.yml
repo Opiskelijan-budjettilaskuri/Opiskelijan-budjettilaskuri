@@ -22,10 +22,12 @@ jobs:
           cache: maven
 
       - name: Run tests
-        run: ./mvnw test
+        run: |
+          chmod +x backend/mvnw
+          cd backend && ./mvnw test
 
       - name: Build JAR
-        run: ./mvnw package -DskipTests
+        run: cd backend && ./mvnw package -DskipTests
 
   frontend-tests:
     name: Frontend – lint ja build
