@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import fi.opiskelijan.budjettilaskuri.domain.Meno;
+import fi.opiskelijan.budjettilaskuri.domain.Kategoriakuukausi;
 import fi.opiskelijan.budjettilaskuri.repository.KategoriaRepository;
 import fi.opiskelijan.budjettilaskuri.repository.MenoRepository;
 
@@ -39,5 +40,17 @@ public class MenoController {
     public String poistaMeno(@PathVariable Long id) {
         menoRepository.deleteById(id);
         return "redirect:/menot";
+    }
+
+    @GetMapping("/lisaakuukausittaisetmenot")
+    public String getKuukausittaisetmenot(Model model) {
+        model.addAttribute("kategoriakuukausi", new Kategoriakuukausi());
+        return "Lisääkuukausittaisiamenoja";
+    }
+
+    @PostMapping("/tallennakuukausittaisetmenot")
+    public String setKuukausittaisetmenot(@ModelAttribute Kategoriakuukausi kategoriakuukausi, Model model) {
+        model.addAttribute("kategoriakuukausi", new Kategoriakuukausi());
+        return "Kategoriakuukausi";
     }
 }
