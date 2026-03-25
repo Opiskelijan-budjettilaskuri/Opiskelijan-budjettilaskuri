@@ -15,7 +15,7 @@
 <th>Vapaa-aika</th>
 <th>Vaatteet</th>
 </tr>
-<tr>
+<tr th:each="kategoriakuukausi : ${kategoriatkuukausi}">
 <td th:text="${kategoria.vuosi}"></td>
 <td th:text="${kategoria.kuukausi}"></td>
 <td th:text="${kategoria.ruokakuukausi}"></td>
