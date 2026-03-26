@@ -123,6 +123,13 @@ Testiraportit löytyvät hakemistosta `target/surefire-reports/`.
 
 ---
 
+## Viime aikoina toteutetut toiminnallisuudet (Sprint 2 viikko 3)
+
+- Tuloille ja menoille lisätty testejä backendissa
+- Kategoriakuukausi-luokalle on lisätty vuosi-attribuutti ja thymeleaf-tiedostoja muokattu sen mukaisiksi
+
+---
+
 ## Tiimin jäsenten linkit GitHub-profiileihin
 
 - Pekka Levo: https://github.com/PekkaLevo
