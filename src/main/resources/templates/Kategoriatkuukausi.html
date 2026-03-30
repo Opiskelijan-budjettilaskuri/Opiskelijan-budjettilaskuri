@@ -8,16 +8,18 @@
 <h1>Menot kuukausittain</h1>
 <table>
 <tr>
+<th>Vuosi</th>
 <th>Kuukausi</th>
 <th>Ruoka</th>
 <th>Vuokra</th>
 <th>Vapaa-aika</th>
 <th>Vaatteet</th>
 </tr>
-<tr>
+<tr th:each="kategoriakuukausi : ${kategoriatkuukausi}">
+<td th:text="${kategoria.vuosi}"></td>
 <td th:text="${kategoria.kuukausi}"></td>
-<td th.text="${kategoria.ruokakuukausi}"></td>
-<td th.text="${kategoria.vuokrakuukausi}"></td>
+<td th:text="${kategoria.ruokakuukausi}"></td>
+<td th:text="${kategoria.vuokrakuukausi}"></td>
 <td th:text="${kategoria.vapaaaikakuukausi}"></td>
 <td th:text="${kategoria.vaatteetkuukausi}"></td>
 </tr>

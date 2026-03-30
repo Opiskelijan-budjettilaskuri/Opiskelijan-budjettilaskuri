@@ -7,6 +7,8 @@
 <body>
 <h1>Lisää kuukausittaisia menoja</h1>
 <form method="post" action="#" th:action="@{/tallennakuukausittaisetmenot}" th:object=${kategoriakuukausi}>
+<p>Vuosi: <input type="text" th:field="${kategoriakuukausi.vuosi}" /></p>
+<p>Kuukausi: <input type="text" th:field="${kategoriakuukausi.kuukausi}" /></p>
 <p>Ruoka: <input type="text" th:field="${kategoriakuukausi.ruokakuukausi}" /></p>
 <p>Vuokra: <input type="text" th:field="${kategoriakuukausi.vuokrakuukausi}" /></p>
 <p>Vapaa-aika: <input type="text" th:field="${kategoriakuukausi.vapaaaikakuukausi}" /></p>

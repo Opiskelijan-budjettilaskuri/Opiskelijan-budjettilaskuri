@@ -1,11 +1,13 @@
 package fi.opiskelijan.budjettilaskuri.domain;
 public class Kategoriakuukausi {
+private int vuosi;
 private String kuukausi;
 private String ruokakuukausi;
 private String vuokrakuukausi;
 private String vapaaaikakuukausi;
 private String vaatteetkuukausi;
-public Kategoriakuukausi(String kuukausi, String ruokakuukausi, String vuokrakuukausi, String vapaaaikakuukausi, String vaatteetkuukausi) {
+public Kategoriakuukausi(int vuosi, String kuukausi, String ruokakuukausi, String vuokrakuukausi, String vapaaaikakuukausi, String vaatteetkuukausi) {
+this.vuosi = vuosi;
 this.kuukausi = kuukausi;
 this.ruokakuukausi = ruokakuukausi;
 this.vuokrakuukausi = vuokrakuukausi;
@@ -13,11 +15,18 @@ this.vapaaaikakuukausi = vapaaaikakuukausi;
 this.vaatteetkuukausi = vaatteetkuukausi;
 }
 public Kategoriakuukausi() {
+this.vuosi = 0;
 this.kuukausi = null;
 this.ruokakuukausi = null;
 this.vuokrakuukausi = null;
 this.vapaaaikakuukausi = null;
 this.vaatteetkuukausi = null;
+}
+public int getVuosi() {
+return vuosi;
+}
+public void setVuosi(int vuosi) {
+this.vuosi = vuosi;
 }
 public String getKuukausi() {
 return kuukausi;
@@ -51,6 +60,6 @@ this.vaatteetkuukausi = vaatteetkuukausi;
 }
 @Override
 public String toString() {
-return this.kuukausi + this.ruokakuukausi + this.vuokrakuukausi + this.vapaaaikakuukausi + this.vaatteetkuukausi;
+return this.vuosi + this.kuukausi + this.ruokakuukausi + this.vuokrakuukausi + this.vapaaaikakuukausi + this.vaatteetkuukausi;
 }
 }

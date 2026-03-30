@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import fi.opiskelijan.budjettilaskuri.domain.Kategoria;
 import fi.opiskelijan.budjettilaskuri.domain.Meno;
@@ -15,38 +14,44 @@ import fi.opiskelijan.budjettilaskuri.repository.MenoRepository;
 import fi.opiskelijan.budjettilaskuri.repository.TuloRepository;
 
 @Configuration
-@Profile("dev")
 public class DataInitializer {
 
     @Bean
     CommandLineRunner initDatabase(MenoRepository menoRepo, TuloRepository tuloRepo, KategoriaRepository kategoriaRepo) {
         return args -> {
 
-            // Kategorioita
-            Kategoria kategoria = new Kategoria();
-            kategoria.setNimi("Viihde");
-            kategoriaRepo.save(kategoria);
+            if (kategoriaRepo.count() > 0 || menoRepo.count() > 0 || tuloRepo.count() > 0) {
+                System.out.println("Tietokanta ei ole tyhjä, testidataa ei lisätty.");
+                return;
+            }
 
-            Kategoria kategoria2 = new Kategoria();
-            kategoria2.setNimi("Ruoka");
-            kategoriaRepo.save(kategoria2);
+            else {
+                // Kategorioita
+                Kategoria kategoria = new Kategoria();
+                kategoria.setNimi("Viihde");
+                kategoriaRepo.save(kategoria);
 
-            // Meno helmikuulle 2026
-            Meno meno = new Meno();
-            meno.setKuvaus("Netflix");
-            meno.setSumma(9.95);
-            meno.setPvm(LocalDate.of(2026, 2, 5));
-            meno.setKategoria(kategoria);
-            menoRepo.save(meno);
+                Kategoria kategoria2 = new Kategoria();
+                kategoria2.setNimi("Ruoka");
+                kategoriaRepo.save(kategoria2);
 
-            // Tulo helmikuulle 2026
-            Tulo tulo = new Tulo();
-            tulo.setKuvaus("Opintotuki");
-            tulo.setMaara(350.0);
-            tulo.setPvm(LocalDate.of(2026, 2, 1));
-            tuloRepo.save(tulo);
+                // Meno helmikuulle 2026
+                Meno meno = new Meno();
+                meno.setKuvaus("Netflix");
+                meno.setSumma(9.95);
+                meno.setPvm(LocalDate.of(2026, 2, 5));
+                meno.setKategoria(kategoria);
+                menoRepo.save(meno);
 
-            System.out.println("Testidata lisätty tietokantaan!");
+                // Tulo helmikuulle 2026
+                Tulo tulo = new Tulo();
+                tulo.setKuvaus("Opintotuki");
+                tulo.setMaara(350.0);
+                tulo.setPvm(LocalDate.of(2026, 2, 1));
+                tuloRepo.save(tulo);
+
+                System.out.println("Testidata lisätty tietokantaan!");
+            }            
         };
     }
 }

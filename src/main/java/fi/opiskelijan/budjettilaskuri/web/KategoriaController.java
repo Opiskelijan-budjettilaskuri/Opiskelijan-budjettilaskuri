@@ -34,5 +34,11 @@ public class KategoriaController {
         return "redirect:/kategoriat";
         
     }
+
+    @PostMapping("/kategoriat/{id}/poista")
+    public String poistaKategoria(@RequestBody Long id) {
+        kategoriaRepository.deleteById(id);
+        return "redirect:/kategoriat";
+    }
     
 }
