@@ -1,12 +1,17 @@
 package fi.opiskelijan.budjettilaskuri.web;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import fi.opiskelijan.budjettilaskuri.domain.Tulo;
-import fi.opiskelijan.budjettilaskuri.domain.TuloRepository;
+import fi.opiskelijan.budjettilaskuri.repository.TuloRepository;
 
 @RestController
 @RequestMapping("/api/tulot")
@@ -18,5 +23,11 @@ public class TuloRestController {
     @GetMapping
     public List<Tulo> getAll() {
         return tuloRepository.findAll();
+    }
+
+    @PostMapping
+    public ResponseEntity<Tulo> lisaaTulo(@RequestBody Tulo tulo) {
+        Tulo tallennettu = tuloRepository.save(tulo);
+        return ResponseEntity.status(201).body(tallennettu);
     }
 }
