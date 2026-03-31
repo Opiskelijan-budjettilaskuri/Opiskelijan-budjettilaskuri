@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { haeKategoriat, lisaaTulo } from "../api/tuloApi";
+import { lisaaMeno } from "../api/menoApi";
 
 function tanaan() {
   return new Date().toISOString().slice(0, 10);
 }
 
 export default function LisaaTapahtuma() {
+  const [aktiivinen, setAktiivinen] = useState("tulo");
+
   const [kuvaus, setKuvaus] = useState("");
   const [maara, setMaara] = useState("");
   const [pvm, setPvm] = useState(tanaan());
@@ -26,6 +29,16 @@ export default function LisaaTapahtuma() {
     return () => { cancelled = true; };
   }, []);
 
+  function vaihdaValilehti(lehti) {
+    setAktiivinen(lehti);
+    setVirhe("");
+    setOnnistui(false);
+    setKuvaus("");
+    setMaara("");
+    setPvm(tanaan());
+    setKategoriaId("");
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setVirhe("");
@@ -35,14 +48,15 @@ export default function LisaaTapahtuma() {
     if (!kuvaus.trim()) { setVirhe("Kuvaus on pakollinen."); return; }
     if (isNaN(maaraNum) || maaraNum <= 0) { setVirhe("Määrän on oltava positiivinen luku."); return; }
 
+    const kategoria = kategoriaId ? { id: Number(kategoriaId) } : null;
+
     setLahettaa(true);
     try {
-      await lisaaTulo({
-        kuvaus: kuvaus.trim(),
-        maara: maaraNum,
-        pvm,
-        kategoria: kategoriaId ? { id: Number(kategoriaId) } : null,
-      });
+      if (aktiivinen === "tulo") {
+        await lisaaTulo({ kuvaus: kuvaus.trim(), maara: maaraNum, pvm, kategoria });
+      } else {
+        await lisaaMeno({ kuvaus: kuvaus.trim(), summa: maaraNum, pvm, kategoria });
+      }
       setOnnistui(true);
       setKuvaus("");
       setMaara("");
@@ -57,7 +71,25 @@ export default function LisaaTapahtuma() {
 
   return (
     <div>
-      <h1>Lisää tulo</h1>
+      <h1>Lisää tapahtuma</h1>
+
+      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+        <button
+          type="button"
+          onClick={() => vaihdaValilehti("tulo")}
+          style={{ fontWeight: aktiivinen === "tulo" ? "bold" : "normal" }}
+        >
+          Lisää tulo
+        </button>
+        <button
+          type="button"
+          onClick={() => vaihdaValilehti("meno")}
+          style={{ fontWeight: aktiivinen === "meno" ? "bold" : "normal" }}
+        >
+          Lisää meno
+        </button>
+      </div>
+
       <div className="card">
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: 12 }}>
@@ -106,10 +138,10 @@ export default function LisaaTapahtuma() {
           </div>
 
           {virhe && <p style={{ color: "red" }}>{virhe}</p>}
-          {onnistui && <p style={{ color: "green" }}>Tulo lisätty!</p>}
+          {onnistui && <p style={{ color: "green" }}>{aktiivinen === "tulo" ? "Tulo" : "Meno"} lisätty!</p>}
 
           <button type="submit" disabled={lahettaa}>
-            {lahettaa ? "Tallennetaan..." : "Lisää tulo"}
+            {lahettaa ? "Tallennetaan..." : aktiivinen === "tulo" ? "Lisää tulo" : "Lisää meno"}
           </button>
         </form>
       </div>
