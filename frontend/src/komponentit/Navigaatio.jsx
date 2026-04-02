@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const linkStyle = ({ isActive }) => ({
+export const linkStyle = ({ isActive }) => ({
   textDecoration: "none",
   fontWeight: isActive ? 700 : 500,
   padding: "8px 10px",
