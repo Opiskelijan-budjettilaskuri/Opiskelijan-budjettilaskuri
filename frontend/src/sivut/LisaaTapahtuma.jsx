@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { haeKategoriat, lisaaTulo } from "../api/tuloApi";
 import { lisaaMeno } from "../api/menoApi";
 
-function tanaan() {
+export function tanaan() {
   return new Date().toISOString().slice(0, 10);
 }
 
