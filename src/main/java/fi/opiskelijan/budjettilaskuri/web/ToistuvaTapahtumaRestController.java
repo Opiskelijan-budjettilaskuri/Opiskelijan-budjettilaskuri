@@ -1,4 +1,4 @@
-package main.java.fi.opiskelijan.budjettilaskuri.web;
+package fi.opiskelijan.budjettilaskuri.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
