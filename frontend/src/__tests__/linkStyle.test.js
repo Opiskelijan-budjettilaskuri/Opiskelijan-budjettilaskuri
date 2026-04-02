@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { linkStyle } from "../komponentit/Navigaatio";
+import { linkStyle } from "../utils/linkStyle";
 
 describe("linkStyle()", () => {
   it("palauttaa lihavoinnin ja taustavärin kun linkki on aktiivinen", () => {

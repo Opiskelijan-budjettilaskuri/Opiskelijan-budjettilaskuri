@@ -1,12 +1,5 @@
 import { NavLink } from "react-router-dom";
-
-export const linkStyle = ({ isActive }) => ({
-  textDecoration: "none",
-  fontWeight: isActive ? 700 : 500,
-  padding: "8px 10px",
-  borderRadius: 8,
-  background: isActive ? "#eef2ff" : "transparent",// isActive -> Onko linkki aktiivinen
-});
+import { linkStyle } from "../utils/linkStyle";
 
 // Navigaatio-komponentti, navigoi sivujen välillä, näkyy kaikilla sivuilla
 export function Navigaatio() {
