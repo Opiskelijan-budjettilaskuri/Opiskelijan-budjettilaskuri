@@ -1,4 +1,4 @@
-package main.java.fi.opiskelijan.budjettilaskuri.domain;
+package fi.opiskelijan.budjettilaskuri.domain;
 
 import java.time.LocalDate;
 

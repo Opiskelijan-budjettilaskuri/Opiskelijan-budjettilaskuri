@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { haeYhteenveto } from "../api/yhteenvetoApi";
 
-function nykyinenKuukausi() {
+export function nykyinenKuukausi() {
   const d = new Date();
   const yyyy = d.getFullYear();
   const mm = String(d.getMonth() + 1).padStart(2, "0");
