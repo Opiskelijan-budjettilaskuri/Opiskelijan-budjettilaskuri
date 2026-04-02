@@ -6,6 +6,6 @@ export async function lisaaMeno(data) {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data),
     });
-    if (!response.ok) throw new Error((await response.text()) || `Virhe: ${res.status}`);
-        return res.json();
+    if (!response.ok) throw new Error((await response.text()) || `Virhe: ${response.status}`);
+        return response.json();
     }
