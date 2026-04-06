@@ -6,13 +6,11 @@ import { nykyinenKuukausi } from "../utils/pvm";
 export default function Tapahtumat() {
   const [kuukausi, setKuukausi] = useState(nykyinenKuukausi());
   const [tapahtumat, setTapahtumat] = useState([]);
-  const [lataa, setLataa] = useState(false);
+  const [lataa, setLataa] = useState(true);
   const [virhe, setVirhe] = useState("");
 
   useEffect(() => {
     let cancelled = false;
-    setLataa(true);
-    setVirhe("");
     Promise.all([haeTulot(), haeMenot()])
       .then(([tulot, menot]) => {
         if (cancelled) return;
