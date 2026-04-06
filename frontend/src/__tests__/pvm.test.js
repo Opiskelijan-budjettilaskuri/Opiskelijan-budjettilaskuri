@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { tanaan } from "../sivut/LisaaTapahtuma";
-import { nykyinenKuukausi } from "../sivut/Yhteenveto";
+import { tanaan, nykyinenKuukausi } from "../utils/pvm";
 
 describe("tanaan()", () => {
   it("palauttaa merkkijonon muodossa YYYY-MM-DD", () => {

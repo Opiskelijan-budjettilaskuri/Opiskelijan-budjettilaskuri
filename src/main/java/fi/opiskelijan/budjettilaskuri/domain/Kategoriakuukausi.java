@@ -2,11 +2,11 @@ package fi.opiskelijan.budjettilaskuri.domain;
 public class Kategoriakuukausi {
 private int vuosi;
 private String kuukausi;
-private String ruokakuukausi;
-private String vuokrakuukausi;
-private String vapaaaikakuukausi;
-private String vaatteetkuukausi;
-public Kategoriakuukausi(int vuosi, String kuukausi, String ruokakuukausi, String vuokrakuukausi, String vapaaaikakuukausi, String vaatteetkuukausi) {
+private double ruokakuukausi;
+private double vuokrakuukausi;
+private double vapaaaikakuukausi;
+private double vaatteetkuukausi;
+public Kategoriakuukausi(int vuosi, String kuukausi, double ruokakuukausi, double vuokrakuukausi, double vapaaaikakuukausi, double vaatteetkuukausi) {
 this.vuosi = vuosi;
 this.kuukausi = kuukausi;
 this.ruokakuukausi = ruokakuukausi;
@@ -17,10 +17,10 @@ this.vaatteetkuukausi = vaatteetkuukausi;
 public Kategoriakuukausi() {
 this.vuosi = 0;
 this.kuukausi = null;
-this.ruokakuukausi = null;
-this.vuokrakuukausi = null;
-this.vapaaaikakuukausi = null;
-this.vaatteetkuukausi = null;
+this.ruokakuukausi = 0;
+this.vuokrakuukausi = 0;
+this.vapaaaikakuukausi = 0;
+this.vaatteetkuukausi = 0;
 }
 public int getVuosi() {
 return vuosi;
@@ -37,25 +37,25 @@ this.kuukausi = kuukausi;
 public String getRuokakuukausi() {
 return ruokakuukausi;
 }
-public void setRuokakuukausi(String ruokakuukausi) {
+public void setRuokakuukausi(double ruokakuukausi) {
 this.ruokakuukausi = ruokakuukausi;
 }
 public String getVuokrakuukausi() {
 return vuokrakuukausi;
 }
-public void setVuokrakuukausi(String vuokrakuukausi) {
+public void setVuokrakuukausi (double vuokrakuukausi) {
 this.vuokrakuukausi = vuokrakuukausi;
 }
 public String getVapaaaikakuukausi() {
 return vapaaaikakuukausi;
 }
-public void setVapaaaikakuukausi(String vapaaaikakuukausi) {
+public void setVapaaaikakuukausi(double vapaaaikakuukausi) {
 this.vapaaaikakuukausi = vapaaaikakuukausi;
 }
 public String getVaatteetkuukausi() {
 return vaatteetkuukausi;
 }
-public void setVaatteetkuukausi(String vaatteetkuukausi) {
+public void setVaatteetkuukausi(double vaatteetkuukausi) {
 this.vaatteetkuukausi = vaatteetkuukausi;
 }
 @Override

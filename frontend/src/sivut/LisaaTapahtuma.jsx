@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { haeKategoriat, lisaaTulo } from "../api/tuloApi";
 import { lisaaMeno } from "../api/menoApi";
-
-export function tanaan() {
-  return new Date().toISOString().slice(0, 10);
-}
+import { tanaan } from "../utils/pvm";
 
 export default function LisaaTapahtuma() {
   const [aktiivinen, setAktiivinen] = useState("tulo");
