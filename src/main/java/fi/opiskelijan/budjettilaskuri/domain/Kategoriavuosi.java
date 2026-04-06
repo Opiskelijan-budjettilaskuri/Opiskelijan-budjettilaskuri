@@ -1,11 +1,11 @@
 package fi.opiskelijan.budjettilaskuri.domain;
 public class Kategoriavuosi {
 private int vuosi;
-private String ruokavuosi;
-private String vuokravuosi;
-private String vapaaaikavuosi;
-private String vaatteetvuosi;
-public Kategoriavuosi(int vuosi, String ruokavuosi, String vuokravuosi, String vapaaaikavuosi, String vaatteetvuosi) {
+private double ruokavuosi;
+private double vuokravuosi;
+private double vapaaaikavuosi;
+private double vaatteetvuosi;
+public Kategoriavuosi(int vuosi, double ruokavuosi, double vuokravuosi, double vapaaaikavuosi, double vaatteetvuosi) {
 this.vuosi = vuosi;
 this.ruokavuosi = ruokavuosi;
 this.vuokravuosi = vuokravuosi;
@@ -14,10 +14,10 @@ this.vaatteetvuosi = vaatteetvuosi;
 }
 public Kategoriavuosi() {
 this.vuosi = 0;
-this.ruokavuosi = null;
-this.vuokravuosi = null;
-this.vapaaaikavuosi = null;
-this.vaatteetvuosi = null;
+this.ruokavuosi = 0;
+this.vuokravuosi = 0;
+this.vapaaaikavuosi = 0;
+this.vaatteetvuosi = 0;
 }
 public int getVuosi() {
 return vuosi;
@@ -28,25 +28,25 @@ this.vuosi = vuosi;
 public String getRuokavuosi() {
 return ruokavuosi;
 }
-public void setRuokavuosi(String ruokavuosi) {
+public void setRuokavuosi(double ruokavuosi) {
 this.ruokavuosi = ruokavuosi;
 }
 public String getVuokravuosi() {
 return vuokravuosi;
 }
-public void setVuokravuosi(String vuokravuosi) {
+public void setVuokravuosi(double vuokravuosi) {
 this.vuokravuosi = vuokravuosi;
 }
 public String getVapaaaikavuosi() {
 return vapaaaikavuosi;
 }
-public void setVapaaaikavuosi(String vapaaaikavuosi) {
+public void setVapaaaikavuosi(double vapaaaikavuosi) {
 this.vapaaaikavuosi = vapaaaikavuosi;
 }
 public String getVaatteetvuosi() {
 return vaatteetvuosi;
 }
-public void setVaatteetvuosi(String vaatteetvuosi) {
+public void setVaatteetvuosi(double vaatteetvuosi) {
 this.vaatteetvuosi = vaatteetvuosi;
 }
 @Override
