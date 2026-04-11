@@ -34,25 +34,25 @@ return kuukausi;
 public void setKuukausi(String kuukausi) {
 this.kuukausi = kuukausi;
 }
-public String getRuokakuukausi() {
+public Double getRuokakuukausi() {
 return ruokakuukausi;
 }
 public void setRuokakuukausi(double ruokakuukausi) {
 this.ruokakuukausi = ruokakuukausi;
 }
-public String getVuokrakuukausi() {
+public Double getVuokrakuukausi() {
 return vuokrakuukausi;
 }
 public void setVuokrakuukausi (double vuokrakuukausi) {
 this.vuokrakuukausi = vuokrakuukausi;
 }
-public String getVapaaaikakuukausi() {
+public Double getVapaaaikakuukausi() {
 return vapaaaikakuukausi;
 }
 public void setVapaaaikakuukausi(double vapaaaikakuukausi) {
 this.vapaaaikakuukausi = vapaaaikakuukausi;
 }
-public String getVaatteetkuukausi() {
+public Double getVaatteetkuukausi() {
 return vaatteetkuukausi;
 }
 public void setVaatteetkuukausi(double vaatteetkuukausi) {
