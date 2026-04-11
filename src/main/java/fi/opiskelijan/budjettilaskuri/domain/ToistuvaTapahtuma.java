@@ -40,6 +40,25 @@ public class ToistuvaTapahtuma {
 
     public ToistuvaTapahtuma() {}
 
+    public ToistuvaTapahtuma(long id, String kuvaus, double summa, String tyyppi, String toistuvuus,
+            int aloitusVuosi, int aloitusKuukausi, int aloitusPaiva,
+            int lopetusVuosi, int lopetusKuukausi, int lopetusPaiva,
+            int viimeksiLuotuVuosi, int viimeksiLuotuKuukausi, int viimeksiLuotuPaiva,
+            boolean aktiivinen, long kategoriaId) {
+        this.id = id;
+        this.kuvaus = kuvaus;
+        this.summa = summa;
+        this.tyyppi = tyyppi;
+        this.toistuvuus = toistuvuus;
+        this.aloitusPvm = LocalDate.of(aloitusVuosi, aloitusKuukausi, aloitusPaiva);
+        this.lopetusPvm = LocalDate.of(lopetusVuosi, lopetusKuukausi, lopetusPaiva);
+        this.viimeksiLuotuPvm = LocalDate.of(viimeksiLuotuVuosi, viimeksiLuotuKuukausi, viimeksiLuotuPaiva);
+        this.aktiivinen = aktiivinen;
+        Kategoria k = new Kategoria();
+        k.setId(kategoriaId);
+        this.kategoria = k;
+    }
+
     public Long getId() { return id; }
     public String getKuvaus() { return kuvaus; }
     public Double getSumma() { return summa; }
@@ -49,6 +68,7 @@ public class ToistuvaTapahtuma {
     public LocalDate getLopetusPvm() { return lopetusPvm; }
     public LocalDate getViimeksiLuotuPvm() { return viimeksiLuotuPvm; }
     public boolean isAktiivinen() { return aktiivinen; }
+    public boolean getAktiivinen() { return aktiivinen; }
     public Kategoria getKategoria() { return kategoria; }
 
     public void setId(Long id) { this.id = id; }
