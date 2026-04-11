@@ -18,7 +18,7 @@ public class Meno {
     private Long id;
 
     private String kuvaus;
-    private Double summa;
+    private Double maara;
     private LocalDate pvm;
 
     @ManyToOne
@@ -32,11 +32,11 @@ public class Meno {
 
     public Long getId() { return id; }
     public String getKuvaus() { return kuvaus; }
-    public Double getSumma() { return summa; }
+    public Double getMaara() { return maara; }
     public LocalDate getPvm() { return pvm; }
 
     public void setId(Long id) { this.id = id; }
     public void setKuvaus(String kuvaus) { this.kuvaus = kuvaus; }
-    public void setSumma(Double summa) { this.summa = summa; }
+    public void setMaara(Double maara) { this.maara = maara; }
     public void setPvm(LocalDate pvm) {this.pvm = pvm;}
 }

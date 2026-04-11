@@ -3,8 +3,11 @@ import { haeKategoriat, lisaaTulo } from "../api/tuloApi";
 import { lisaaMeno } from "../api/menoApi";
 import { tanaan } from "../utils/pvm";
 
+const TULO = "tulo";
+const MENO = "meno";
+
 export default function LisaaTapahtuma() {
-  const [aktiivinen, setAktiivinen] = useState("tulo");
+  const [aktiivinen, setAktiivinen] = useState(TULO);
 
   const [kuvaus, setKuvaus] = useState("");
   const [maara, setMaara] = useState("");
@@ -49,10 +52,10 @@ export default function LisaaTapahtuma() {
 
     setLahettaa(true);
     try {
-      if (aktiivinen === "tulo") {
+      if (aktiivinen === TULO) {
         await lisaaTulo({ kuvaus: kuvaus.trim(), maara: maaraNum, pvm, kategoria });
       } else {
-        await lisaaMeno({ kuvaus: kuvaus.trim(), summa: maaraNum, pvm, kategoria });
+        await lisaaMeno({ kuvaus: kuvaus.trim(), maara: maaraNum, pvm, kategoria });
       }
       setOnnistui(true);
       setKuvaus("");
@@ -73,15 +76,15 @@ export default function LisaaTapahtuma() {
       <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
         <button
           type="button"
-          onClick={() => vaihdaValilehti("tulo")}
-          style={{ fontWeight: aktiivinen === "tulo" ? "bold" : "normal" }}
+          onClick={() => vaihdaValilehti(TULO)}
+          style={{ fontWeight: aktiivinen === TULO ? "bold" : "normal" }}
         >
           Lisää tulo
         </button>
         <button
           type="button"
-          onClick={() => vaihdaValilehti("meno")}
-          style={{ fontWeight: aktiivinen === "meno" ? "bold" : "normal" }}
+          onClick={() => vaihdaValilehti(MENO)}
+          style={{ fontWeight: aktiivinen === MENO ? "bold" : "normal" }}
         >
           Lisää meno
         </button>
@@ -135,10 +138,10 @@ export default function LisaaTapahtuma() {
           </div>
 
           {virhe && <p style={{ color: "red" }}>{virhe}</p>}
-          {onnistui && <p style={{ color: "green" }}>{aktiivinen === "tulo" ? "Tulo" : "Meno"} lisätty!</p>}
+          {onnistui && <p style={{ color: "green" }}>{aktiivinen === TULO ? "Tulo" : "Meno"} lisätty!</p>}
 
           <button type="submit" disabled={lahettaa}>
-            {lahettaa ? "Tallennetaan..." : aktiivinen === "tulo" ? "Lisää tulo" : "Lisää meno"}
+            {lahettaa ? "Tallennetaan..." : aktiivinen === TULO ? "Lisää tulo" : "Lisää meno"}
           </button>
         </form>
       </div>
