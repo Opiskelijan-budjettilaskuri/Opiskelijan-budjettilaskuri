@@ -55,7 +55,7 @@ export default function LisaaTapahtuma() {
       if (aktiivinen === TULO) {
         await lisaaTulo({ kuvaus: kuvaus.trim(), maara: maaraNum, pvm, kategoria });
       } else {
-        await lisaaMeno({ kuvaus: kuvaus.trim(), maara: maaraNum, pvm, kategoria });
+        await lisaaMeno({ kuvaus: kuvaus.trim(), summa: maaraNum, pvm, kategoria });
       }
       setOnnistui(true);
       setKuvaus("");
