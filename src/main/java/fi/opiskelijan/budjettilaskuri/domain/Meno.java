@@ -2,6 +2,7 @@ package fi.opiskelijan.budjettilaskuri.domain;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class Meno {
 
     private String kuvaus;
     private Double summa;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate pvm;
 
     @ManyToOne

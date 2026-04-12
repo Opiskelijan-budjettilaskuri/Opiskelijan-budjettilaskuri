@@ -21,7 +21,7 @@ public class Kategoria {
         this.nimi = nimi;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

@@ -28,6 +28,9 @@ export function Navigaatio() {
           <NavLink to="/lisaa-tapahtuma" style={linkStyle}>
             Lisää tapahtuma
           </NavLink>
+          <NavLink to="/toistuvat" style={linkStyle}>
+            Toistuvat
+          </NavLink>
         </nav>
       </div>
     </header>

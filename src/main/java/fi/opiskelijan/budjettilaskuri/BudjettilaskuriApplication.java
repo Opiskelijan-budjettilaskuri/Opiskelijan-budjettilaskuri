@@ -24,7 +24,7 @@ public class BudjettilaskuriApplication {
                             "http://localhost:5173",
                             "https://opiskelijan-budjettilaskuri.onrender.com"
                         )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE");
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE");
             }
         };
     }

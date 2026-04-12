@@ -2,6 +2,7 @@ package fi.opiskelijan.budjettilaskuri.domain;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,6 +39,7 @@ public class ToistuvaTapahtuma {
     @JoinColumn(name = "kategoria_id")
     private Kategoria kategoria;
 
+    @JsonCreator
     public ToistuvaTapahtuma() {}
 
     public ToistuvaTapahtuma(long id, String kuvaus, double summa, String tyyppi, String toistuvuus,
