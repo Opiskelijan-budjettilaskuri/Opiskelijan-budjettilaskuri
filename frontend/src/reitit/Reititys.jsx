@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom'; //Sivunavigointi
 
-import Yhteenveto from '../sivut/Yhteenveto';
-import Tapahtumat from '../sivut/Tapahtumat';
-import LisaaTapahtuma from '../sivut/LisaaTapahtuma';
-import Toistuvat from '../sivut/Toistuvat';
+import yhteenveto from '../sivut/yhteenveto';
+import tapahtumat from '../sivut/tapahtumat';
+import lisaaTapahtuma from '../sivut/lisaaTapahtuma';
+import toistuvat from '../sivut/toistuvat';
 
 // Valitaan näytettävä sivu URL:n perusteella
 export default function Reititys() {
