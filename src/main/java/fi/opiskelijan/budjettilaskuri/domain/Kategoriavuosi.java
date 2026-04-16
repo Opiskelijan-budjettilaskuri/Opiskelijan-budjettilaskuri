@@ -52,10 +52,6 @@ this.vaatteetvuosi = vaatteetvuosi;
 }
 @Override
 public String toString() {
-<<<<<<< HEAD
 return this.vuosi + " " + this.ruokavuosi + " " + this.vuokravuosi + " " + this.vapaaaikavuosi + " " + this.vaatteetvuosi;
-=======
-return String.valueOf(this.vuosi) + this.ruokavuosi + this.vuokravuosi + this.vapaaaikavuosi + this.vaatteetvuosi;
->>>>>>> main
 }
 }
