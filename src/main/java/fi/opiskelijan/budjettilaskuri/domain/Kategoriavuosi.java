@@ -1,4 +1,5 @@
 package fi.opiskelijan.budjettilaskuri.domain;
+
 public class Kategoriavuosi {
 private int vuosi;
 private double ruokavuosi;
@@ -25,25 +26,25 @@ return vuosi;
 public void setVuosi(int vuosi) {
 this.vuosi = vuosi;
 }
-public String getRuokavuosi() {
+public double getRuokavuosi() {
 return ruokavuosi;
 }
 public void setRuokavuosi(double ruokavuosi) {
 this.ruokavuosi = ruokavuosi;
 }
-public String getVuokravuosi() {
+public double getVuokravuosi() {
 return vuokravuosi;
 }
 public void setVuokravuosi(double vuokravuosi) {
 this.vuokravuosi = vuokravuosi;
 }
-public String getVapaaaikavuosi() {
+public double getVapaaaikavuosi() {
 return vapaaaikavuosi;
 }
 public void setVapaaaikavuosi(double vapaaaikavuosi) {
 this.vapaaaikavuosi = vapaaaikavuosi;
 }
-public String getVaatteetvuosi() {
+public double getVaatteetvuosi() {
 return vaatteetvuosi;
 }
 public void setVaatteetvuosi(double vaatteetvuosi) {
@@ -51,6 +52,6 @@ this.vaatteetvuosi = vaatteetvuosi;
 }
 @Override
 public String toString() {
-return this.vuosi + this.ruokavuosi + this.vuokravuosi + this.vapaaaikavuosi + this.vaatteetvuosi;
+return this.vuosi + " " + this.ruokavuosi + " " + this.vuokravuosi + " " + this.vapaaaikavuosi + " " + this.vaatteetvuosi;
 }
 }
