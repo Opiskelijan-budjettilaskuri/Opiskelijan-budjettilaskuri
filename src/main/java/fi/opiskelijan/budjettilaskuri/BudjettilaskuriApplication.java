@@ -20,11 +20,9 @@ public class BudjettilaskuriApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins(
-                            "http://localhost:5173",
-                            "https://opiskelijan-budjettilaskuri.onrender.com"
-                        )
-                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE");
+                        .allowedOriginPatterns("*")
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                        .allowedHeaders("*");
             }
         };
     }
