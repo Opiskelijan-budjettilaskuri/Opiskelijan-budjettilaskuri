@@ -13,8 +13,13 @@ export default function Tapahtumat() {
 
   useEffect(() => {
     let cancelled = false;
+<<<<<<< HEAD
+    Promise.all([haeTulot(), haeMenot()])
+      .then(([tulot, menot]) => {
+=======
     Promise.all([haeTulot(), haeMenot(), haeToistuvat()])
       .then(([tulot, menot, toistuvat]) => {
+>>>>>>> main
         if (cancelled) return;
         const yhdistetty = [
           ...tulot.map((t) => ({
