@@ -1,10 +1,21 @@
 import { useState, useEffect } from "react";
 import { haeKategoriat, lisaaTulo } from "../api/tuloApi";
 import { lisaaMeno } from "../api/menoApi";
+import { lisaaToistuva } from "../api/toistuvaApi";
 import { tanaan } from "../utils/pvm";
 
+const TULO = "tulo";
+const MENO = "meno";
+
+const TOISTUVUUS_VAIHTOEHDOT = [
+  "päivittäin",
+  "viikoittain",
+  "kuukausittain",
+  "vuosittain",
+];
+
 export default function LisaaTapahtuma() {
-  const [aktiivinen, setAktiivinen] = useState("tulo");
+  const [aktiivinen, setAktiivinen] = useState(TULO);
 
   const [kuvaus, setKuvaus] = useState("");
   const [maara, setMaara] = useState("");
@@ -15,6 +26,11 @@ export default function LisaaTapahtuma() {
   const [lahettaa, setLahettaa] = useState(false);
   const [virhe, setVirhe] = useState("");
   const [onnistui, setOnnistui] = useState(false);
+
+  const [toistuva, setToistuva] = useState(false);
+  const [toistuvuus, setToistuvuus] = useState("kuukausittain");
+  const [aloitusPvm, setAloitusPvm] = useState(tanaan());
+  const [lopetusPvm, setLopetusPvm] = useState("");
 
   useEffect(() => {
     let cancelled = false;
@@ -34,6 +50,10 @@ export default function LisaaTapahtuma() {
     setMaara("");
     setPvm(tanaan());
     setKategoriaId("");
+    setToistuva(false);
+    setToistuvuus("kuukausittain");
+    setAloitusPvm(tanaan());
+    setLopetusPvm("");
   }
 
   async function handleSubmit(e) {
@@ -44,12 +64,23 @@ export default function LisaaTapahtuma() {
     const maaraNum = parseFloat(maara);
     if (!kuvaus.trim()) { setVirhe("Kuvaus on pakollinen."); return; }
     if (isNaN(maaraNum) || maaraNum <= 0) { setVirhe("Määrän on oltava positiivinen luku."); return; }
+    if (toistuva && !aloitusPvm) { setVirhe("Aloituspäivämäärä on pakollinen."); return; }
 
     const kategoria = kategoriaId ? { id: Number(kategoriaId) } : null;
 
     setLahettaa(true);
     try {
-      if (aktiivinen === "tulo") {
+      if (toistuva) {
+        await lisaaToistuva({
+          kuvaus: kuvaus.trim(),
+          summa: maaraNum,
+          tyyppi: aktiivinen,
+          toistuvuus,
+          aloitusPvm,
+          ...(lopetusPvm ? { lopetusPvm } : {}),
+          ...(kategoriaId ? { kategoria: { id: Number(kategoriaId) } } : {}),
+        });
+      } else if (aktiivinen === TULO) {
         await lisaaTulo({ kuvaus: kuvaus.trim(), maara: maaraNum, pvm, kategoria });
       } else {
         await lisaaMeno({ kuvaus: kuvaus.trim(), summa: maaraNum, pvm, kategoria });
@@ -59,6 +90,8 @@ export default function LisaaTapahtuma() {
       setMaara("");
       setPvm(tanaan());
       setKategoriaId("");
+      setAloitusPvm(tanaan());
+      setLopetusPvm("");
     } catch (err) {
       setVirhe(err.message || "Tallennus epäonnistui.");
     } finally {
@@ -73,15 +106,15 @@ export default function LisaaTapahtuma() {
       <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
         <button
           type="button"
-          onClick={() => vaihdaValilehti("tulo")}
-          style={{ fontWeight: aktiivinen === "tulo" ? "bold" : "normal" }}
+          onClick={() => vaihdaValilehti(TULO)}
+          style={{ fontWeight: aktiivinen === TULO ? "bold" : "normal" }}
         >
           Lisää tulo
         </button>
         <button
           type="button"
-          onClick={() => vaihdaValilehti("meno")}
-          style={{ fontWeight: aktiivinen === "meno" ? "bold" : "normal" }}
+          onClick={() => vaihdaValilehti(MENO)}
+          style={{ fontWeight: aktiivinen === MENO ? "bold" : "normal" }}
         >
           Lisää meno
         </button>
@@ -112,13 +145,62 @@ export default function LisaaTapahtuma() {
           </div>
 
           <div style={{ marginBottom: 12 }}>
-            <label style={{ display: "block", marginBottom: 4 }}>Päivämäärä</label>
-            <input
-              type="date"
-              value={pvm}
-              onChange={(e) => setPvm(e.target.value)}
-            />
+            <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
+              <input
+                type="checkbox"
+                checked={toistuva}
+                onChange={(e) => setToistuva(e.target.checked)}
+              />
+              Toistuva
+            </label>
           </div>
+
+          {!toistuva && (
+            <div style={{ marginBottom: 12 }}>
+              <label style={{ display: "block", marginBottom: 4 }}>Päivämäärä</label>
+              <input
+                type="date"
+                value={pvm}
+                onChange={(e) => setPvm(e.target.value)}
+              />
+            </div>
+          )}
+
+          {toistuva && (
+            <>
+              <div style={{ marginBottom: 12 }}>
+                <label style={{ display: "block", marginBottom: 4 }}>Toistuvuus</label>
+                <select
+                  value={toistuvuus}
+                  onChange={(e) => setToistuvuus(e.target.value)}
+                >
+                  {TOISTUVUUS_VAIHTOEHDOT.map((v) => (
+                    <option key={v} value={v}>{v}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div style={{ marginBottom: 12 }}>
+                <label style={{ display: "block", marginBottom: 4 }}>Aloituspäivämäärä</label>
+                <input
+                  type="date"
+                  value={aloitusPvm}
+                  onChange={(e) => setAloitusPvm(e.target.value)}
+                />
+              </div>
+
+              <div style={{ marginBottom: 12 }}>
+                <label style={{ display: "block", marginBottom: 4 }}>
+                  Lopetuspäivämäärä <span style={{ color: "gray", fontSize: "0.9em" }}>(valinnainen)</span>
+                </label>
+                <input
+                  type="date"
+                  value={lopetusPvm}
+                  onChange={(e) => setLopetusPvm(e.target.value)}
+                />
+              </div>
+            </>
+          )}
 
           <div style={{ marginBottom: 16 }}>
             <label style={{ display: "block", marginBottom: 4 }}>Kategoria</label>
@@ -135,10 +217,24 @@ export default function LisaaTapahtuma() {
           </div>
 
           {virhe && <p style={{ color: "red" }}>{virhe}</p>}
-          {onnistui && <p style={{ color: "green" }}>{aktiivinen === "tulo" ? "Tulo" : "Meno"} lisätty!</p>}
+          {onnistui && (
+            <p style={{ color: "green" }}>
+              {toistuva
+                ? `Toistuva ${aktiivinen === TULO ? "tulo" : "meno"} lisätty!`
+                : aktiivinen === TULO
+                ? "Tulo lisätty!"
+                : "Meno lisätty!"}
+            </p>
+          )}
 
           <button type="submit" disabled={lahettaa}>
-            {lahettaa ? "Tallennetaan..." : aktiivinen === "tulo" ? "Lisää tulo" : "Lisää meno"}
+            {lahettaa
+              ? "Tallennetaan..."
+              : toistuva
+              ? `Lisää toistuva ${aktiivinen === TULO ? "tulo" : "meno"}`
+              : aktiivinen === TULO
+              ? "Lisää tulo"
+              : "Lisää meno"}
           </button>
         </form>
       </div>

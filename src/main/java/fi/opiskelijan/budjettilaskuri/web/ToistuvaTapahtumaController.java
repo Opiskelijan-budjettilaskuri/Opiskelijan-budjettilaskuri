@@ -26,7 +26,7 @@ public class ToistuvaTapahtumaController {
         return "lisaa-toistuva";
     }
 
-    @PostMapping("/api/toistuvat")
+    @PostMapping("/toistuvat")
     public String lisaaToistuva(@ModelAttribute ToistuvaTapahtuma toistuva) {
         toistuvaRepository.save(toistuva);
         return "redirect:/toistuvat";

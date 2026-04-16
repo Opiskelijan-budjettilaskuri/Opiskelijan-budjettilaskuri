@@ -30,7 +30,7 @@ public class MenoController {
         return "lisaa-meno";
     }
 
-    @PostMapping("/api/menot")
+    @PostMapping("/menot")
     public String lisaaMeno(@ModelAttribute Meno meno) {
         menoRepository.save(meno);
         return "redirect:/menot";

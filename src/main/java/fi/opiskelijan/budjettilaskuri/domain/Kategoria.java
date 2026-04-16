@@ -16,7 +16,12 @@ public class Kategoria {
     
     public Kategoria() {}
 
-    public long getId() {
+    public Kategoria(long id, String nimi) {
+        this.id = id;
+        this.nimi = nimi;
+    }
+
+    public Long getId() {
         return id;
     }
 

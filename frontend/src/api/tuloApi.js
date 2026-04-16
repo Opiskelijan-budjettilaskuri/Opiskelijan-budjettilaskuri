@@ -21,3 +21,8 @@ export async function lisaaTulo(data) {
   if (!res.ok) throw new Error((await res.text()) || `Virhe: ${res.status}`);
   return res.json();
 }
+
+export async function poistaTulo(id) {
+  const res = await fetch(`${API_BASE}/api/tulot/${id}`, { method: "DELETE" });
+  if (!res.ok) throw new Error((await res.text()) || `Virhe: ${res.status}`);
+}
