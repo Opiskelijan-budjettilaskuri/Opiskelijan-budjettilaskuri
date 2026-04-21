@@ -5,20 +5,36 @@ import java.time.LocalDate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import fi.opiskelijan.budjettilaskuri.domain.Kategoria;
+import fi.opiskelijan.budjettilaskuri.domain.Kayttaja;
 import fi.opiskelijan.budjettilaskuri.domain.Meno;
 import fi.opiskelijan.budjettilaskuri.domain.Tulo;
 import fi.opiskelijan.budjettilaskuri.repository.KategoriaRepository;
 import fi.opiskelijan.budjettilaskuri.repository.MenoRepository;
 import fi.opiskelijan.budjettilaskuri.repository.TuloRepository;
+import fi.opiskelijan.budjettilaskuri.repository.KayttajaRepository;
 
 @Configuration
 public class DataInitializer {
 
     @Bean
-    CommandLineRunner initDatabase(MenoRepository menoRepo, TuloRepository tuloRepo, KategoriaRepository kategoriaRepo) {
+    CommandLineRunner initDatabase(
+        MenoRepository menoRepo,
+        TuloRepository tuloRepo,
+        KategoriaRepository kategoriaRepo,
+        KayttajaRepository kayttajaRepo,
+        PasswordEncoder passwordEncoder) {
+
         return args -> {
+
+            if (kayttajaRepo.findByUsername("user") != null) {
+                System.out.println("Käyttäjätiedot löytyivät, testikäyttäjää ei luotu uudestaan.");
+            } else {
+                Kayttaja user1 = new Kayttaja("user", passwordEncoder.encode("salasana1"), "user@test.fi");
+                kayttajaRepo.save(user1);
+            }
 
             if (kategoriaRepo.count() > 0 || menoRepo.count() > 0 || tuloRepo.count() > 0) {
                 System.out.println("Tietokanta ei ole tyhjä, testidataa ei lisätty.");
