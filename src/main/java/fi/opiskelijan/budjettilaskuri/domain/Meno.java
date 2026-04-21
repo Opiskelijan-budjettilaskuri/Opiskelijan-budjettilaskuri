@@ -29,6 +29,13 @@ public class Meno {
 
     public Meno() {}
 
+    @ManyToOne
+    @JoinColumn(name = "kayttaja_id")
+    private Kayttaja kayttaja;
+
+    public Kayttaja getKayttaja() { return kayttaja; }
+    public void setKayttaja(Kayttaja kayttaja) { this.kayttaja = kayttaja; }
+
     public Kategoria getKategoria() { return kategoria; }
     public void setKategoria(Kategoria kategoria) { this.kategoria = kategoria; }
 
@@ -41,4 +48,6 @@ public class Meno {
     public void setKuvaus(String kuvaus) { this.kuvaus = kuvaus; }
     public void setSumma(Double summa) { this.summa = summa; }
     public void setPvm(LocalDate pvm) {this.pvm = pvm;}
+
+
 }
