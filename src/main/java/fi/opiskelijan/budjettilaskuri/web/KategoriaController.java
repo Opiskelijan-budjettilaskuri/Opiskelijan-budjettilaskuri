@@ -3,7 +3,10 @@ package fi.opiskelijan.budjettilaskuri.web;
 import java.util.List;
 
 import fi.opiskelijan.budjettilaskuri.domain.Kategoria;
+import fi.opiskelijan.budjettilaskuri.domain.Kayttaja;
 import fi.opiskelijan.budjettilaskuri.repository.KategoriaRepository;
+import fi.opiskelijan.budjettilaskuri.repository.KayttajaRepository;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +18,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class KategoriaController {
 
     private final KategoriaRepository kategoriaRepository;
+    private final KayttajaRepository kayttajaRepository;
 
-    KategoriaController(KategoriaRepository kategoriaRepository) {
+    KategoriaController(KategoriaRepository kategoriaRepository, KayttajaRepository kayttajaRepository) {
         this.kategoriaRepository = kategoriaRepository;
+        this.kayttajaRepository = kayttajaRepository;
     }
 
     // GET kategoriat
     @GetMapping("/kategoriat")
-    public String listaKategoriat(Model model) {
+    public String listaKategoriat(Model model, Principal principal) {
         List<Kategoria> kategoriat = kategoriaRepository.findAll();
         model.addAttribute("kategoriat", kategoriat);
         return "kategoriat";

@@ -2,6 +2,8 @@ package fi.opiskelijan.budjettilaskuri.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,7 +15,14 @@ public class Kategoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nimi;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "kayttaja_id")
+    private Kayttaja kayttaja;
+
+    public Kayttaja getKayttaja() { return kayttaja; }
+    public void setKayttaja(Kayttaja kayttaja) { this.kayttaja = kayttaja; }
+
     public Kategoria() {}
 
     public Kategoria(long id, String nimi) {
