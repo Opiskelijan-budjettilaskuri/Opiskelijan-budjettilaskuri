@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rekisteröidy</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="Tyylit.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Rekisteröidy</title>
 </head>
 <body>
-<h1>Rekisteröidy</h1>
-<form>
-<p>Sähköposti: <input type="text" th:field="${kayttaja.sahkoposti}"/></p>
-<p>Käyttäjätunnus: <input type="text" th:field="${kayttaja.kayttajatunnus}"/></p>
-<p>Salasana: <input type="text" th:field="${kayttaja.salasana}"/></p>
-<p>Salasana uudelleen: <input type="text" th:field="${kayttaja.salasana}"/></p>
-<p>Puhelin: <input type="text" th:field="${kayttaja.puhelin}"/></p>
-<p>Osoite: <input type="text" th:field="${kayttaja.osoite}"/></p>
-<p>Kortin numero: <input type="text" th:field="${kayttaja.kortinnumero}"/></p>
-<p>Turvakoodi: <input type="text" th:field="${kayttaja.turvakoodi}"/></p>
-<p>Voimassaoloaika (kk/vv): <input type="text" th:field="${kayttaja.voimassaoloaika}"></p>
-<input type="submit" value="Rekisteröidy"/>
-</form>
+    <div class="container">
+        <h2>Rekisteröidy</h2>
+        <form th:action="@{/tallennakayttaja}" th:object="${kayttaja}" method="post">
+            <div>
+                <label for="username">Käyttäjätunnus:</label>
+                <input type="text" th:field="*{username}" required />
+            </div>
+            <div>
+                <label for="email">Sähköposti:</label>
+                <input type="email" th:field="*{email}" required />
+            </div>
+            <div>
+                <label for="password">Salasana:</label>
+                <input type="password" th:field="*{password}" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Rekisteröidy</button>
+        </form>
+    </div>
 </body>
 </html>
