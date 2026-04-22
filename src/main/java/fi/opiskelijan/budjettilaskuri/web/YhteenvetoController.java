@@ -3,6 +3,7 @@ package fi.opiskelijan.budjettilaskuri.web;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
+import java.security.Principal;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,7 +35,7 @@ public class YhteenvetoController {
      * - Jos kuukausi on väärässä muodossa, palautetaan 400 ja selkeä virheviesti.
      */
     @GetMapping
-    public ResponseEntity<?> haeKuukausiyhteenveto(@RequestParam(required = false) String kuukausi) {
+    public ResponseEntity<?> haeKuukausiyhteenveto(@RequestParam(required = false) String kuukausi, Principal principal) {
         try {
             if (kuukausi == null || kuukausi.isBlank()) {
                 kuukausi = YearMonth.now().toString(); // "YYYY-MM"
@@ -44,10 +45,12 @@ public class YhteenvetoController {
             LocalDate alku = ym.atDay(1);
             LocalDate loppu = ym.atEndOfMonth();
 
-            double tulot = tuloRepository.sumTulotValilta(alku, loppu);
-            double menot = menoRepository.sumMenotValilta(alku, loppu);
+            String username = principal.getName();
 
-            var menotKategorioittain = menoRepository.sumMenotKategorioittain(alku, loppu);
+            double tulot = tuloRepository.sumTulotValilta(alku, loppu);
+            double menot = menoRepository.sumMenotValilta(username, alku, loppu);
+
+            var menotKategorioittain = menoRepository.sumMenotKategorioittain(username, alku, loppu);
             var tulotKategorioittain = tuloRepository.sumTulotKategorioittain(alku, loppu);
 
             return ResponseEntity
