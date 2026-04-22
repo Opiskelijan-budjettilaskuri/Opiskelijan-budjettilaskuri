@@ -3,22 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kategoriat</title>
 </head>
 <body>
 <h1>Kategoriat</h1>
+<section>
+    <h3>Lisää uusi kategoria</h3>
+    <form th:action="@{/kategoriat}" th:object="${uusiKategoria}" method="post">
+        <label for="nimi">Kategorian nimi:</label>
+        <input type="text" id="nimi" th:field="*{nimi}" required />
+        <button type="submit">Lisää</button>
+    </form>
+</section>
+<hr />
 <table>
     <thead>
         <tr>
             <th>Kategoria</th>
+            <th>Toiminnot</th>
         </tr>
     </thead>
     <tbody>
         <tr th:each="kategoria : ${kategoriat}">
             <td th:text="${kategoria.nimi}"></td>
+            <td>
+                <form th:action="@{/kategoriat/{id}/poista(id=${kategoria.id})}" method="post" style="display:inline">
+                    <button type="submit" onclick="return confirm('poistetaanko kategoria?')">Poista</button>
+                </form>
+            </td>
         </tr>
     </tbody>
 </table>
+
+<p><a th:href="@{/menot}">Takaisin menoihin</a></p>
 
 </body>
 </html>
