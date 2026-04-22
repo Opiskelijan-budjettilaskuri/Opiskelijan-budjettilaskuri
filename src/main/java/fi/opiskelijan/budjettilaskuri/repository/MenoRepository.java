@@ -15,7 +15,7 @@ public interface MenoRepository extends JpaRepository<Meno, Long> {
 
     List<Meno> findByKayttajaUsername(String username);
 
-    @Query("select coalesce(sum(m.summa), 0) from Meno m where m.kayttaja.userame = :username and m.pvm between :alku and :loppu")
+    @Query("select coalesce(sum(m.summa), 0) from Meno m where m.kayttaja.username = :username and m.pvm between :alku and :loppu")
     Double sumMenotValilta(
         @Param("username") String username,
         @Param("alku") LocalDate alku,
