@@ -1,83 +1,64 @@
 package fi.opiskelijan.budjettilaskuri.domain;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity(name = "kayttaja")
 public class Kayttaja {
-private String sahkoposti;
-private String kayttajatunnus;
-private String salasana;
-private String puhelin;
-private String osoite;
-private String kortinnumero;
-private String turvakoodi;
-private String voimassaoloaika;
-public Kayttaja(String sahkoposti, String kayttajatunnus, String salasana, String puhelin, String osoite, String kortinnumero, String turvakoodi, String voimassaoloaika) {
-this.sahkoposti = sahkoposti;
-this.kayttajatunnus = kayttajatunnus;
-this.salasana = salasana;
-this.puhelin = puhelin;
-this.osoite = osoite;
-this.kortinnumero = kortinnumero;
-this.turvakoodi = turvakoodi;
-this.voimassaoloaika = voimassaoloaika;
-}
-public Kayttaja() {
-this.sahkoposti = null;
-this.kayttajatunnus = null;
-this.salasana = null;
-this.puhelin = null;
-this.osoite = null;
-this.kortinnumero = null;
-this.turvakoodi = null;
-this.voimassaoloaika = null;
-}
-public String getSahkoposti() {
-return sahkoposti;
-}
-public void setSahkoposti(String sahkoposti) {
-this.sahkoposti = sahkoposti;
-}
-public String getKayttajatunnus() {
-return kayttajatunnus;
-}
-public void setKayttajatunnus(String kayttajatunnus) {
-this.kayttajatunnus = kayttajatunnus;
-}
-public String getSalasana() {
-return salasana;
-}
-public void setSalasana(String salasana) {
-this.salasana = salasana;
-}
-public String getPuhelin() {
-return puhelin;
-}
-public void setPuhelin(String puhelin) {
-this.puhelin = puhelin;
-}
-public String getOsoite() {
-return osoite;
-}
-public void setOsoite(String osoite) {
-this.osoite = osoite;
-}
-public String getKortinnumero() {
-return kortinnumero;
-}
-public void setKortinnumero(String kortinnumero) {
-this.kortinnumero = kortinnumero;
-}
-public String getTurvakoodi() {
-return turvakoodi;
-}
-public void setTurvakoodi(String turvakoodi) {
-this.turvakoodi = turvakoodi;
-}
-public String getVoimassaoloaika() {
-return voimassaoloaika;
-}
-public void setVoimassaoloaika(String voimassaoloaika) {
-this.voimassaoloaika = voimassaoloaika;
-}
-@Override
-public String toString() {
-return this.sahkoposti + this.kayttajatunnus + this.salasana + this.puhelin + this.osoite + this.kortinnumero + this.turvakoodi + this.voimassaoloaika;
-}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
+    private Long id;
+
+    @Column(name="username", nullable = false, unique = true)
+    private String username;
+
+    @Column(name="password", nullable = false)
+    private String password;
+
+    @Column(name="email", nullable = false, unique = true)
+    private String email;
+
+    public Kayttaja() {}
+
+    public Kayttaja(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

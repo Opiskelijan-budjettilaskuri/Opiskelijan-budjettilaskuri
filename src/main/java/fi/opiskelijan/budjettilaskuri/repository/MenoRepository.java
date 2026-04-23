@@ -13,23 +13,28 @@ import fi.opiskelijan.budjettilaskuri.web.dto.KategoriaSummaDto;
 // Menojen tietokantakäsittely -> Vastaa Menoihin liittyvistä kyselyistä tietokannassa
 public interface MenoRepository extends JpaRepository<Meno, Long> {
 
-    // Lasketaan menojen summa annetulta aikaväliltä
-    @Query("select coalesce(sum(m.summa), 0) from Meno m where m.pvm between :alku and :loppu")
-    Double sumMenotValilta(@Param("alku") LocalDate alku,
-            @Param("loppu") LocalDate loppu);
+    List<Meno> findByKayttajaUsername(String username);
 
-    // Menot kategorioittain annetulta aikaväliltä
+    @Query("select coalesce(sum(m.summa), 0) from Meno m where m.kayttaja.username = :username and m.pvm between :alku and :loppu")
+    Double sumMenotValilta(
+        @Param("username") String username,
+        @Param("alku") LocalDate alku,
+        @Param("loppu") LocalDate loppu);
+
     @Query("""
-                select new fi.opiskelijan.budjettilaskuri.web.dto.KategoriaSummaDto(
-                    case when m.kategoria is null then 'Ei kategoriaa' else m.kategoria.nimi end,
-                    coalesce(sum(m.summa), 0)
-                )
-                from Meno m
-                where m.pvm between :alku and :loppu
-                group by case when m.kategoria is null then 'Ei kategoriaa' else m.kategoria.nimi end
-                order by coalesce(sum(m.summa), 0) desc
+            select new fi.opiskelijan.budjettilaskuri.web.dto.KategoriaSummaDto(
+                case when m.kategoria is null then 'Ei kategoriaa' else m.kategoria.nimi end,
+                coalesce(sum(m.summa), 0)
+            )
+            from Meno m
+            where m.kayttaja.username = :username
+            and m.pvm between :alku and :loppu
+            group by case when m.kategoria is null then 'Ei kategoriaa' else m.kategoria.nimi end
+            order by coalesce(sum(m.summa), 0) desc
             """)
-    List<KategoriaSummaDto> sumMenotKategorioittain(
+        List<KategoriaSummaDto> sumMenotKategorioittain(
+            @Param("username") String username,
             @Param("alku") LocalDate alku,
-            @Param("loppu") LocalDate loppu);
+            @Param("loppu") LocalDate loppu
+        );
 }
