@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagrammi</title>
+<link href="Tyylit.css" rel="stylesheet">
+<script src="Diagrammi.js"></script>
+</head>
+<body>
+<h1>Diagrammi</h1>
+<p id="vuosi"></p>
+<table>
+<tr>
+<td>
+<div class="tyhja" id="tammikuutyhja"></div>
+<div class="kuukausi">
+<div id="tammikuutyhjasata" class="tammikuutyhjasata"></div>
+<div id="tammikuutyhjakymmenen" class="tammikuutyhjakymmenen"></div>
+<div id="tammikuutyhjayksi" class="tammikuutyhjayksi"></div>
+<div id="tammikuutaysisata" class="tammikuutaysisata"></div>
+<div id="tammikyytaysikymmenen" class="tammikuutaysikymmenen"></div>
+<div id="tammikuutaysiyksi" class="tammikuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Tammikuu</div>
+</td>
+<td>
+<div class="tyhja" id="helmikuutyhja"></div>
+<div class="kuukausi">
+<div id="helmikuutyhjasata" class="helmikuutyhjasata"></div>
+<div id="helmikuutyhjakymmenen" class="helmikuutyhjakymmenen"></div>
+<div id="helmikuutyhjayksi" class="helmikuutyhjayksi"></div>
+<div id="helmikuutaysisata" class="helmikuutaysisata"></div>
+<div id="helmikuutaysikymmenen" class="helmikuutaysikymmenen"></div>
+<div id="helmikuutaysiyksi" class="helmikuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Helmikuu</div>
+</td>
+<td>
+<div class="tyhja" id="maaliskuutyhja"></div>
+<div class="kuukausi">
+<div id="maaliskuutyhjasata" class="maaliskuutyhjasata"></div>
+<div id="maaliskuutyhjakymmenen" class="maaliskuutyhjakymmenen"></div>
+<div id="maaliskuutyhjayksi" class="maaliskuutyhjayksi"></div>
+<div id="maaliskuutaysisata" class="maaliskuutaysisata"></div>
+<div id="maaliskuutaysikymmenen" class="maaliskuutaysikymmenen"></div>
+<div id="maaliskuutaysiyksi" class="maaliskuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Maaliskuu</div>
+</td>
+<td>
+<div class="tyhja" id="huhtikuutyhja"></div>
+<div class="kuukausi">
+<div id="huhtikuutyhjasata" class="huhtikuutyhjasata"></div>
+<div id="huhtikyytyhjakymmenen" class="huhtikuutyhjakymmenen"></div>
+<div id="huhtikuutyhjayksi" class="huhtikuutyhjayksi"></div>
+<div id="huhtikuutaysisata" class="huhtikuutaysisata"></div>
+<div id="huhtikuutaysikymmenen" class="huhtikuutaysikymmenen"></div>
+<div id="huhtikuutaysiyksi" class="huhtikuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Huhtikuu</div>
+</td>
+<td>
+<div class="tyhja" id="toukokuutyhja"></div>
+<div class="kuukausi">
+<div id="toukokuutyhjasata" class="toukokuutyhjasata"></div>
+<div id="toukokuutyhjakymmenen" class="toukokuutyhjakymmenen"></div>
+<div id="toukokuutyhjayksi" class="toukokuutyhjayksi"></div>
+<div id="toukokuutaysisata" class="toukokuutaysisata"></div>
+<div id="toukokuutaysikymmenen" class="toukokuutaysikymmenen"></div>
+<div id="toukokuutaysiyksi" class="toukokuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Toukokuu</div>
+</td>
+<td>
+<div class="tyhja" id="kesakuutyhja"></div>
+<div class="kuukausi">
+<div id="kesakuutyhjasata" class="kesakuutyhjasata"></div>
+<div id="kesakuutyhjakymmenen" class="kesakuutyhjakymmenen"></div>
+<div id="kesakuutyhjayksi" class="kesakuutyhjayksi"></div>
+<div id="kesakuutaysisata" class="kesakuutaysisata"></div>
+<div id="kesakuutaysikymmenen" class="kesakuutaysikymmenen"></div>
+<div id="kesakuutaysiyksi" class="kesakuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Kesäkuu</div>
+</td>
+<td>
+<div class="tyhja" id="heinakuutyhja"></div>
+<div class="kuukausi">
+<div id="heinakuutyhjasata" class="heinakuutyhjasata"></div>
+<div id="heinakuutyhjakymmenen" class="heinakuutyhjakymmenen"></div>
+<div id="heinakuutyhjayksi" class="heinakuutyhjayksi"></div>
+<div id="heinakuutaysisata" class="heinakuutaysisata"></div>
+<div id="heinakuutaysikymmenen" class="heinakuutaysikymmenen"></div>
+<div id="heinakuutaysiyksi" class="heinakuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Heinäkuu</div>
+</td>
+<td>
+<div class="tyhja" id="elokuutyhja"></div>
+<div class="kuukausi">
+<div id="elokuutyhjasata" class="elokuutyhjasata"></div>
+<div id="elokuutyhjakymmenen" class="elokuutyhjakymmenen"></div>
+<div id="elokuutyhjayksi" class="elokuutyhjayksi"></div>
+<div id="elokuutaysisata" class="elokuutaysisata"></div>
+<div id="elokuutaysikymmenen" class="elokuutaysikymmenen"></div>
+<div id="elokuutaysiyksi" class="elokuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Elokuu</div>
+</td>
+<td>
+<div class="tyhja" id="syyskuutyhja"></div>
+<div class="kuukausi">
+<div id="syyskuutyhjasata" class="syyskuutyhjasata"></div>
+<div id="syyskuutyhjakymmenen" class="syyskuutyhjakymmenen"></div>
+<div id="syyskuutyhjayksi" class="syyskuutyhjayksi"></div>
+<div id="syyskuutaysisata" class="syyskuutaysisata"></div>
+<div id="syyskuutaysikymmenen" class="syyskuutaysikymmenen"></div>
+<div id="syyskuutaysiyksi" class="syyskuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Syyskuu</div>
+</td>
+<td>
+<div class="tyhja" id="lokakuutyhja"></div>
+<div class="kuukausi">
+<div id="lokakuutyhjasata" class="lokakuutyhjasata"></div>
+<div id="lokakuutyhjakymmenen" class="lokakuutyhjakymmenen"></div>
+<div id="lokakuutyhjayksi" class="lokakuutyhjayksi"></div>
+<div id="lokakuutaysisata" class="lokakuutaysisata"></div>
+<div id="lokakuutaysikymmenen" class="lokakuutaysikymmenen"></div>
+<div id="lokakuutaysiyksi" class="lokakuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Lokakuu</div>
+</td>
+<td>
+<div class="tyhja" id="marraskuutyhja"></div>
+<div class="kuukausi">
+<div id="marraskuutyhjasata" class="marraskuutyhjasata"></div>
+<div id="marraskuutyhjakymmenen" class="marraskuutyhjakymmenen"></div>
+<div id="marraskuutyhjayksi" class="marraskuutyhjayksi"></div>
+<div id="marraskuutaysisata" class="marraskuutaysisata"></div>
+<div id="marraskuutaysikymmenen" class="marraskuutaysikymmenen"></div>
+<div id="marraskuutaysiyksi" class="marraskuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Marraskuu</div>
+</td>
+<td>
+<div class="tyhja" id="joulukuutyhja"></div>
+<div class="kuukausi">
+<div id="joulukuutyhjasata" class="joulukuutyhjasata"></div>
+<div id="joulukuutyhjakymmenen" class="joulukuutyhjakymmenen"></div>
+<div id="joulukuutyhjayksi" class="joulukuutyhjayksi"></div>
+<div id="joulukuutaysisata" classs="joulukuutaysisata"></div>
+<div id="joulukuutaysikymmenen" class="joulukuutaysikymmenen"></div>
+<div id="joulukuutaysiyksi" class="joulukuutaysiyksi"></div>
+</div>
+<div class="kuukaudennimi">Joulukuu</div>
+</td>
+<td class="arvot">
+<div class="arvo">1000 €</div>
+<div class="arvo">900 €</div>
+<div class="arvo">800 €</div>
+<div class="arvo">700 €</div>
+<div class="arvo">600 €</div>
+<div class="arvo">500 €</div>
+<div class="arvo">400 €</div>
+<div class="arvo">300 €</div>
+<div class="arvo">200 €</div>
+<div class="arvo">100 €</div>
+<div class="arvo">0 €</div>
+</td>
+</tr>
+</table>
+</body>
+</html>
