@@ -87,14 +87,14 @@ export default function Toistuvat() {
                     <button
                       type="button"
                       onClick={() => handleVaihdaAktiivinen(t.id)}
-                      style={{ marginRight: 6 }}
+                      style={{ ...toimintoNappiStyle, marginRight: 6 }}
                     >
                       {t.aktiivinen ? "Poista käytöstä" : "Ota käyttöön"}
                     </button>
                     <button
                       type="button"
                       onClick={() => handlePoista(t.id)}
-                      style={{ color: "red" }}
+                      style={{ ...toimintoNappiStyle, color: "red" }}
                     >
                       Poista
                     </button>
@@ -118,4 +118,9 @@ const thStyle = {
 const tdStyle = {
   borderBottom: "1px solid #eee",
   padding: "8px 12px",
+};
+
+const toimintoNappiStyle = {
+  padding: "4px 10px",
+  minWidth: 110,
 };

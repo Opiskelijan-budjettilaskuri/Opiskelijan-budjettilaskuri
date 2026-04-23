@@ -5,7 +5,6 @@ import Tapahtumat from '../sivut/tapahtumat';
 import LisaaTapahtuma from '../sivut/lisaaTapahtuma';
 import Toistuvat from '../sivut/toistuvat';
 
-// Valitaan näytettävä sivu URL:n perusteella
 export default function Reititys() {
     return (
         <Routes>
