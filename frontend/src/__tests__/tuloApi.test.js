@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { haeKategoriat, lisaaTulo } from "../api/tuloApi";
+import { haeKategoriat, lisaaTulo, lisaaKategoria } from "../api/tuloApi";
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -25,6 +25,36 @@ describe("haeKategoriat()", () => {
     }));
 
     await expect(haeKategoriat()).rejects.toThrow("Internal Server Error");
+  });
+});
+
+describe("lisaaKategoria()", () => {
+  it("lähettää POST-pyynnön oikealla nimellä ja palauttaa tallennetun kategorian", async () => {
+    const mockVastaus = { id: 5, nimi: "Vaatteet" };
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => mockVastaus,
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const tulos = await lisaaKategoria("Vaatteet");
+
+    expect(fetchMock).toHaveBeenCalledOnce();
+    const [url, options] = fetchMock.mock.calls[0];
+    expect(url).toContain("/api/kategoriat");
+    expect(options.method).toBe("POST");
+    expect(JSON.parse(options.body)).toEqual({ nimi: "Vaatteet" });
+    expect(tulos).toEqual(mockVastaus);
+  });
+
+  it("heittää virheen kun vastaus ei ole ok", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
+      ok: false,
+      status: 409,
+      text: async () => "Kategoria on jo olemassa",
+    }));
+
+    await expect(lisaaKategoria("Ruoka")).rejects.toThrow("Kategoria on jo olemassa");
   });
 });
 

@@ -12,6 +12,21 @@ export async function haeKategoriat() {
   return res.json();
 }
 
+export async function lisaaKategoria(nimi) {
+  const res = await fetch(`${API_BASE}/api/kategoriat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nimi }),
+  });
+  if (!res.ok) throw new Error((await res.text()) || `Virhe: ${res.status}`);
+  return res.json();
+}
+
+export async function poistaKategoria(id) {
+  const res = await fetch(`${API_BASE}/api/kategoriat/${id}`, { method: "DELETE" });
+  if (!res.ok) throw new Error((await res.text()) || `Virhe: ${res.status}`);
+}
+
 export async function lisaaTulo(data) {
   const res = await fetch(`${API_BASE}/api/tulot`, {
     method: "POST",

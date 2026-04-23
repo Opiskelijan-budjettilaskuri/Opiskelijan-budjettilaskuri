@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { haeKategoriat, lisaaTulo } from "../api/tuloApi";
+import { haeKategoriat, lisaaTulo, lisaaKategoria, poistaKategoria } from "../api/tuloApi";
 import { lisaaMeno } from "../api/menoApi";
 import { lisaaToistuva } from "../api/toistuvaApi";
 import { tanaan } from "../utils/pvm";
@@ -26,6 +26,14 @@ export default function LisaaTapahtuma() {
   const [lahettaa, setLahettaa] = useState(false);
   const [virhe, setVirhe] = useState("");
   const [onnistui, setOnnistui] = useState(false);
+
+  const [uusiKategoriaNimi, setUusiKategoriaNimi] = useState("");
+  const [lisaaKategoriaa, setLisaaKategoriaa] = useState(false);
+  const [kategoriaLisaysVirhe, setKategoriaLisaysVirhe] = useState("");
+
+  const [lisaaUusi, setLisaaUusi] = useState(false);
+  const [hallinnoi, setHallinnoi] = useState(false);
+  const [poistettava, setPoistettava] = useState(null);
 
   const [toistuva, setToistuva] = useState(false);
   const [toistuvuus, setToistuvuus] = useState("kuukausittain");
@@ -54,6 +62,41 @@ export default function LisaaTapahtuma() {
     setToistuvuus("kuukausittain");
     setAloitusPvm(tanaan());
     setLopetusPvm("");
+    setUusiKategoriaNimi("");
+    setLisaaKategoriaa(false);
+    setKategoriaLisaysVirhe("");
+    setLisaaUusi(false);
+    setHallinnoi(false);
+    setPoistettava(null);
+  }
+
+  async function handlePoistaKategoria(id) {
+    setPoistettava(id);
+    try {
+      await poistaKategoria(id);
+      setKategoriat((prev) => prev.filter((k) => k.id !== id));
+      if (kategoriaId === String(id)) setKategoriaId("");
+    } finally {
+      setPoistettava(null);
+    }
+  }
+
+  async function handleLisaaKategoria() {
+    const nimi = uusiKategoriaNimi.trim();
+    if (!nimi) return;
+    setLisaaKategoriaa(true);
+    setKategoriaLisaysVirhe("");
+    try {
+      const uusi = await lisaaKategoria(nimi);
+      setKategoriat((prev) => [...prev, uusi]);
+      setKategoriaId(String(uusi.id));
+      setUusiKategoriaNimi("");
+      setLisaaUusi(false);
+    } catch (err) {
+      setKategoriaLisaysVirhe(err.message || "Kategorian lisäys epäonnistui.");
+    } finally {
+      setLisaaKategoriaa(false);
+    }
   }
 
   async function handleSubmit(e) {
@@ -214,6 +257,69 @@ export default function LisaaTapahtuma() {
                 <option key={k.id} value={k.id}>{k.nimi}</option>
               ))}
             </select>
+
+            <div style={{ display: "flex", gap: 12, marginTop: 4 }}>
+              <button
+                type="button"
+                onClick={() => setLisaaUusi((v) => !v)}
+                style={{ fontSize: "0.85em", background: "none", border: "none", padding: 0, cursor: "pointer", color: "#666", textDecoration: "underline" }}
+              >
+                {lisaaUusi ? "Piilota lisäys" : "Lisää kategoria"}
+              </button>
+              {kategoriat.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setHallinnoi((v) => !v)}
+                  style={{ fontSize: "0.85em", background: "none", border: "none", padding: 0, cursor: "pointer", color: "#666", textDecoration: "underline" }}
+                >
+                  {hallinnoi ? "Piilota hallinta" : "Hallinnoi kategorioita"}
+                </button>
+              )}
+            </div>
+
+            {hallinnoi && (
+              <ul style={{ listStyle: "none", margin: "8px 0 0", padding: 0 }}>
+                {kategoriat.map((k) => (
+                  <li key={k.id} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                    <span style={{ flex: 1 }}>{k.nimi}</span>
+                    <button
+                      type="button"
+                      onClick={() => handlePoistaKategoria(k.id)}
+                      disabled={poistettava === k.id}
+                      style={{ color: "red", background: "none", border: "none", cursor: "pointer", fontWeight: "bold" }}
+                      aria-label={`Poista ${k.nimi}`}
+                    >
+                      {poistettava === k.id ? "..." : "✕"}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {lisaaUusi && (
+              <div style={{ marginTop: 8 }}>
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <input
+                    type="text"
+                    placeholder="Kategorian nimi..."
+                    value={uusiKategoriaNimi}
+                    onChange={(e) => setUusiKategoriaNimi(e.target.value)}
+                    disabled={lisaaKategoriaa}
+                    style={{ flex: 1 }}
+                  />
+                  <button
+                    type="button"
+                    onClick={handleLisaaKategoria}
+                    disabled={lisaaKategoriaa || !uusiKategoriaNimi.trim()}
+                  >
+                    {lisaaKategoriaa ? "Lisätään..." : "Tallenna"}
+                  </button>
+                </div>
+                {kategoriaLisaysVirhe && (
+                  <p style={{ color: "red", marginTop: 4 }}>{kategoriaLisaysVirhe}</p>
+                )}
+              </div>
+            )}
           </div>
 
           {virhe && <p style={{ color: "red" }}>{virhe}</p>}

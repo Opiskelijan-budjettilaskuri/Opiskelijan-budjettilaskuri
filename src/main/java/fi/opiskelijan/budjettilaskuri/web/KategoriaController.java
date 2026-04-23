@@ -56,5 +56,5 @@ public class KategoriaController {
         }
         return "redirect:/kategoriat";
     }
-    
+
 }
