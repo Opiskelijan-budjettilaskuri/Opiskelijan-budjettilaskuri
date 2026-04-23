@@ -5,12 +5,12 @@ import fi.opiskelijan.budjettilaskuri.domain.Kategoria;
 public class KategoriaTest {
 @Test
 void testGetId() {
-var ruoka = new Kategoria(1, "Ruoka");
+var ruoka = new Kategoria(1L, "Ruoka");
 assertEquals(1, ruoka.getId());
 }
 @Test
 void testGetNimi() {
-var vaatteet = new Kategoria(2, "Vaatteet");
+var vaatteet = new Kategoria(2L, "Vaatteet");
 assertEquals("Vaatteet", vaatteet.getNimi());
 }
 }

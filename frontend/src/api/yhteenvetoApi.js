@@ -1,16 +1,8 @@
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8080";
 
-export async function haeYhteenveto(kuukausi) {
-  const url = kuukausi
-    ? `${API_BASE}/api/yhteenveto?kuukausi=${encodeURIComponent(kuukausi)}`
-    : `${API_BASE}/api/yhteenveto`;
-
-  const res = await fetch(url);
-
-  if (!res.ok) {
-    const msg = await res.text();
-    throw new Error(msg || `Virhe: ${res.status}`);
-  }
-
+export async function haeYhteenveto(alkupvm, loppupvm) {
+  const params = new URLSearchParams({ alkupvm, loppupvm });
+  const res = await fetch(`${API_BASE}/api/yhteenveto?${params}`);
+  if (!res.ok) throw new Error((await res.text()) || `Virhe: ${res.status}`);
   return res.json();
 }

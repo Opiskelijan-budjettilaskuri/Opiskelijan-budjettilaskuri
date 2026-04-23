@@ -28,17 +28,10 @@ public class KategoriaController {
         return "kategoriat";
     }
 
-    @PostMapping("/api/kategoriat")
-    public String lisaaKategoria(@RequestBody Kategoria kategoria) {
-        kategoriaRepository.save(kategoria);
-        return "redirect:/kategoriat";
-        
-    }
-
     @PostMapping("/kategoriat/{id}/poista")
     public String poistaKategoria(@RequestBody Long id) {
         kategoriaRepository.deleteById(id);
         return "redirect:/kategoriat";
     }
-    
+
 }

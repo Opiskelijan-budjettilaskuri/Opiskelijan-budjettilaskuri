@@ -16,7 +16,7 @@ public class Kategoria {
     
     public Kategoria() {}
 
-    public Kategoria(long id, String nimi) {
+    public Kategoria(Long id, String nimi) {
         this.id = id;
         this.nimi = nimi;
     }
