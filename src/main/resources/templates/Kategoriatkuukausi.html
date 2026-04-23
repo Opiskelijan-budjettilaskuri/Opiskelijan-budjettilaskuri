@@ -16,12 +16,12 @@
 <th>Vaatteet</th>
 </tr>
 <tr th:each="kategoriakuukausi : ${kategoriatkuukausi}">
-<td th:text="${kategoria.vuosi}"></td>
-<td th:text="${kategoria.kuukausi}"></td>
-<td th:text="${kategoria.ruokakuukausi}"></td>
-<td th:text="${kategoria.vuokrakuukausi}"></td>
-<td th:text="${kategoria.vapaaaikakuukausi}"></td>
-<td th:text="${kategoria.vaatteetkuukausi}"></td>
+<td th:text="${kategoria.vuosi}" id="y"></td>
+<td th:text="${kategoria.kuukausi}" id="kuukausi"></td>
+<td th:text="${kategoria.ruokakuukausi}" id="ruoka"></td>
+<td th:text="${kategoria.vuokrakuukausi}" id="vuokra"></td>
+<td th:text="${kategoria.vapaaaikakuukausi}" id="vapaaaika"></td>
+<td th:text="${kategoria.vaatteetkuukausi}" id="vaatteet"></td>
 </tr>
 </table>
 </body>
