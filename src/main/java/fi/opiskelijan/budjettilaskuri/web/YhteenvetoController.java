@@ -47,11 +47,11 @@ public class YhteenvetoController {
 
             String username = principal.getName();
 
-            double tulot = tuloRepository.sumTulotValilta(alku, loppu);
+            double tulot = tuloRepository.sumTulotValilta(username,alku, loppu);
             double menot = menoRepository.sumMenotValilta(username, alku, loppu);
 
             var menotKategorioittain = menoRepository.sumMenotKategorioittain(username, alku, loppu);
-            var tulotKategorioittain = tuloRepository.sumTulotKategorioittain(alku, loppu);
+            var tulotKategorioittain = tuloRepository.sumTulotKategorioittain(username, alku, loppu);
 
             return ResponseEntity
                     .ok(new YhteenvetoDto(kuukausi, tulot, menot, menotKategorioittain, tulotKategorioittain));
