@@ -27,6 +27,13 @@ public class Tulo {
     @JoinColumn(name = "kategoria_id")
     private Kategoria kategoria;
 
+    @ManyToOne
+    @JoinColumn(name = "kayttaja_id")
+    private Kayttaja kayttaja;
+
+    public Kayttaja getKayttaja() { return kayttaja; }
+    public void setKayttaja(Kayttaja kayttaja) { this.kayttaja = kayttaja; }
+
     public Tulo() {}
 
     public Kategoria getKategoria() { return kategoria; }
