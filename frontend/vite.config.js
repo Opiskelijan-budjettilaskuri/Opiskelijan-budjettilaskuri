@@ -9,4 +9,18 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/tallennakayttaja': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+      }
+    }
+  }
 })
