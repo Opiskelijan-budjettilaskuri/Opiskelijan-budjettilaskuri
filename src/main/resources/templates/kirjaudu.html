@@ -8,24 +8,51 @@
 <body>
     <div class="container">
         <h2>Kirjaudu</h2>
-        <div th:if="${param.error}" class="alert alert-danger">
-            Väärä käyttäjätunnus tai salasana.
-        </div>
+        
+        <div id="message" class="alert" style="display: none;"></div>
 
-        <div th:if="${param.logout}" class="alert alert-info">
-            Olet kirjautunut ulos.
-        </div>
-
-        <form th:action="@{/kirjaudu}" method="post">
+        <form id="kirjauduForm">
             <div>
-                <label for="username">Käyttäjä : <input type="text" name="username" class="form-control"/> </label>
+                <label>Käyttäjä : 
+                    <input type="text" id="username" name="username" class="form-control" required/> 
+                </label>
             </div>
             <div>
-                <label for="password">Salasana : <input type="password" name="password" class="form-control"/> </label>
+                <label>Salasana : 
+                    <input type="password" id="password" name="password" class="form-control" required/> 
+                </label>
             </div>
             <button type="submit" class="btn btn-primary">Kirjaudu</button>
         </form>
         <p>Eikö sinulla ole käyttäjätunnusta? <a th:href="@{/rekisteroidy}">Rekisteröidy</a></p>
     </div>
+
+    <script>
+        document.getElementById('kirjauduForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const messageDiv = document.getElementById('message');
+            const formData = new FormData(e.target);
+
+            try {
+                const response = await fetch('/api/kirjaudu', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    window.location.href = "/"; 
+                } else {
+                    messageDiv.textContent = "Väärä käyttäjätunnus tai salasana.";
+                    messageDiv.className = "alert alert-danger";
+                    messageDiv.style.display = "block";
+                }
+            } catch (error) {
+                messageDiv.textContent = "Yhteysvirhe palvelimeen.";
+                messageDiv.className = "alert alert-danger";
+                messageDiv.style.display = "block";
+            }
+        });
+    </script>
 </body>
 </html>
