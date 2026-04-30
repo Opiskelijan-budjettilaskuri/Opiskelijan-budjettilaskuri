@@ -19,7 +19,7 @@ export function Navigaatio() {
         <div style={{ fontWeight: 800 }}>Budjettilaskuri</div>
 
         <nav style={{ display: "flex", gap: 8 }}>
-          <NavLink to="/" style={linkStyle}>
+          <NavLink to="/yhteenveto" style={linkStyle}>
             Yhteenveto
           </NavLink>
           <NavLink to="/tapahtumat" style={linkStyle}>
