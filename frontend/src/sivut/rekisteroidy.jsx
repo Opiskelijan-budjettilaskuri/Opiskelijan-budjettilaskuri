@@ -21,7 +21,7 @@ export default function Rekisteroidy() {
         formData.append("password", password);
 
         try {
-            const response = await fetch(`${API_BASE}/tallennakayttaja`, {
+            const response = await fetch("/tallennakayttaja", {
                 method: "POST",
                 body: formData,
                 credentials: 'include'

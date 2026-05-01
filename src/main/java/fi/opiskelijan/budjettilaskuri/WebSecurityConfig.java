@@ -47,7 +47,6 @@ public class WebSecurityConfig {
             )
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(
-                    "/api/kirjaudu",
                     "/kirjaudu",
                     "/rekisteroidy",
                     "/tallennakayttaja",

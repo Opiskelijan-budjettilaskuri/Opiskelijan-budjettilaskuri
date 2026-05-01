@@ -36,6 +36,10 @@ public class YhteenvetoController {
      */
     @GetMapping
     public ResponseEntity<?> haeKuukausiyhteenveto(@RequestParam(required = false) String kuukausi, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(401).body("Käyttäjän pitää olla kirjautuneena.");
+        }
+        
         try {
             if (kuukausi == null || kuukausi.isBlank()) {
                 kuukausi = YearMonth.now().toString(); // "YYYY-MM"
