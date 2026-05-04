@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -18,50 +20,47 @@ class MenoFrontendTest {
     private MockMvc mockMvc;
 
     @Test
-    void sivuLatautuuJaOtsikkoNakyy() throws Exception {
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Budjettilaskuri")));
+    void kirjautumattomanaOhjataanLoginiin() throws Exception {
+        mockMvc.perform(get("/api/menot"))
+                .andExpect(status().is3xxRedirection());
     }
 
     @Test
-    void formiOnOlemassa() throws Exception {
-        mockMvc.perform(get("/"))
+    @WithMockUser(username = "user")
+    void kirjautuneenaHaeMenotPalauttaaOk() throws Exception {
+        mockMvc.perform(get("/api/menot"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Lisää meno")))
-                .andExpect(content().string(containsString("name=\"kuvaus\"")))
-                .andExpect(content().string(containsString("name=\"summa\"")))
-                .andExpect(content().string(containsString("name=\"pvm\"")));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
     @Test
-    void tyhjaListaNakyyOikein() throws Exception {
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Ei menoja lisättynä.")));
-    }
-
-    @Test
+    @WithMockUser(username = "user")
     void menonLisaaminenToimii() throws Exception {
         mockMvc.perform(post("/api/menot")
-                        .param("kuvaus", "Testimeno")
-                        .param("summa", "10.50")
-                        .param("pvm", "2026-04-21")
-                        .param("kategoria", "1"))
-                .andExpect(redirectedUrl("/"));
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"kuvaus\":\"Testimeno\",\"summa\":10.50,\"pvm\":\"2026-04-21\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.kuvaus").value("Testimeno"));
     }
 
     @Test
-    void lisattyMenoNakyyUIssa() throws Exception {
+    @WithMockUser(username = "user")
+    void lisattyMenoNakyyHaussa() throws Exception {
         mockMvc.perform(post("/api/menot")
-                        .param("kuvaus", "UI-Testimeno")
-                        .param("summa", "25.00")
-                        .param("pvm", "2026-04-21")
-                        .param("kategoria", "1"))
-                .andExpect(redirectedUrl("/"));
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"kuvaus\":\"UI-Testimeno\",\"summa\":25.00,\"pvm\":\"2026-04-21\"}"))
+                .andExpect(status().isOk());
 
-        mockMvc.perform(get("/"))
+        mockMvc.perform(get("/api/menot"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("UI-Testimeno")));
+                .andExpect(jsonPath("$[?(@.kuvaus == 'UI-Testimeno')]").exists());
+    }
+
+    @Test
+    @WithMockUser(username = "user")
+    void haeMenotPalauttaaListan() throws Exception {
+        mockMvc.perform(get("/api/menot"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
     }
 }

@@ -53,6 +53,10 @@ export default function Rekisteroidy() {
             <div className="auth-card">
                 <h2>Rekisteröidy</h2>
 
+                {message && (
+                    <p className={isError ? "error-msg" : isSuccess ? "success-msg" : ""}>{message}</p>
+                )}
+
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
                         <label>Käyttäjänimi</label>
