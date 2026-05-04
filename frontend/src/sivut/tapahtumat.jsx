@@ -121,7 +121,7 @@ export default function Tapahtumat() {
                 <th>Kategoria</th>
                 <th className="text-right">Summa (€)</th>
                 <th>Toistuva</th>
-                <th></th>
+                <th>Toiminnot</th>
               </tr>
             </thead>
             <tbody>
