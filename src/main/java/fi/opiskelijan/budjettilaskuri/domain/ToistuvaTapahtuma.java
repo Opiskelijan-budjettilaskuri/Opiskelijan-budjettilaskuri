@@ -36,6 +36,17 @@ public class ToistuvaTapahtuma {
     private boolean aktiivinen;
 
     @ManyToOne
+    @JoinColumn(name = "kayttaja_id")
+    private Kayttaja kayttaja;
+
+    public Kayttaja getKayttaja() {
+        return kayttaja;
+    }
+    public void setKayttaja(Kayttaja kayttaja) {
+        this.kayttaja = kayttaja;
+    }
+
+    @ManyToOne
     @JoinColumn(name = "kategoria_id")
     private Kategoria kategoria;
 

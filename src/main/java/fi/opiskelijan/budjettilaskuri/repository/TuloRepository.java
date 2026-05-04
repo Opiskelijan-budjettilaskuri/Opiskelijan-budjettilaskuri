@@ -13,21 +13,22 @@ import fi.opiskelijan.budjettilaskuri.web.dto.KategoriaSummaDto;
 // Tulojen tietokantakäsittely
 public interface TuloRepository extends JpaRepository<Tulo, Long> {
 
-    // Tulojen summa annetulta aikaväliltä
-    @Query("select coalesce(sum(t.maara), 0) from Tulo t where t.pvm between :alku and :loppu")
-    Double sumTulotValilta(@Param("alku") LocalDate alku,
-            @Param("loppu") LocalDate loppu);
+    List<Tulo> findByKayttajaUsername(String username);
 
+    // Tulojen summa annetulta aikaväliltä
+    @Query("select coalesce(sum(t.maara), 0) from Tulo t where t.kayttaja.username = :username and t.pvm between :alku and :loppu")
+    Double sumTulotValilta(@Param("username") String username, @Param("alku") LocalDate alku, @Param("loppu") LocalDate loppu);
+
+    // Updated: Added user filter
     @Query("""
             select new fi.opiskelijan.budjettilaskuri.web.dto.KategoriaSummaDto(
                 case when t.kategoria is null then 'Ei kategoriaa' else t.kategoria.nimi end,
                 coalesce(sum(t.maara), 0)
             )
             from Tulo t
-            where t.pvm between :alku and :loppu
+            where t.kayttaja.username = :username and t.pvm between :alku and :loppu
             group by case when t.kategoria is null then 'Ei kategoriaa' else t.kategoria.nimi end
             order by coalesce(sum(t.maara), 0) desc
             """)
-    List<KategoriaSummaDto> sumTulotKategorioittain(@Param("alku") LocalDate alku,
-            @Param("loppu") LocalDate loppu);
+    List<KategoriaSummaDto> sumTulotKategorioittain(@Param("username") String username, @Param("alku") LocalDate alku, @Param("loppu") LocalDate loppu);
 }
