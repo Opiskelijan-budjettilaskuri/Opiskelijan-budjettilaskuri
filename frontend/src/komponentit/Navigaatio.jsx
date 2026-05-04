@@ -66,7 +66,7 @@ export function Navigaatio() {
         </div>
 
         <nav style={{ display: "flex", gap: 2 }}>
-          <NavLink to="/" end style={linkStyle}><IconHome /> Yhteenveto</NavLink>
+          <NavLink to="/yhteenveto" style={linkStyle}><IconHome /> Yhteenveto</NavLink>
           <NavLink to="/tapahtumat" style={linkStyle}><IconList /> Tapahtumat</NavLink>
           <NavLink to="/lisaa-tapahtuma" style={linkStyle}><IconPlus /> Lisää tapahtuma</NavLink>
           <NavLink to="/toistuvat" style={linkStyle}><IconRepeat /> Toistuvat</NavLink>
