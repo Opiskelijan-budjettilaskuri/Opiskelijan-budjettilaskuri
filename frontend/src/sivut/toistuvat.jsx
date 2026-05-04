@@ -38,63 +38,78 @@ export default function Toistuvat() {
 
   return (
     <div>
-      <h1>Toistuvat tapahtumat</h1>
+      <div className="page-hero">
+        <h1>Toistuvat tapahtumat</h1>
+        <p className="page-subtitle">Hallinnoi säännöllisesti toistuvat tulot ja menot</p>
+      </div>
 
       <div className="card">
-        {lataa && <p>Ladataan...</p>}
-        {virhe && <p style={{ color: "red" }}>{virhe}</p>}
-        {toimintoVirhe && <p style={{ color: "red" }}>{toimintoVirhe}</p>}
+        {lataa && <p style={{ color: "var(--muted)" }}>Ladataan...</p>}
+        {virhe && <p style={{ color: "var(--danger)" }}>{virhe}</p>}
+        {toimintoVirhe && <p style={{ color: "var(--danger)" }}>{toimintoVirhe}</p>}
 
         {!lataa && !virhe && toistuvat.length === 0 && (
-          <p>Ei toistuvia tapahtumia. Voit lisätä niitä Lisää tapahtuma -sivulta.</p>
+          <div className="empty-state">
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="17 1 21 5 17 9"/>
+              <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+              <polyline points="7 23 3 19 7 15"/>
+              <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+            </svg>
+            <p className="empty-state-title">Ei toistuvia tapahtumia</p>
+            <p className="empty-state-desc">Lisää toistuvia tapahtumia Lisää tapahtuma -sivulta.</p>
+          </div>
         )}
 
         {toistuvat.length > 0 && (
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <table className="table">
             <thead>
               <tr>
-                <th style={thStyle}>Kuvaus</th>
-                <th style={thStyle}>Tyyppi</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Summa (€)</th>
-                <th style={thStyle}>Toistuvuus</th>
-                <th style={thStyle}>Aloitus</th>
-                <th style={thStyle}>Lopetus</th>
-                <th style={thStyle}>Kategoria</th>
-                <th style={thStyle}>Tila</th>
-                <th style={thStyle}>Toiminnot</th>
+                <th>Kuvaus</th>
+                <th>Tyyppi</th>
+                <th className="text-right">Summa (€)</th>
+                <th>Toistuvuus</th>
+                <th>Aloitus</th>
+                <th>Lopetus</th>
+                <th>Kategoria</th>
+                <th>Tila</th>
+                <th>Toiminnot</th>
               </tr>
             </thead>
             <tbody>
               {toistuvat.map((t) => (
                 <tr key={t.id} style={{ opacity: t.aktiivinen ? 1 : 0.5 }}>
-                  <td style={tdStyle}>{t.kuvaus}</td>
-                  <td style={{ ...tdStyle, color: t.tyyppi === "tulo" ? "green" : "red" }}>
-                    {t.tyyppi === "tulo" ? "Tulo" : "Meno"}
+                  <td>{t.kuvaus}</td>
+                  <td>
+                    <span className={`badge ${t.tyyppi === "tulo" ? "badge-tulo" : "badge-meno"}`}>
+                      {t.tyyppi === "tulo" ? "Tulo" : "Meno"}
+                    </span>
                   </td>
-                  <td style={{ ...tdStyle, textAlign: "right", color: t.tyyppi === "tulo" ? "green" : "red" }}>
+                  <td className="text-right" style={{ fontWeight: 600, color: t.tyyppi === "tulo" ? "var(--success)" : "var(--danger)" }}>
                     {t.tyyppi === "meno" ? "–" : "+"}{t.summa?.toFixed(2)}
                   </td>
-                  <td style={tdStyle}>{t.toistuvuus}</td>
-                  <td style={tdStyle}>{t.aloitusPvm ?? "–"}</td>
-                  <td style={tdStyle}>{t.lopetusPvm ?? "–"}</td>
-                  <td style={tdStyle}>{t.kategoria?.nimi ?? "–"}</td>
-                  <td style={tdStyle}>
-                    <span style={{ color: t.aktiivinen ? "green" : "gray" }}>
+                  <td style={{ color: "var(--muted)" }}>{t.toistuvuus}</td>
+                  <td style={{ color: "var(--muted)" }}>{t.aloitusPvm ?? "–"}</td>
+                  <td style={{ color: "var(--muted)" }}>{t.lopetusPvm ?? "–"}</td>
+                  <td style={{ color: "var(--muted)" }}>{t.kategoria?.nimi ?? "–"}</td>
+                  <td>
+                    <span className={`badge ${t.aktiivinen ? "badge-active" : "badge-inactive"}`}>
                       {t.aktiivinen ? "Aktiivinen" : "Ei aktiivinen"}
                     </span>
                   </td>
-                  <td style={tdStyle}>
+                  <td style={{ display: "flex", gap: 6, flexWrap: "nowrap" }}>
                     <button
                       type="button"
+                      className="btn-sm"
                       onClick={() => handleVaihdaAktiivinen(t.id)}
-                      style={{ ...toimintoNappiStyle, marginRight: 6 }}
+                      style={{ minWidth: 110 }}
                     >
                       {t.aktiivinen ? "Poista käytöstä" : "Ota käyttöön"}
                     </button>
                     <button
                       type="button"
+                      className="btn-sm btn-danger"
                       onClick={() => handlePoista(t.id)}
-                      style={{ ...toimintoNappiStyle, color: "red" }}
                     >
                       Poista
                     </button>
@@ -108,19 +123,3 @@ export default function Toistuvat() {
     </div>
   );
 }
-
-const thStyle = {
-  borderBottom: "2px solid #ccc",
-  padding: "8px 12px",
-  textAlign: "left",
-};
-
-const tdStyle = {
-  borderBottom: "1px solid #eee",
-  padding: "8px 12px",
-};
-
-const toimintoNappiStyle = {
-  padding: "4px 10px",
-  minWidth: 110,
-};

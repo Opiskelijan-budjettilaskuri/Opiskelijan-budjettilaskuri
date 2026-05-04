@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-  Legend, ResponsiveContainer,
+  Legend, ResponsiveContainer, PieChart, Pie, Cell,
+  AreaChart, Area,
 } from "recharts";
 import { haeYhteenveto } from "../api/yhteenvetoApi";
-import { tanaan, kuunEnsimmainen, kuunViimeinen, tanaVuonnaAlku } from "../utils/pvm";
+import { kuunEnsimmainen, kuunViimeinen, tanaVuonnaAlku, tanaan } from "../utils/pvm";
+
+const PIIRAKKAVARET = [
+  "#f44336", "#e91e63", "#9c27b0", "#3f51b5",
+  "#2196f3", "#009688", "#ff9800", "#795548",
+];
 
 function defaultAlku() {
   const d = new Date();
@@ -16,12 +22,32 @@ function defaultLoppu() {
   return kuunViimeinen(d.getFullYear(), d.getMonth() + 1);
 }
 
+function kuukausiNimi(vuosi, kuukausi) {
+  return new Date(vuosi, kuukausi - 1, 1).toLocaleDateString("fi-FI", {
+    month: "short",
+    year: "2-digit",
+  });
+}
+
+function PiirakkaTooltip({ active, payload }) {
+  if (!active || !payload?.length) return null;
+  const { name, value } = payload[0];
+  const total = payload[0].payload.total;
+  const pct = total > 0 ? ((value / total) * 100).toFixed(1) : "0.0";
+  return (
+    <div style={{ background: "#fff", border: "1px solid #ccc", padding: "6px 10px", borderRadius: 4 }}>
+      <strong>{name}</strong>: {value.toFixed(2)} € ({pct} %)
+    </div>
+  );
+}
+
 export default function Yhteenveto() {
   const [alkupvm, setAlkupvm] = useState(defaultAlku);
   const [loppupvm, setLoppupvm] = useState(defaultLoppu);
   const [data, setData] = useState(null);
   const [virhe, setVirhe] = useState("");
   const [lataa, setLataa] = useState(false);
+  const [trendiData, setTrendiData] = useState([]);
 
   useEffect(() => {
     if (!alkupvm || !loppupvm) return;
@@ -43,6 +69,41 @@ export default function Yhteenveto() {
     lataaData();
     return () => { cancelled = true; };
   }, [alkupvm, loppupvm]);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function laataaTrendi() {
+      const d = new Date();
+      const kuukaudet = Array.from({ length: 12 }, (_, i) => {
+        const kohde = new Date(d.getFullYear(), d.getMonth() - (11 - i), 1);
+        return { vuosi: kohde.getFullYear(), kuukausi: kohde.getMonth() + 1 };
+      });
+
+      try {
+        const tulokset = await Promise.all(
+          kuukaudet.map(({ vuosi, kuukausi }) =>
+            haeYhteenveto(
+              kuunEnsimmainen(vuosi, kuukausi),
+              kuunViimeinen(vuosi, kuukausi)
+            ).catch(() => ({ tulot: 0, menot: 0 }))
+          )
+        );
+        if (!cancelled) {
+          setTrendiData(
+            kuukaudet.map(({ vuosi, kuukausi }, i) => ({
+              kuukausi: kuukausiNimi(vuosi, kuukausi),
+              Tulot: tulokset[i].tulot ?? 0,
+              Menot: tulokset[i].menot ?? 0,
+            }))
+          );
+        }
+      } catch {
+        // Trendi ei kriittinen – jätetään tyhjäksi
+      }
+    }
+    laataaTrendi();
+    return () => { cancelled = true; };
+  }, []);
 
   function asetaTamaKuukausi() {
     const d = new Date();
@@ -69,13 +130,23 @@ export default function Yhteenveto() {
   const menotKatData = data?.menotKategorioittain ?? [];
   const tulotKatData = data?.tulotKategorioittain ?? [];
 
+  const menotYhteensa = menotKatData.reduce((s, k) => s + k.summa, 0);
+  const piirakkadata = menotKatData.map((k) => ({
+    name: k.kategoria,
+    value: k.summa,
+    total: menotYhteensa,
+  }));
+
   const btnStyle = {
     fontSize: "0.85em", padding: "4px 10px", cursor: "pointer",
   };
 
   return (
     <div style={{ textAlign: "left" }}>
-      <h1>Yhteenveto</h1>
+      <div className="page-hero">
+        <h1>Yhteenveto</h1>
+        <p className="page-subtitle">Tarkastele tulojasi ja menojasi valitulla aikavälillä</p>
+      </div>
 
       {/* Aikavälin valinta */}
       <div className="card" style={{ marginBottom: 16 }}>
@@ -141,8 +212,8 @@ export default function Yhteenveto() {
             </div>
           </div>
 
-          {/* Kategoriakaaaviot vierekkäin */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          {/* Palkkikaaviot kategorioittain */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
             <div className="card">
               <h2 style={{ marginTop: 0, marginBottom: 8 }}>Menot kategorioittain</h2>
               {menotKatData.length === 0 ? (
@@ -185,7 +256,73 @@ export default function Yhteenveto() {
               )}
             </div>
           </div>
+
+          {/* Piirakkakaavio – menojen jakauma */}
+          {piirakkadata.length > 0 && (
+            <div className="card" style={{ marginBottom: 16 }}>
+              <h2 style={{ marginTop: 0, marginBottom: 8 }}>Menojen jakauma kategorioittain</h2>
+              <ResponsiveContainer width="100%" height={280}>
+                <PieChart>
+                  <Pie
+                    data={piirakkadata}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={70}
+                    outerRadius={110}
+                  >
+                    {piirakkadata.map((_, index) => (
+                      <Cell key={index} fill={PIIRAKKAVARET[index % PIIRAKKAVARET.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip content={<PiirakkaTooltip />} />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          )}
         </>
+      )}
+
+      {/* Kuukausittainen trendikaavio – viimeiset 12 kk */}
+      {trendiData.length > 0 && (
+        <div className="card">
+          <h2 style={{ marginTop: 0, marginBottom: 8 }}>Tulot ja menot – viimeiset 12 kuukautta</h2>
+          <ResponsiveContainer width="100%" height={260}>
+            <AreaChart data={trendiData} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
+              <defs>
+                <linearGradient id="tulotGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#4caf50" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#4caf50" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="menotGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#f44336" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#f44336" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="kuukausi" />
+              <YAxis unit=" €" />
+              <Tooltip formatter={(v) => `${v.toFixed(2)} €`} />
+              <Legend />
+              <Area
+                type="monotone"
+                dataKey="Tulot"
+                stroke="#4caf50"
+                fill="url(#tulotGradient)"
+                strokeWidth={2}
+              />
+              <Area
+                type="monotone"
+                dataKey="Menot"
+                stroke="#f44336"
+                fill="url(#menotGradient)"
+                strokeWidth={2}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
       )}
     </div>
   );

@@ -144,20 +144,23 @@ export default function LisaaTapahtuma() {
 
   return (
     <div>
-      <h1>Lisää tapahtuma</h1>
+      <div className="page-hero">
+        <h1>Lisää tapahtuma</h1>
+        <p className="page-subtitle">Kirjaa uusi tulo, meno tai toistuva tapahtuma</p>
+      </div>
 
-      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+      <div className="tab-group">
         <button
           type="button"
+          className={`tab-btn${aktiivinen === TULO ? " active" : ""}`}
           onClick={() => vaihdaValilehti(TULO)}
-          style={{ fontWeight: aktiivinen === TULO ? "bold" : "normal" }}
         >
           Lisää tulo
         </button>
         <button
           type="button"
+          className={`tab-btn${aktiivinen === MENO ? " active" : ""}`}
           onClick={() => vaihdaValilehti(MENO)}
-          style={{ fontWeight: aktiivinen === MENO ? "bold" : "normal" }}
         >
           Lisää meno
         </button>
@@ -165,30 +168,30 @@ export default function LisaaTapahtuma() {
 
       <div className="card">
         <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: 12 }}>
-            <label style={{ display: "block", marginBottom: 4 }}>Kuvaus</label>
+          <div className="form-group">
+            <label className="form-label">Kuvaus</label>
             <input
               type="text"
+              className="full-width"
               value={kuvaus}
               onChange={(e) => setKuvaus(e.target.value)}
-              style={{ width: "100%" }}
             />
           </div>
 
-          <div style={{ marginBottom: 12 }}>
-            <label style={{ display: "block", marginBottom: 4 }}>Määrä (€)</label>
+          <div className="form-group">
+            <label className="form-label">Määrä (€)</label>
             <input
               type="number"
+              className="full-width"
               min="0"
               step="0.01"
               value={maara}
               onChange={(e) => setMaara(e.target.value)}
-              style={{ width: "100%" }}
             />
           </div>
 
-          <div style={{ marginBottom: 12 }}>
-            <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
+          <div className="form-group">
+            <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", fontSize: "0.875rem", fontWeight: 500 }}>
               <input
                 type="checkbox"
                 checked={toistuva}
@@ -199,8 +202,8 @@ export default function LisaaTapahtuma() {
           </div>
 
           {!toistuva && (
-            <div style={{ marginBottom: 12 }}>
-              <label style={{ display: "block", marginBottom: 4 }}>Päivämäärä</label>
+            <div className="form-group">
+              <label className="form-label">Päivämäärä</label>
               <input
                 type="date"
                 value={pvm}
@@ -211,8 +214,8 @@ export default function LisaaTapahtuma() {
 
           {toistuva && (
             <>
-              <div style={{ marginBottom: 12 }}>
-                <label style={{ display: "block", marginBottom: 4 }}>Toistuvuus</label>
+              <div className="form-group">
+                <label className="form-label">Toistuvuus</label>
                 <select
                   value={toistuvuus}
                   onChange={(e) => setToistuvuus(e.target.value)}
@@ -223,8 +226,8 @@ export default function LisaaTapahtuma() {
                 </select>
               </div>
 
-              <div style={{ marginBottom: 12 }}>
-                <label style={{ display: "block", marginBottom: 4 }}>Aloituspäivämäärä</label>
+              <div className="form-group">
+                <label className="form-label">Aloituspäivämäärä</label>
                 <input
                   type="date"
                   value={aloitusPvm}
@@ -232,9 +235,10 @@ export default function LisaaTapahtuma() {
                 />
               </div>
 
-              <div style={{ marginBottom: 12 }}>
-                <label style={{ display: "block", marginBottom: 4 }}>
-                  Lopetuspäivämäärä <span style={{ color: "gray", fontSize: "0.9em" }}>(valinnainen)</span>
+              <div className="form-group">
+                <label className="form-label">
+                  Lopetuspäivämäärä{" "}
+                  <span style={{ color: "var(--muted)", fontWeight: 400 }}>(valinnainen)</span>
                 </label>
                 <input
                   type="date"
@@ -245,9 +249,10 @@ export default function LisaaTapahtuma() {
             </>
           )}
 
-          <div style={{ marginBottom: 16 }}>
-            <label style={{ display: "block", marginBottom: 4 }}>Kategoria</label>
+          <div className="form-group" style={{ marginBottom: 20 }}>
+            <label className="form-label">Kategoria</label>
             <select
+              className="full-width"
               value={kategoriaId}
               onChange={(e) => setKategoriaId(e.target.value)}
               disabled={lataaKategoriat}
@@ -258,19 +263,19 @@ export default function LisaaTapahtuma() {
               ))}
             </select>
 
-            <div style={{ display: "flex", gap: 12, marginTop: 4 }}>
+            <div style={{ display: "flex", gap: 12, marginTop: 6 }}>
               <button
                 type="button"
+                className="btn-ghost"
                 onClick={() => setLisaaUusi((v) => !v)}
-                style={{ fontSize: "0.85em", background: "none", border: "none", padding: 0, cursor: "pointer", color: "#666", textDecoration: "underline" }}
               >
                 {lisaaUusi ? "Piilota lisäys" : "Lisää kategoria"}
               </button>
               {kategoriat.length > 0 && (
                 <button
                   type="button"
+                  className="btn-ghost"
                   onClick={() => setHallinnoi((v) => !v)}
-                  style={{ fontSize: "0.85em", background: "none", border: "none", padding: 0, cursor: "pointer", color: "#666", textDecoration: "underline" }}
                 >
                   {hallinnoi ? "Piilota hallinta" : "Hallinnoi kategorioita"}
                 </button>
@@ -278,18 +283,18 @@ export default function LisaaTapahtuma() {
             </div>
 
             {hallinnoi && (
-              <ul style={{ listStyle: "none", margin: "8px 0 0", padding: 0 }}>
+              <ul style={{ listStyle: "none", margin: "10px 0 0", padding: 0 }}>
                 {kategoriat.map((k) => (
-                  <li key={k.id} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                    <span style={{ flex: 1 }}>{k.nimi}</span>
+                  <li key={k.id} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                    <span style={{ flex: 1, fontSize: "0.9rem" }}>{k.nimi}</span>
                     <button
                       type="button"
+                      className="btn-sm btn-danger"
                       onClick={() => handlePoistaKategoria(k.id)}
                       disabled={poistettava === k.id}
-                      style={{ color: "red", background: "none", border: "none", cursor: "pointer", fontWeight: "bold" }}
                       aria-label={`Poista ${k.nimi}`}
                     >
-                      {poistettava === k.id ? "..." : "✕"}
+                      {poistettava === k.id ? "..." : "Poista"}
                     </button>
                   </li>
                 ))}
@@ -297,7 +302,7 @@ export default function LisaaTapahtuma() {
             )}
 
             {lisaaUusi && (
-              <div style={{ marginTop: 8 }}>
+              <div style={{ marginTop: 10 }}>
                 <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                   <input
                     type="text"
@@ -316,15 +321,15 @@ export default function LisaaTapahtuma() {
                   </button>
                 </div>
                 {kategoriaLisaysVirhe && (
-                  <p style={{ color: "red", marginTop: 4 }}>{kategoriaLisaysVirhe}</p>
+                  <p style={{ color: "var(--danger)", marginTop: 4, fontSize: "0.875rem" }}>{kategoriaLisaysVirhe}</p>
                 )}
               </div>
             )}
           </div>
 
-          {virhe && <p style={{ color: "red" }}>{virhe}</p>}
+          {virhe && <p style={{ color: "var(--danger)", marginBottom: 12, fontSize: "0.875rem" }}>{virhe}</p>}
           {onnistui && (
-            <p style={{ color: "green" }}>
+            <p style={{ color: "var(--success)", marginBottom: 12, fontSize: "0.875rem" }}>
               {toistuva
                 ? `Toistuva ${aktiivinen === TULO ? "tulo" : "meno"} lisätty!`
                 : aktiivinen === TULO
@@ -333,7 +338,7 @@ export default function LisaaTapahtuma() {
             </p>
           )}
 
-          <button type="submit" disabled={lahettaa}>
+          <button type="submit" className="btn-primary" disabled={lahettaa}>
             {lahettaa
               ? "Tallennetaan..."
               : toistuva

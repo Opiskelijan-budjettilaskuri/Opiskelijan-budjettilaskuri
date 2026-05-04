@@ -54,9 +54,7 @@ export default function Tapahtumat() {
       .finally(() => {
         if (!cancelled) setLataa(false);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, []);
 
   async function handlePoista(tapahtuma) {
@@ -72,76 +70,84 @@ export default function Tapahtumat() {
       setPoistoVirhe(e.message || "Poisto epäonnistui.");
     }
   }
+
   const naytettavat = tapahtumat.filter(
     (t) => !kuukausi || t.toistuvuus !== null || t.pvm.startsWith(kuukausi)
   );
 
   return (
     <div style={{ textAlign: "left" }}>
-      <h1>Tapahtumat</h1>
+      <div className="page-hero">
+        <h1>Tapahtumat</h1>
+        <p className="page-subtitle">Selaa ja hallinnoi kaikkia taloustapahtumiasi kuukausittain</p>
+      </div>
 
       <div className="card">
-        <label style={{ display: "block", marginBottom: 12 }}>
-          Valitse kuukausi:{" "}
-          <input
-            type="month"
-            value={kuukausi}
-            onChange={(e) => setKuukausi(e.target.value)}
-          />
-        </label>
+        <div className="form-group">
+          <label className="form-label">
+            Valitse kuukausi
+            <input
+              type="month"
+              value={kuukausi}
+              onChange={(e) => setKuukausi(e.target.value)}
+              style={{ marginLeft: 10 }}
+            />
+          </label>
+        </div>
 
-        {lataa && <p>Ladataan...</p>}
-        {virhe && <p style={{ color: "red" }}>{virhe}</p>}
-        {poistoVirhe && <p style={{ color: "red" }}>{poistoVirhe}</p>}
+        {lataa && <p style={{ color: "var(--muted)" }}>Ladataan...</p>}
+        {virhe && <p style={{ color: "var(--danger)" }}>{virhe}</p>}
+        {poistoVirhe && <p style={{ color: "var(--danger)" }}>{poistoVirhe}</p>}
 
         {!lataa && !virhe && naytettavat.length === 0 && (
-          <p>Ei tapahtumia valitulle kuukaudelle.</p>
+          <div className="empty-state">
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <p className="empty-state-title">Ei tapahtumia</p>
+            <p className="empty-state-desc">Valitulle kuukaudelle ei löydy tapahtumia.</p>
+          </div>
         )}
 
         {naytettavat.length > 0 && (
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <table className="table">
             <thead>
               <tr>
-                <th style={thStyle}>Päivämäärä</th>
-                <th style={thStyle}>Tyyppi</th>
-                <th style={thStyle}>Kuvaus</th>
-                <th style={thStyle}>Kategoria</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Summa (€)</th>
-                <th style={thStyle}>Toistuva</th>
-                <th style={thStyle}></th>
+                <th>Päivämäärä</th>
+                <th>Tyyppi</th>
+                <th>Kuvaus</th>
+                <th>Kategoria</th>
+                <th className="text-right">Summa (€)</th>
+                <th>Toistuva</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {naytettavat.map((t) => (
                 <tr key={t.id} style={{ opacity: t.toistuvuus && t.aktiivinen === false ? 0.5 : 1 }}>
-                  <td style={tdStyle}>{t.pvm}</td>
-                  <td style={{ ...tdStyle, color: t.tyyppi === "Tulo" ? "green" : "red" }}>
-                    {t.tyyppi}
+                  <td>{t.pvm}</td>
+                  <td>
+                    <span className={`badge ${t.tyyppi === "Tulo" ? "badge-tulo" : "badge-meno"}`}>
+                      {t.tyyppi}
+                    </span>
                   </td>
-                  <td style={tdStyle}>{t.kuvaus}</td>
-                  <td style={tdStyle}>{t.kategoria}</td>
-                  <td style={{ ...tdStyle, textAlign: "right", color: t.tyyppi === "Tulo" ? "green" : "red" }}>
+                  <td>{t.kuvaus}</td>
+                  <td style={{ color: "var(--muted)" }}>{t.kategoria}</td>
+                  <td className="text-right" style={{ fontWeight: 600, color: t.tyyppi === "Tulo" ? "var(--success)" : "var(--danger)" }}>
                     {t.tyyppi === "Meno" ? "–" : "+"}{t.maara?.toFixed(2)}
                   </td>
-                  <td style={tdStyle}>
+                  <td>
                     {t.toistuvuus && (
-                      <span style={{
-                        background: "#e8f0fe",
-                        color: "#1a56db",
-                        borderRadius: 4,
-                        padding: "2px 8px",
-                        fontSize: "0.85em",
-                        whiteSpace: "nowrap",
-                      }}>
-                        {t.toistuvuus}
-                      </span>
+                      <span className="badge badge-info">{t.toistuvuus}</span>
                     )}
                   </td>
-                  <td style={tdStyle}>
+                  <td>
                     {!t.toistuvuus && (
                       <button
+                        className="btn-sm btn-danger"
                         onClick={() => handlePoista(t)}
-                        style={{ color: "red", background: "none", border: "1px solid red", borderRadius: 4, cursor: "pointer", padding: "2px 8px" }}
                       >
                         Poista
                       </button>
@@ -156,14 +162,3 @@ export default function Tapahtumat() {
     </div>
   );
 }
-
-const thStyle = {
-  borderBottom: "2px solid #ccc",
-  padding: "8px 12px",
-  textAlign: "left",
-};
-
-const tdStyle = {
-  borderBottom: "1px solid #eee",
-  padding: "8px 12px",
-};
