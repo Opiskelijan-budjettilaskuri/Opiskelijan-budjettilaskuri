@@ -16,7 +16,7 @@ import fi.opiskelijan.budjettilaskuri.repository.MenoRepository;
 import fi.opiskelijan.budjettilaskuri.repository.TuloRepository;
 import fi.opiskelijan.budjettilaskuri.web.dto.YhteenvetoDto;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://opiskelijan-budjettilaskuri-3czh.onrender.com", "https://opiskelijan-budjettilaskuri.onrender.com"})
 @RestController
 @RequestMapping("/api/yhteenveto")
 public class YhteenvetoController {

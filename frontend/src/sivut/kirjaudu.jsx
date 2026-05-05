@@ -15,8 +15,10 @@ export default function Kirjaudu() {
         formData.append('username', username);
         formData.append('password', password);
 
+
         try {
-            const response = await fetch("/api/kirjaudu", {
+            const apiUrl = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:8080";
+            const response = await fetch(`${apiUrl}/api/kirjaudu`, {
                 method: 'POST',
                 body: formData,
                 credentials: 'include'

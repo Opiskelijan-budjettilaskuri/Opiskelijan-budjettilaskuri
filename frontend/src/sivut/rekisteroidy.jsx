@@ -10,7 +10,7 @@ export default function Rekisteroidy() {
     const [isError, setIsError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
-    const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+    const API_BASE = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:8080";
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +21,7 @@ export default function Rekisteroidy() {
         formData.append("password", password);
 
         try {
-            const response = await fetch("/tallennakayttaja", {
+            const response = await fetch(`${API_BASE}/tallennakayttaja`, {
                 method: "POST",
                 body: formData,
                 credentials: 'include'

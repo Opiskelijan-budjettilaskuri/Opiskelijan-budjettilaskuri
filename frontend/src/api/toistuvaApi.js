@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8080";
+const API_BASE = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:8080";
 
 export async function haeToistuvat() {
   const res = await fetch(`${API_BASE}/api/toistuvat`, { credentials: "include" });
