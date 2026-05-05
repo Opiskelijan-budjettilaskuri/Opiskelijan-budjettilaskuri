@@ -78,6 +78,7 @@ public class WebSecurityConfig {
 
             .logout(logout -> logout
                 .logoutSuccessUrl("/api/ulosKirjautuminen")
+                .invalidateHttpSession(true)
                 .logoutSuccessHandler((request, response, authentication) -> {
                     response.setStatus(HttpServletResponse.SC_OK);
                 })

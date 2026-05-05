@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { linkStyle } from "../utils/linkStyle";
+import { kirjauduUlos } from "../api/kirjauduUlosApi";
 
 const IconHome = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -65,12 +66,23 @@ export function Navigaatio() {
           Budjettilaskuri
         </div>
 
-        <nav style={{ display: "flex", gap: 2 }}>
+        <nav style={{ display: "flex", gap: 2, flex: 1, justifyContent: "center"}}>
           <NavLink to="/yhteenveto" style={linkStyle}><IconHome /> Yhteenveto</NavLink>
           <NavLink to="/tapahtumat" style={linkStyle}><IconList /> Tapahtumat</NavLink>
           <NavLink to="/lisaa-tapahtuma" style={linkStyle}><IconPlus /> Lisää tapahtuma</NavLink>
           <NavLink to="/toistuvat" style={linkStyle}><IconRepeat /> Toistuvat</NavLink>
         </nav>
+
+        <button onClick={kirjauduUlos} style={{
+          background: "none",
+          border: "none",
+          color: "#7c3aed",
+          fontWeight: 600,
+          cursor: "pointer",
+        }}>
+          Kirjaudu ulos
+        </button>
+
       </div>
     </header>
   );
