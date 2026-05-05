@@ -1,8 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { AgGridReact } from "ag-grid-react";
+import { ModuleRegistry, AllCommunityModule } from "ag-grid-community";
+import { themeQuartz } from "ag-grid-community";
 import { haeTulot, poistaTulo } from "../api/tuloApi";
 import { haeMenot, poistaMeno } from "../api/menoApi";
 import { haeToistuvat } from "../api/toistuvaApi";
 import { nykyinenKuukausi } from "../utils/pvm";
+
+const minunTeema = themeQuartz.withParams({
+  spacing: 12,
+  accentColor: '#7c3aed',
+  headerBackgroundColor: '#f9fafb',
+  headerTextColor: '#4b5563',
+  rowBorder: { style: 'solid', width: 1, color: '#f3f4f6' },
+  columnBorder: false,
+  sidePanelBorder: false,
+});
+
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 export default function Tapahtumat() {
   const [kuukausi, setKuukausi] = useState(nykyinenKuukausi());
@@ -71,8 +86,45 @@ export default function Tapahtumat() {
     }
   }
 
-  const naytettavat = tapahtumat.filter(
-    (t) => !kuukausi || t.toistuvuus !== null || t.pvm.startsWith(kuukausi)
+  const sarakeMaaritys = useMemo(() => [
+    { field: "pvm", headerName: "Päivämäärä", sortable: true, filter: true },
+    { field: "tyyppi", headerName: "Tyyppi",
+      cellRenderer: (params) => (
+        <span className={`badge ${params.value === "Tulo" ? "badge-tulo" : "badge-meno"}`}>
+          {params.value}
+        </span>
+      )
+    },
+    { field: "kuvaus", headerName: "Kuvaus", flex: 1 },
+    { field: "kategoria", headerName: "Kategoria" },
+    { field: "maara", headerName: "Summa (€)", type: "rightAligned",
+      cellStyle: (params) => ({
+        fontWeight: 600,
+        color: params.data.tyyppi === "Tulo" ? "var(--success)" : "var(--danger)"
+      }),
+      valueFormatter: (params) => {
+        const prefix = params.data.tyyppi === "Meno" ? "-" : "+";
+        return `${prefix}${params.value.toFixed(2)}`;
+      }
+    },
+    { field: "toistuvuus", headerName: "Toistuva",
+      cellRenderer: (params) => params.value ? <span className="badge badge-info">{params.value}</span> : null
+    },
+    { headerName: "Toiminnot",
+      cellRenderer: (params) => !params.data.toistuvuus ? (
+        <button
+          className="btn-sm btn-danger"
+          onClick={() => handlePoista(params.data)}
+        >
+          Poista
+        </button>
+      ) : null
+    }
+  ], []);
+
+  const naytettavat = useMemo(() =>
+    tapahtumat.filter((tapahtuma) => !kuukausi || tapahtuma.toistuvuus !== null || tapahtuma.pvm.startsWith(kuukausi)),
+    [tapahtumat, kuukausi]
   );
 
   return (
@@ -83,7 +135,7 @@ export default function Tapahtumat() {
       </div>
 
       <div className="card">
-        <div className="form-group">
+        <div className="form-group" style={{ marginBottom: 20 }}>
           <label className="form-label">
             Valitse kuukausi
             <input
@@ -99,66 +151,25 @@ export default function Tapahtumat() {
         {virhe && <p style={{ color: "var(--danger)" }}>{virhe}</p>}
         {poistoVirhe && <p style={{ color: "var(--danger)" }}>{poistoVirhe}</p>}
 
-        {!lataa && !virhe && naytettavat.length === 0 && (
-          <div className="empty-state">
-            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
-            <p className="empty-state-title">Ei tapahtumia</p>
-            <p className="empty-state-desc">Valitulle kuukaudelle ei löydy tapahtumia.</p>
+          <div style={{ width: "100%" }}>
+            <AgGridReact
+              rowData={naytettavat}
+              columnDefs={sarakeMaaritys}
+              theme={minunTeema}
+              animateRows={true}
+              pagination={true}
+              paginationPageSize={15}
+              paginationPageSizeSelector={[15, 30, 50, 100]}
+              defaultColDef={{
+                resizable: true,
+                sortable: true,
+                filter: true,
+                flex: 1,
+                minWidth: 100
+              }}
+              />
           </div>
-        )}
-
-        {naytettavat.length > 0 && (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Päivämäärä</th>
-                <th>Tyyppi</th>
-                <th>Kuvaus</th>
-                <th>Kategoria</th>
-                <th className="text-right">Summa (€)</th>
-                <th>Toistuva</th>
-                <th>Toiminnot</th>
-              </tr>
-            </thead>
-            <tbody>
-              {naytettavat.map((t) => (
-                <tr key={t.id} style={{ opacity: t.toistuvuus && t.aktiivinen === false ? 0.5 : 1 }}>
-                  <td>{t.pvm}</td>
-                  <td>
-                    <span className={`badge ${t.tyyppi === "Tulo" ? "badge-tulo" : "badge-meno"}`}>
-                      {t.tyyppi}
-                    </span>
-                  </td>
-                  <td>{t.kuvaus}</td>
-                  <td style={{ color: "var(--muted)" }}>{t.kategoria}</td>
-                  <td className="text-right" style={{ fontWeight: 600, color: t.tyyppi === "Tulo" ? "var(--success)" : "var(--danger)" }}>
-                    {t.tyyppi === "Meno" ? "–" : "+"}{t.maara?.toFixed(2)}
-                  </td>
-                  <td>
-                    {t.toistuvuus && (
-                      <span className="badge badge-info">{t.toistuvuus}</span>
-                    )}
-                  </td>
-                  <td>
-                    {!t.toistuvuus && (
-                      <button
-                        className="btn-sm btn-danger"
-                        onClick={() => handlePoista(t)}
-                      >
-                        Poista
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+        </div>
       </div>
-    </div>
   );
 }
