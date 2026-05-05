@@ -37,7 +37,23 @@ const IconRepeat = () => (
   </svg>
 );
 
-export function Navigaatio() {
+export function Navigaatio({ setKirjautunut }) {
+  const kirjauduUlos = async () => {
+    try {
+      const apiUrl = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:8080";
+      const response = await fetch(`${apiUrl}/api/ulosKirjautuminen`, {
+        method: 'POST',
+        credentials: 'include'
+      });
+      if (response.ok) {
+        localStorage.removeItem('isLoggedIn');
+        setKirjautunut(false);
+        window.location.href = "/kirjaudu";
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
   return (
     <header style={{
       background: "#ffffff",

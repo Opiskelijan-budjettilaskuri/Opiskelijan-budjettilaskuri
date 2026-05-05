@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './kirjaudu.css';
 import { Link } from 'react-router-dom';
 
-export default function Kirjaudu() {
+export default function Kirjaudu({ setKirjautunut }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -25,6 +25,8 @@ export default function Kirjaudu() {
             });
 
             if (response.ok) {
+                localStorage.setItem('isLoggedIn', 'true');
+                if (setKirjautunut) setKirjautunut(true);
                 window.location.href = '/yhteenveto';
             } else {
                 setMessage('Väärä käyttäjätunnus tai salasana');

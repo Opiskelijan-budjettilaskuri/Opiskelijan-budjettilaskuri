@@ -7,11 +7,11 @@ import Toistuvat from '../sivut/toistuvat';
 import Kirjaudu from '../sivut/kirjaudu';
 import Rekisteroidy from '../sivut/rekisteroidy';
 
-export default function Reititys() {
+export default function Reititys({ setKirjautunut }) {
     return (
         <Routes>
-            <Route path="/" element={<Kirjaudu />} />
-            <Route path="/kirjaudu" element={<Kirjaudu />} />
+            <Route path="/" element={<Kirjaudu setKirjautunut={setKirjautunut} />} />
+            <Route path="/kirjaudu" element={<Kirjaudu setKirjautunut={setKirjautunut} />} />
             <Route path="/rekisteroidy" element={<Rekisteroidy />} />
             <Route path="/tapahtumat" element={<Tapahtumat />} />
             <Route path="/lisaa-tapahtuma" element={<LisaaTapahtuma />} />
