@@ -2,6 +2,7 @@ package fi.opiskelijan.budjettilaskuri;
 
 import java.util.Arrays;
 
+import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties.Http;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -77,11 +78,11 @@ public class WebSecurityConfig {
             )
 
             .logout(logout -> logout
-                .logoutSuccessUrl("/api/ulosKirjautuminen")
-                .invalidateHttpSession(true)
+                .logoutUrl("/api/ulosKirjautuminen")
                 .logoutSuccessHandler((request, response, authentication) -> {
                     response.setStatus(HttpServletResponse.SC_OK);
                 })
+                .invalidateHttpSession(true)
                 .permitAll()
             );
         return http.build();
