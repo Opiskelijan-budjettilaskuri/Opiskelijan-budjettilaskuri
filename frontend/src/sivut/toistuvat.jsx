@@ -1,5 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo} from "react";
+import { AgGridReact } from "ag-grid-react";
+import { ModuleRegistry, AllCommunityModule, themeQuartz } from "ag-grid-community";
 import { haeToistuvat, poistaToistuva, vaihdaAktiivinen } from "../api/toistuvaApi";
+
+ModuleRegistry.registerModules([AllCommunityModule]);
+
+const minunTeema = themeQuartz.withParams({
+  spacing: 11,
+  accentColor: '#7c3aed',
+  headerBackgroundColor: '#ffffff',
+  headerTextColor: '#4b5563',
+  rowBorder: { style: 'solid', width: 1, color: '#f3f4f6' },
+  wrapperBorder: false,
+  headerRowBorder: false,
+  headerColumnBorder: false,
+  columnBorder: false,
+  sidePanelBorder: false,
+});
 
 export default function Toistuvat() {
   const [toistuvat, setToistuvat] = useState([]);
@@ -36,6 +53,55 @@ export default function Toistuvat() {
     }
   }
 
+  const sarakeMaaritys = useMemo(() => [
+    { field: "kuvaus", width: 110,headerName: "Kuvaus", headerTooltip: "Kuvaus" },
+    { field: "tyyppi", width: 105, headerName: "Tyyppi", headerTooltip: "Tyyppi", cellRenderer: (params) => (
+      <span className={`badge ${params.value === "Tulo" ? "badge-tulo" : "badge-meno"}`}>
+        {params.value === "tulo" ? "Tulo" : "Meno"}
+      </span>
+      )
+    },
+    { field: "summa", width: 110, headerName: "Summa (€)", headerTooltip: "Summa (€)",
+      valueGetter: (params) => params.data.tyyppi === "meno" ? -params.data.summa : params.data.summa,
+      valueFormatter: (params) => {
+        if (params.value == null) return "";
+        const etumerkki = params.value > 0 ? "+" : "";
+        return `${etumerkki}${params.value.toFixed(2)} €`;
+      },
+      cellStyle: (params) => ({
+        fontWeight: 600,
+        color: params.value > 0 ? "var(--success)" : "var(--danger)"
+      })
+    },
+    { field: "toistuvuus", width: 110,headerName: "Toistuva", headerTooltip: "Toistuva" },
+    { field: "aloitusPvm", width: 100,headerName: "Alku", headerTooltip: "Alku" },
+    { field: "lopetusPvm", width: 100, headerName: "Loppu", headerTooltip: "Loppu" },
+    { field: "kategoria.nimi", width: 120, headerName: "Kategoria", headerTooltip: "Kategoria" },
+    { field: "aktiivinen", width: 100, headerName: "Tila", headerTooltip: "Tila", cellRenderer: (params) => (
+      <span className={`badge ${params.value ? "badge-active" : "badge-inactive"}`}>
+        {params.value ? "Aktiivinen" : "Ei aktiivinen"}
+      </span>
+      )
+    },
+    { headerName: "", filter: false, sortable: false, menuTabs: [],width: 220, suppressSizeToFit: true, cellRenderer: (params) => (
+      <div style={{ gap: 8, alignItems: "center", height: "100%", padding: "0 8px", display: "flex" }}>
+        <button
+          className="btn-sm"
+          onClick={() => handleVaihdaAktiivinen(params.data.id)}
+        >
+          {params.data.aktiivinen ? "Poista käytöstä" : "Ota käyttöön"}
+        </button>
+        <button
+          className="btn-sm btn-danger"
+          onClick={() => handlePoista(params.data.id)}
+        >
+          Poista
+        </button>
+      </div>
+      )
+    }
+  ], []);
+
   return (
     <div>
       <div className="page-hero">
@@ -48,7 +114,7 @@ export default function Toistuvat() {
         {virhe && <p style={{ color: "var(--danger)" }}>{virhe}</p>}
         {toimintoVirhe && <p style={{ color: "var(--danger)" }}>{toimintoVirhe}</p>}
 
-        {!lataa && !virhe && toistuvat.length === 0 && (
+        {!lataa && !virhe && toistuvat.length === 0 ? (
           <div className="empty-state">
             <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="17 1 21 5 17 9"/>
@@ -59,65 +125,27 @@ export default function Toistuvat() {
             <p className="empty-state-title">Ei toistuvia tapahtumia</p>
             <p className="empty-state-desc">Lisää toistuvia tapahtumia Lisää tapahtuma -sivulta.</p>
           </div>
-        )}
-
-        {toistuvat.length > 0 && (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Kuvaus</th>
-                <th>Tyyppi</th>
-                <th className="text-right">Summa (€)</th>
-                <th>Toistuvuus</th>
-                <th>Aloitus</th>
-                <th>Lopetus</th>
-                <th>Kategoria</th>
-                <th>Tila</th>
-                <th>Toiminnot</th>
-              </tr>
-            </thead>
-            <tbody>
-              {toistuvat.map((t) => (
-                <tr key={t.id} style={{ opacity: t.aktiivinen ? 1 : 0.5 }}>
-                  <td>{t.kuvaus}</td>
-                  <td>
-                    <span className={`badge ${t.tyyppi === "tulo" ? "badge-tulo" : "badge-meno"}`}>
-                      {t.tyyppi === "tulo" ? "Tulo" : "Meno"}
-                    </span>
-                  </td>
-                  <td className="text-right" style={{ fontWeight: 600, color: t.tyyppi === "tulo" ? "var(--success)" : "var(--danger)" }}>
-                    {t.tyyppi === "meno" ? "–" : "+"}{t.summa?.toFixed(2)}
-                  </td>
-                  <td style={{ color: "var(--muted)" }}>{t.toistuvuus}</td>
-                  <td style={{ color: "var(--muted)" }}>{t.aloitusPvm ?? "–"}</td>
-                  <td style={{ color: "var(--muted)" }}>{t.lopetusPvm ?? "–"}</td>
-                  <td style={{ color: "var(--muted)" }}>{t.kategoria?.nimi ?? "–"}</td>
-                  <td>
-                    <span className={`badge ${t.aktiivinen ? "badge-active" : "badge-inactive"}`}>
-                      {t.aktiivinen ? "Aktiivinen" : "Ei aktiivinen"}
-                    </span>
-                  </td>
-                  <td style={{ display: "flex", gap: 6, flexWrap: "nowrap" }}>
-                    <button
-                      type="button"
-                      className="btn-sm"
-                      onClick={() => handleVaihdaAktiivinen(t.id)}
-                      style={{ minWidth: 110 }}
-                    >
-                      {t.aktiivinen ? "Poista käytöstä" : "Ota käyttöön"}
-                    </button>
-                    <button
-                      type="button"
-                      className="btn-sm btn-danger"
-                      onClick={() => handlePoista(t.id)}
-                    >
-                      Poista
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        ) : (
+          <div style={{ width: "100%" }}>
+            <AgGridReact
+              rowData={toistuvat}
+              columnDefs={sarakeMaaritys}
+              theme={minunTeema}
+              domLayout="autoHeight"
+              pagination={true}
+              paginationPageSize={15}
+              suppressPaginationPanel={toistuvat.length <= 15}
+              rowClassRules={{
+                "toistuva-epaaktiivinen": (params) => !params.data.aktiivinen
+              }}
+              defaultColDef={{
+                resizable: false,
+                sortable: true,
+                filter: true,
+                tooltipShowDelay: 100,
+              }}
+            />
+          </div>
         )}
       </div>
     </div>

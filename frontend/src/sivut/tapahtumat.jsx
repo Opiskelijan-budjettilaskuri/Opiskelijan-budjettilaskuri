@@ -90,17 +90,17 @@ export default function Tapahtumat() {
   }
 
   const sarakeMaaritys = useMemo(() => [
-    { field: "pvm", headerName: "Päivämäärä", flex: 1.2, sortable: true, filter: true },
-    { field: "tyyppi", headerName: "Tyyppi",
+    { field: "pvm", headerName: "Päivämäärä", flex: 1.2, headerTooltip: "Päivämäärä" },
+    { field: "tyyppi", headerName: "Tyyppi", headerTooltip: "Tyyppi",
       cellRenderer: (params) => (
         <span className={`badge ${params.value === "Tulo" ? "badge-tulo" : "badge-meno"}`}>
           {params.value}
         </span>
       )
     },
-    { field: "kuvaus", headerName: "Kuvaus", flex: 1 },
-    { field: "kategoria", headerName: "Kategoria" },
-    { field: "maara", headerName: "Summa (€)", type: "rightAligned",
+    { field: "kuvaus", headerName: "Kuvaus", flex: 1, headerTooltip: "Kuvaus" },
+    { field: "kategoria", headerName: "Kategoria", headerTooltip: "Kategoria" },
+    { field: "maara", headerName: "Summa (€)", headerTooltip: "Summa (€)",
       valueGetter: (params) => {
         const arvo = params.data.maara;
         return params.data.tyyppi === "Meno" ? -arvo : arvo;
@@ -116,10 +116,10 @@ export default function Tapahtumat() {
       }),
       
     },
-    { field: "toistuvuus", headerName: "Toistuva",
+    { field: "toistuvuus", headerName: "Toistuva", headerTooltip: "Toistuva",
       cellRenderer: (params) => params.value ? <span className="badge badge-info">{params.value}</span> : null
     },
-    { headerName: "Toiminnot",
+    { headerName: "", filter: false,
       cellRenderer: (params) => !params.data.toistuvuus ? (
         <button
           className="btn-sm btn-danger"
@@ -169,11 +169,12 @@ export default function Tapahtumat() {
               animateRows={true}
               pagination={true}
               paginationPageSize={15}
-              paginationPageSizeSelector={[15, 30, 50, 100]}
+              suppressPaginationPanel={naytettavat.length <= 15}
               defaultColDef={{
-                resizable: true,
-                sortable: true,
+                resizable: false,
+                sortable: false,
                 filter: true,
+                tooltipShowDelay: 100,
                 flex: 1,
                 minWidth: 100
               }}
