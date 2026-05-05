@@ -8,11 +8,14 @@ import { haeToistuvat } from "../api/toistuvaApi";
 import { nykyinenKuukausi } from "../utils/pvm";
 
 const minunTeema = themeQuartz.withParams({
-  spacing: 12,
+  spacing: 11,
   accentColor: '#7c3aed',
-  headerBackgroundColor: '#f9fafb',
+  headerBackgroundColor: '#ffffff',
   headerTextColor: '#4b5563',
   rowBorder: { style: 'solid', width: 1, color: '#f3f4f6' },
+  wrapperBorder: false,
+  headerRowBorder: false,
+  headerColumnBorder: false,
   columnBorder: false,
   sidePanelBorder: false,
 });
@@ -87,7 +90,7 @@ export default function Tapahtumat() {
   }
 
   const sarakeMaaritys = useMemo(() => [
-    { field: "pvm", headerName: "Päivämäärä", sortable: true, filter: true },
+    { field: "pvm", headerName: "Päivämäärä", flex: 1.2, sortable: true, filter: true },
     { field: "tyyppi", headerName: "Tyyppi",
       cellRenderer: (params) => (
         <span className={`badge ${params.value === "Tulo" ? "badge-tulo" : "badge-meno"}`}>
@@ -98,14 +101,20 @@ export default function Tapahtumat() {
     { field: "kuvaus", headerName: "Kuvaus", flex: 1 },
     { field: "kategoria", headerName: "Kategoria" },
     { field: "maara", headerName: "Summa (€)", type: "rightAligned",
+      valueGetter: (params) => {
+        const arvo = params.data.maara;
+        return params.data.tyyppi === "Meno" ? -arvo : arvo;
+      },
+      valueFormatter: (params) => {
+        if (params.value == null) return "";
+        const etumerkki = params.value > 0 ? "+" : "";
+        return `${etumerkki}${params.value.toFixed(2)} €`;
+      },
       cellStyle: (params) => ({
         fontWeight: 600,
         color: params.data.tyyppi === "Tulo" ? "var(--success)" : "var(--danger)"
       }),
-      valueFormatter: (params) => {
-        const prefix = params.data.tyyppi === "Meno" ? "-" : "+";
-        return `${prefix}${params.value.toFixed(2)}`;
-      }
+      
     },
     { field: "toistuvuus", headerName: "Toistuva",
       cellRenderer: (params) => params.value ? <span className="badge badge-info">{params.value}</span> : null
