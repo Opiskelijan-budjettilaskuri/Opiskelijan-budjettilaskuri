@@ -5,6 +5,10 @@ export async function haeYhteenveto(alkupvm, loppupvm) {
   const res = await fetch(`${API_BASE}/api/yhteenveto?${params}`, {
     credentials: "include",
   });
-  if (!res.ok) throw new Error((await res.text()) || `Virhe: ${res.status}`);
+  
+  const contentType = res.headers.get("content-type");
+  if (contentType && contentType.indexOf("application/json") !== -1) {
+    console.error("Virhe: Palvelin palautti HTML-koodia JSON-datan sijasta.")
+  }
   return res.json();
 }
