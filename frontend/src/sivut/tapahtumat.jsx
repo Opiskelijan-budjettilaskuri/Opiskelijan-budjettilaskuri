@@ -156,6 +156,7 @@ export default function Tapahtumat() {
               rowData={naytettavat}
               columnDefs={sarakeMaaritys}
               theme={minunTeema}
+              domLayout="autoHeight"
               animateRows={true}
               pagination={true}
               paginationPageSize={15}
