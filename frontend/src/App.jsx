@@ -1,16 +1,13 @@
 import { BrowserRouter } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Navigaatio } from "./komponentit/Navigaatio";
 import Reititys from "./reitit/Reititys";
 import "./App.css";
 
 export default function App() {
-  const [kirjautunut, setKirjautunut] = useState(false);
-
-  useEffect(() => {
-    const checkKirjautuminen = localStorage.getItem("isLoggedIn") === "true";
-    setKirjautunut(checkKirjautuminen);
-  }, []);
+  const [kirjautunut, setKirjautunut] = useState(
+    () => localStorage.getItem("isLoggedIn") === "true"
+  );
 
   return (
     <BrowserRouter>
