@@ -1,6 +1,6 @@
 const API_BASE = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:8080";
 
-export async function haeYhteenveto(alkupvm, _loppupvm) {
+export async function haeYhteenveto(alkupvm) {
   const kuukausi = alkupvm.substring(0, 7);
   const params = new URLSearchParams({ kuukausi });
   const res = await fetch(`${API_BASE}/api/yhteenveto?${params}`, {
