@@ -40,47 +40,50 @@ export default function Kirjaudu({ setKirjautunut }) {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-card">
-                <h2>Kirjaudu</h2>
+        <div className="page-wrapper">
+            <div className="login-container">
+                <h1>Opiskelijan Budjettilaskuri</h1>
+                <div className="login-card">
+                    <h2>Kirjaudu</h2>
 
-                {message && (
-                    <div className={`message ${isError ? 'error' : ''}`}>
-                        {message}
-                    </div>
-                )}
+                    {message && (
+                        <div className={`message ${isError ? 'error' : ''}`}>
+                            {message}
+                        </div>
+                    )}
 
-                <form onSubmit={handleSubmit}>
-                    <div className="input-group">
-                        <label htmlFor="username">Käyttäjätunnus</label>
-                        <input
-                            type="text"
-                            id="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="form-control"
-                            required
-                        />
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="password">Salasana</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="form-control"
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="btn-primary">
-                        Kirjaudu
-                    </button>
-                </form>
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-group">
+                            <label htmlFor="username">Käyttäjätunnus</label>
+                            <input
+                                type="text"
+                                id="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                className="form-control"
+                                required
+                            />
+                        </div>
+                        <div className="input-group">
+                            <label htmlFor="password">Salasana</label>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="form-control"
+                                required
+                            />
+                        </div>
+                        <button type="submit" className="btn-primary">
+                            Kirjaudu
+                        </button>
+                    </form>
 
-                <p style={{ marginTop: '20px', textAlign: 'center', fontSize: '0.9rem' }}>
-                    Puuttuuko käyttäjätunnus? <Link to="/rekisteroidy">Rekisteröidy</Link>
-                </p>
+                    <p style={{ marginTop: '20px', textAlign: 'center', fontSize: '0.9rem' }}>
+                        Puuttuuko käyttäjätunnus? <Link to="/rekisteroidy">Rekisteröidy</Link>
+                    </p>
+                </div>
             </div>
         </div>
     );
