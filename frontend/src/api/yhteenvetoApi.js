@@ -7,7 +7,7 @@ export async function haeYhteenveto(alkupvm, loppupvm) {
   });
   
   const contentType = res.headers.get("content-type");
-  if (contentType && contentType.indexOf("application/json") !== -1) {
+  if (!contentType || contentType.indexOf("application/json") === -1) {
     console.error("Virhe: Palvelin palautti HTML-koodia JSON-datan sijasta.")
   }
   return res.json();
