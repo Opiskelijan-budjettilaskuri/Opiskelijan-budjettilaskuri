@@ -179,7 +179,7 @@ export default function Tapahtumat() {
               suppressPaginationPanel={naytettavat.length <= 15}
               defaultColDef={{
                 resizable: false,
-                sortable: false,
+                sortable: true,
                 filter: true,
                 tooltipShowDelay: 100,
                 flex: 1,
