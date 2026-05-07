@@ -6,7 +6,7 @@ Tiimi: Pekka Levo, Erkka Pärssinen, Henna Salmi, Robbie Winter
 
 #### Projektin backlog: https://github.com/orgs/Opiskelijan-budjettilaskuri/projects/1
 
-#### Frontend URL: https://opiskelijan-budjettilaskuri.onrender.com
+#### Frontend URL: https://opiskelijan-budjettilaskuri-3czh.onrender.com
 
 #### REST API -dokumentaatio (Swagger UI): https://opiskelijan-budjettilaskuri-git-budgetprogram.2.rahtiapp.fi/swagger-ui/index.html
 
