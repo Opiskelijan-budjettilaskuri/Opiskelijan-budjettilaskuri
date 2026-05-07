@@ -72,6 +72,13 @@ Backendin testit ajetaan projektin juurihakemistosta:
 
 Testiraportit löytyvät hakemistosta `target/surefire-reports/`.
 
+### Frontendin testien suorittaminen
+
+```bash
+cd frontend
+npm test
+```
+
 ---
 
 ## Teknologiat ja kirjastot
@@ -88,6 +95,8 @@ Testiraportit löytyvät hakemistosta `target/surefire-reports/`.
 | H2 | (Spring Boot) | Kevyt muistitietokanta kehitykseen |
 | PostgreSQL | (runtime) | Tuotantotietokanta |
 | Maven | - | Riippuvuuksien hallinta ja build |
+| Spring Security | (Spring Boot) | Käyttäjäautentikointi ja -autorisaatio |
+| SpringDoc OpenAPI | 2.8.4 | Swagger UI -dokumentaatio |
 
 ### Frontend
 
@@ -98,6 +107,9 @@ Testiraportit löytyvät hakemistosta `target/surefire-reports/`.
 | React Router DOM | 7.13 | Sivuston reititys |
 | Vite | 7.2 | Kehityspalvelin ja bundlaus |
 | ESLint | 9.39 | Koodin laadunvalvonta |
+| ag-grid | 35.2 | Taulukkokomponentti tapahtumien näyttämiseen |
+| Recharts | 3.8 | Kaavioiden visualisointi |
+| Vitest | 4.1 | Yksikkötestaus |
 
 ---
 
@@ -127,6 +139,60 @@ Testiraportit löytyvät hakemistosta `target/surefire-reports/`.
 
 - Tuloille ja menoille lisätty testejä backendissa
 - Kategoriakuukausi-luokalle on lisätty vuosi-attribuutti ja thymeleaf-tiedostoja muokattu sen mukaisiksi
+
+---
+
+## Tietomalli
+
+```mermaid
+erDiagram
+    Kayttaja {
+        Long id PK
+        String username
+        String password
+        String email
+    }
+    Kategoria {
+        Long id PK
+        String nimi
+    }
+    Meno {
+        Long id PK
+        String kuvaus
+        Double summa
+        LocalDate pvm
+    }
+    Tulo {
+        Long id PK
+        String kuvaus
+        Double maara
+        LocalDate pvm
+    }
+    ToistuvaTapahtuma {
+        Long id PK
+        String kuvaus
+        Double summa
+        String tyyppi
+        String toistuvuus
+        LocalDate aloitusPvm
+        LocalDate lopetusPvm
+        boolean aktiivinen
+    }
+
+    Kayttaja ||--o{ Kategoria : "omistaa"
+    Kayttaja ||--o{ Meno : "omistaa"
+    Kayttaja ||--o{ Tulo : "omistaa"
+    Kayttaja ||--o{ ToistuvaTapahtuma : "omistaa"
+    Kategoria ||--o{ Meno : "luokittelee"
+    Kategoria ||--o{ Tulo : "luokittelee"
+    Kategoria ||--o{ ToistuvaTapahtuma : "luokittelee"
+```
+
+---
+
+## Lisenssi
+
+[MIT License](LICENSE)
 
 ---
 
